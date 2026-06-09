@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pasta — Rezepte vom Besten</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lato:wght@100;300;400;700&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --dark:    #0f0e0d;
+  --dark2:   #171512;
+  --cream:   #f2ece0;
+  --warm:    #d6cdb8;
+  --muted:   #8a8478;
+  --green:   #3e7e46;
+  --green-l: #c8e6cc;
+  --green-d: #265430;
+  --bg-page: #f5f3ee;
+  --bg-card: #ffffff;
+  --text:    #1a1815;
+  --border:  #e2ddd5;
+  --shadow:  0 4px 24px rgba(0,0,0,.08);
+  --shadow2: 0 16px 60px rgba(0,0,0,.14);
+  --shadow3: 0 32px 100px rgba(0,0,0,.22);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+*{cursor:none!important;}
+html{scroll-behavior:smooth;}
+body{font-family:'Lato',sans-serif;background:var(--bg-page);color:var(--text);overflow-x:hidden;}
+#cur{position:fixed;z-index:99999;pointer-events:none;width:11px;height:11px;background:var(--green);border-radius:50%;transform:translate(-50%,-50%);transition:width .18s,height .18s;}
+#cur-r{position:fixed;z-index:99998;pointer-events:none;width:36px;height:36px;border:1.5px solid rgba(62,126,70,.5);border-radius:50%;transform:translate(-50%,-50%);transition:all .14s ease;}
+body.hov #cur{width:7px;height:7px;}
+body.hov #cur-r{width:52px;height:52px;border-color:rgba(62,126,70,.8);}
+#prog{position:fixed;top:0;left:0;height:2px;width:0%;z-index:9999;background:linear-gradient(90deg,var(--green-d),var(--green),#7ac880);box-shadow:0 0 10px rgba(62,126,70,.5);}
+#scroll-top{position:fixed;bottom:36px;right:36px;z-index:900;width:48px;height:48px;border-radius:50%;background:var(--green);border:none;display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:#fff;box-shadow:0 4px 20px rgba(62,126,70,.4);cursor:pointer!important;opacity:0;transform:translateY(12px);transition:opacity .3s,transform .3s,background .2s;pointer-events:none;}
+#scroll-top.show{opacity:1;transform:translateY(0);pointer-events:auto;}
+#scroll-top:hover{background:var(--green-d);}
+.nav{position:sticky;top:0;z-index:600;background:rgba(15,14,13,.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.05);}
+.nav-inner{max-width:1460px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:15px 52px;}
+.nav-back{display:flex;align-items:center;gap:11px;font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(242,236,224,.3);text-decoration:none;transition:color .25s;}
+.nav-back:hover{color:rgba(242,236,224,.7);}
+.nav-back-btn{width:30px;height:30px;border:1px solid rgba(242,236,224,.12);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;transition:all .25s;}
+.nav-back:hover .nav-back-btn{border-color:rgba(242,236,224,.35);background:rgba(242,236,224,.04);}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:400;color:rgba(242,236,224,.6);letter-spacing:.06em;}
+.nav-logo em{font-style:italic;color:rgba(242,236,224,.25);}
+.nav-tag{font-family:'Caveat',cursive;font-size:1.1rem;font-weight:600;color:var(--green);}
+.hero{position:relative;overflow:hidden;background:var(--dark2);min-height:90vh;display:flex;flex-direction:column;justify-content:flex-end;padding:80px 52px 88px;}
+.hero-glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 60% at 0% 100%, rgba(38,84,48,.32) 0%, transparent 55%),radial-gradient(ellipse 50% 40% at 100% 0%, rgba(180,140,50,.05) 0%, transparent 50%),linear-gradient(170deg,#181410 0%,#0f0e0d 60%,#131a12 100%);}
+.hero-lines{position:absolute;inset:0;pointer-events:none;}
+.hero-lines i{position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.04) 40%,rgba(255,255,255,.07) 50%,rgba(255,255,255,.04) 60%,transparent);}
+.hero-lines i:nth-child(1){top:30%}.hero-lines i:nth-child(2){top:60%}
+.hero-content{position:relative;z-index:2;max-width:1460px;margin:0 auto;width:100%;}
+.hero-eyebrow{display:flex;align-items:center;gap:16px;margin-bottom:28px;opacity:0;animation:fadeUp .9s .1s forwards;}
+.hero-eyebrow-bar{width:44px;height:1px;background:linear-gradient(90deg,var(--green),transparent);}
+.hero-eyebrow span{font-family:'Caveat',cursive;font-size:1.35rem;font-weight:600;color:var(--green);letter-spacing:.02em;}
+.hero-h1{font-family:'Playfair Display',serif;font-size:clamp(6rem,14vw,14rem);font-weight:900;line-height:.85;letter-spacing:-.03em;color:#fff;opacity:0;animation:fadeUp 1.1s .25s forwards;}
+.hero-h1 em{display:block;font-style:italic;font-weight:400;font-size:.38em;color:rgba(255,255,255,.28);letter-spacing:.01em;margin-top:14px;}
+.hero-script{font-family:'Caveat',cursive;font-size:clamp(1.5rem,3.2vw,2.6rem);font-weight:700;color:var(--green);margin-top:22px;margin-left:4px;display:block;opacity:0;animation:fadeUp .9s .65s forwards;}
+.hero-rule{width:56px;height:2px;margin-top:36px;background:linear-gradient(90deg,var(--green),rgba(62,126,70,.1));opacity:0;animation:fadeUp .7s .85s forwards;}
+.hero-stats{display:flex;gap:48px;margin-top:44px;opacity:0;animation:fadeUp .8s 1.05s forwards;}
+.hero-stat-n{font-family:'Playfair Display',serif;font-size:2.7rem;font-weight:900;color:#fff;line-height:1;}
+.hero-stat-l{font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-top:4px;}
+.hero-bg-n{position:absolute;right:36px;bottom:-30px;z-index:1;font-family:'Playfair Display',serif;font-size:clamp(160px,24vw,320px);font-weight:900;color:rgba(255,255,255,.022);line-height:1;pointer-events:none;user-select:none;letter-spacing:-.05em;}
+.hero-scroll{position:absolute;bottom:40px;right:52px;z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fadeUp .7s 1.4s forwards;}
+.hero-scroll span{font-size:.5rem;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,255,255,.2);writing-mode:vertical-rl;}
+.hero-scroll-track{width:1px;height:50px;background:rgba(255,255,255,.08);position:relative;overflow:hidden;}
+.hero-scroll-track::after{content:'';position:absolute;inset:0;background:var(--green);animation:track 2.2s ease-in-out infinite;}
+@keyframes track{0%{transform:translateY(-100%);}50%{transform:translateY(0);}100%{transform:translateY(100%);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+.band{background:var(--green);overflow:hidden;}
+.band-inner{display:flex;gap:60px;width:max-content;padding:15px 0;animation:march 22s linear infinite;}
+.band-item{font-family:'Caveat',cursive;font-size:1.2rem;font-weight:600;color:rgba(255,255,255,.75);white-space:nowrap;display:flex;align-items:center;gap:22px;}
+.band-item::after{content:'·';color:rgba(255,255,255,.4);}
+@keyframes march{to{transform:translateX(-50%);}}
+.page-body{background:var(--bg-page);}
+.sec{max-width:1400px;margin:0 auto;padding:0 48px;}
+.sec-top{display:flex;align-items:flex-end;justify-content:space-between;padding:64px 0 32px;border-bottom:1.5px solid var(--border);margin-bottom:48px;}
+.sec-kicker{font-family:'Caveat',cursive;font-size:1.1rem;font-weight:600;color:var(--green);margin-bottom:6px;display:block;}
+.sec-h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:700;color:var(--text);line-height:1;}
+.sec-h2 em{font-style:italic;font-weight:400;color:var(--muted);}
+.sec-count{font-size:.56rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);padding-bottom:5px;}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding-bottom:100px;}
+.card{position:relative;background:var(--bg-card);border:1px solid var(--border);border-radius:4px;overflow:hidden;cursor:pointer!important;box-shadow:var(--shadow);opacity:0;transform:translateY(32px);transition:opacity .6s,transform .6s cubic-bezier(.22,1,.36,1),box-shadow .35s,border-color .3s,scale .35s cubic-bezier(.22,1,.36,1);}
+.card.vis{opacity:1;transform:translateY(0);}
+.card:nth-child(1){transition-delay:.0s}.card:nth-child(2){transition-delay:.07s}.card:nth-child(3){transition-delay:.14s}
+.card:nth-child(4){transition-delay:.21s}.card:nth-child(5){transition-delay:.28s}.card:nth-child(6){transition-delay:.35s}.card:nth-child(7){transition-delay:.42s}.card:nth-child(8){transition-delay:.49s}.card:nth-child(9){transition-delay:.56s}.card:nth-child(10){transition-delay:.63s}
+.card:hover{scale:1.034;box-shadow:var(--shadow3);border-color:transparent;z-index:10;}
+.card-stripe{height:5px;width:100%;transition:height .3s;}
+.card:hover .card-stripe{height:7px;}
+.card-img{position:relative;height:210px;overflow:hidden;background:#e8e4dc;}
+.card-img img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.88) saturate(.8);transition:transform .75s cubic-bezier(.22,1,.36,1),filter .5s;}
+.card:hover .card-img img{transform:scale(1.1);filter:brightness(1) saturate(1);}
+.card-img-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:4.5rem;opacity:.18;}
+.card-img-grad{position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(255,255,255,.45) 100%);pointer-events:none;}
+.card-chip{position:absolute;top:14px;right:14px;background:rgba(0,0,0,.62);backdrop-filter:blur(8px);border-radius:30px;padding:4px 12px;font-size:.58rem;font-weight:700;color:#fff;display:flex;align-items:center;gap:5px;border:1px solid rgba(255,255,255,.1);}
+.chip-stars{color:#d4a017;}
+.card-body{padding:24px 26px 20px;display:flex;flex-direction:column;gap:10px;}
+.card-cat{display:inline-flex;align-items:center;gap:7px;border-radius:30px;padding:4px 12px;font-size:.52rem;letter-spacing:.25em;text-transform:uppercase;font-weight:700;align-self:flex-start;}
+.card-cat-dot{width:5px;height:5px;border-radius:50%;}
+.card-name{font-family:'Playfair Display',serif;font-size:clamp(1.25rem,1.8vw,1.6rem);font-weight:700;line-height:1.1;color:var(--text);transition:color .25s;}
+.card:hover .card-name{color:var(--green);}
+.card-script{font-family:'Caveat',cursive;font-size:1rem;font-weight:600;color:var(--muted);margin-top:-4px;}
+.card-desc{font-size:.73rem;line-height:1.75;font-weight:300;color:var(--muted);}
+.card-info{display:flex;margin-top:8px;border-top:1px solid var(--border);padding-top:16px;}
+.card-info-item{flex:1;text-align:center;padding:0 6px;border-right:1px solid var(--border);}
+.card-info-item:first-child{padding-left:0;text-align:left;}
+.card-info-item:last-child{border-right:none;text-align:right;}
+.ci-label{font-size:.48rem;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;}
+.ci-val{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--text);line-height:1;}
+.ci-sub{font-size:.55rem;color:var(--muted);margin-top:1px;}
+.card-cta{display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;font-weight:700;color:#fff;opacity:0;transform:translateY(4px);transition:opacity .3s,transform .3s;}
+.card:hover .card-cta{opacity:1;transform:translateY(0);}
+#overlay{position:fixed;inset:0;z-index:2000;display:none;overflow-y:auto;opacity:0;transition:opacity .4s;}
+#overlay.open{display:block;}
+#overlay.vis{opacity:1;}
+.ov-backdrop{position:fixed;inset:0;background:rgba(8,8,8,.78);backdrop-filter:blur(10px);z-index:-1;}
+.ov-page{max-width:1240px;margin:28px auto 80px;border-radius:4px;overflow:hidden;box-shadow:0 40px 120px rgba(0,0,0,.6);background:#fff;position:relative;transition:max-width .4s, margin .4s, border-radius .4s;}
+#overlay.fullscreen .ov-page{max-width:100%;margin:0;border-radius:0;min-height:100vh;}
+#overlay.fullscreen .ov-backdrop{display:none;}
+#overlay.fullscreen{background:#fff;}
+.rh{position:relative;overflow:hidden;padding:60px 64px 56px;color:#fff;}
+.rh-bg{position:absolute;inset:0;z-index:0;}
+.rh-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05) 60%,rgba(0,0,0,.35) 100%);}
+.rh-inner{position:relative;z-index:1;}
+.rh-btns{position:absolute;top:22px;right:22px;z-index:2;display:flex;gap:8px;}
+.rh-btn{width:44px;height:44px;border-radius:50%;border:1.5px solid rgba(255,255,255,.22);background:rgba(0,0,0,.3);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;font-size:.95rem;color:rgba(255,255,255,.7);cursor:pointer!important;transition:background .25s,transform .3s;}
+.rh-btn:hover{background:rgba(0,0,0,.55);}
+.rh-btn-close:hover{transform:rotate(90deg);}
+.rh-btn-fs{font-size:1rem;}
+#overlay.fullscreen .rh-btn-fs{opacity:.7;}
+.rh-script{font-family:'Caveat',cursive;font-size:1.4rem;font-weight:700;opacity:.6;margin-bottom:8px;display:block;}
+.rh-title{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,6.5vw,6rem);font-weight:900;line-height:.88;letter-spacing:-.025em;margin-bottom:32px;}
+.rh-stats{display:flex;flex-wrap:wrap;gap:10px;}
+.rh-stat{background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.13);border-radius:3px;padding:14px 24px;backdrop-filter:blur(8px);min-width:110px;transition:background .2s;}
+.rh-stat:hover{background:rgba(0,0,0,.48);}
+.rh-stat-l{font-size:.48rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:5px;}
+.rh-stat-v{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;line-height:1;}
+.rh-bigword{position:absolute;right:20px;bottom:-18px;z-index:0;font-family:'Playfair Display',serif;font-size:clamp(80px,16vw,200px);font-weight:900;color:rgba(255,255,255,.035);line-height:1;pointer-events:none;user-select:none;}
+.ri{position:relative;overflow:hidden;height:clamp(240px,32vw,460px);background:#111;}
+.ri img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .65s ease;}
+.ri:hover img{transform:scale(1.03);}
+.ri-grad{position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.45) 100%);pointer-events:none;}
+.ri-cap{position:absolute;bottom:20px;left:30px;font-family:'Caveat',cursive;font-size:1.3rem;font-weight:700;color:rgba(255,255,255,.5);}
+.rb{display:grid;grid-template-columns:320px 1fr;}
+.rb-ing{background:#f8f6f2;border-right:1.5px solid #eae6de;padding:44px 34px;position:sticky;top:0;align-self:start;}
+.rb-col-h{font-family:'Playfair Display',serif;font-size:1.65rem;font-weight:700;color:var(--text);margin-bottom:2px;}
+.rb-col-s{font-family:'Caveat',cursive;font-size:.95rem;font-weight:600;color:var(--muted);margin-bottom:26px;display:block;}
+.ing-list{list-style:none;}
+.ing-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #eae6de;cursor:pointer!important;transition:opacity .2s;}
+.ing-item:last-child{border-bottom:none;}
+.ing-cb{width:22px;height:22px;border-radius:50%;border:2px solid #d0ccc4;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.62rem;color:transparent;transition:all .22s;}
+.ing-item.done .ing-cb{border-color:var(--green);background:var(--green);color:#fff;}
+.ing-item.done .ing-t{opacity:.28;text-decoration:line-through;}
+.ing-t{font-size:.78rem;line-height:1.4;color:#444;}
+.ing-a{font-weight:700;color:var(--text);}
+.ing-prog{margin-top:20px;padding-top:16px;border-top:1px solid #eae6de;}
+.ing-prog-lbl{font-size:.5rem;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;margin-bottom:7px;}
+.ing-track{height:3px;background:#e0dbd2;border-radius:3px;overflow:hidden;}
+.ing-fill{height:100%;width:0%;border-radius:3px;transition:width .4s cubic-bezier(.22,1,.36,1);}
+.reset-btn{margin-top:14px;display:flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:10px;border-radius:3px;border:1.5px solid var(--border);background:transparent;font-size:.55rem;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);font-weight:700;font-family:'Lato',sans-serif;cursor:pointer!important;transition:background .22s,color .22s,border-color .22s;}
+.reset-btn:hover{background:var(--green);color:#fff;border-color:var(--green);}
+.reset-btn svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.rb-steps{padding:44px 48px;background:#fff;}
+.step-list{list-style:none;}
+.step-item{display:grid;grid-template-columns:56px 1fr;gap:18px;padding:28px 0;border-bottom:1px solid #f0ece4;opacity:0;transform:translateY(18px);transition:opacity .5s,transform .5s;}
+.step-item.vis{opacity:1;transform:translateY(0);}
+.step-item:last-child{border-bottom:none;}
+.step-n{font-family:'Playfair Display',serif;font-size:3.4rem;font-weight:900;color:#1a1815;opacity:.055;line-height:1;padding-top:2px;}
+.step-t{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:9px;line-height:1.1;}
+.step-p{font-size:.78rem;line-height:1.9;font-weight:300;color:#555;}
+.rb-notes{grid-column:1/-1;background:#f5f3ee;border-top:1px solid #e8e4dc;padding:36px 48px;}
+.rb-notes-h{font-family:'Caveat',cursive;font-size:1.7rem;font-weight:700;color:var(--text);margin-bottom:18px;}
+.notes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;}
+.note{background:#fff;border:1px solid #e8e4dc;border-radius:3px;padding:14px 16px;font-size:.74rem;line-height:1.75;font-weight:300;color:#555;display:flex;gap:10px;align-items:flex-start;box-shadow:0 1px 6px rgba(0,0,0,.04);}
+.note::before{content:'✦';color:var(--green);font-size:.55rem;flex-shrink:0;margin-top:3px;}
+#pts{position:fixed;inset:0;pointer-events:none;z-index:1;}
+.pt{position:absolute;width:2px;height:2px;border-radius:50%;background:rgba(62,126,70,.45);opacity:0;animation:rise linear infinite;}
+@keyframes rise{0%{transform:translateY(0) translateX(0);opacity:0;}10%{opacity:.3;}90%{opacity:.04;}100%{transform:translateY(-100vh) translateX(var(--dx));opacity:0;}}
+.footer {
+  background: var(--dark);
+  padding: 40px;
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,.04);
+  width: 100%;   /* ← neu */
+}
+.footer p{font-size:.56rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(242,236,224,.2);}
+.footer strong{color:rgba(242,236,224,.38);font-weight:400;}
+@media(max-width:1100px){.grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:900px){.rb{grid-template-columns:1fr;}.rb-ing{position:static;}.rh,.rb-steps,.rb-ing,.rb-notes,.nav-inner,.sec,.hero{padding-left:22px;padding-right:22px;}}
+@media(max-width:600px){.grid{grid-template-columns:1fr;}.hero-h1{font-size:clamp(4.5rem,16vw,7rem);}.sec-top{flex-direction:column;align-items:flex-start;gap:4px;}.sec-count{display:none;}.hero-stats{gap:26px;}.rh-title{font-size:clamp(2rem,10vw,3.5rem);}}
+</style>
+</head>
+<body>
+<div id="cur"></div>
+<div id="cur-r"></div>
+<div id="prog"></div>
+<div id="pts"></div>
+<button id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Nach oben">↑</button>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-back"><div class="nav-back-btn">←</div><span>Alle Kategorien</span></a>
+    <div class="nav-logo">Rezepte <em>vom Besten</em></div>
+    <div class="nav-tag">🍝 Pasta</div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-lines"><i></i><i></i></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow"><div class="hero-eyebrow-bar"></div><span>la mia cucina preferita</span></div>
+    <h1 class="hero-h1">Pasta<em>Meine Leidenschaft · Meine Welt</em></h1>
+    <span class="hero-script">Sette ricette perfette — hausgemacht, al dente</span>
+    <div class="hero-rule"></div>
+    <div class="hero-stats">
+      <div><div class="hero-stat-n">10</div><div class="hero-stat-l">Rezepte</div></div>
+      <div><div class="hero-stat-n">∞</div><div class="hero-stat-l">Geschmack</div></div>
+      <div><div class="hero-stat-n">100%</div><div class="hero-stat-l">Leidenschaft</div></div>
+    </div>
+  </div>
+  <div class="hero-bg-n">10</div>
+  <div class="hero-scroll"><div class="hero-scroll-track"></div><span>Entdecken</span></div>
+</section>
+
+<div class="band">
+  <div class="band-inner">
+    <span class="band-item">Carbonara Originale</span><span class="band-item">Vodka · Burrata</span><span class="band-item">Toscana · Hähnchen</span><span class="band-item">Chicken Alfredo</span><span class="band-item">Lachs · Burrata</span><span class="band-item">al Limone ⭐ 9/10</span><span class="band-item">Garnelen · Spinat</span><span class="band-item">Kürbiscreme 🎃</span><span class="band-item">Rote Bete · Feta</span><span class="band-item">Ragù Bolognese</span>
+    <span class="band-item">Carbonara Originale</span><span class="band-item">Vodka · Burrata</span><span class="band-item">Toscana · Hähnchen</span><span class="band-item">Chicken Alfredo</span><span class="band-item">Lachs · Burrata</span><span class="band-item">al Limone ⭐ 9/10</span><span class="band-item">Garnelen · Spinat</span><span class="band-item">Kürbiscreme 🎃</span><span class="band-item">Rote Bete · Feta</span><span class="band-item">Ragù Bolognese</span>
+  </div>
+</div>
+
+<div class="page-body">
+  <div class="sec">
+    <div class="sec-top">
+      <div><span class="sec-kicker">alle rezepte entdecken</span><h2 class="sec-h2">Was kochst du <em>heute?</em></h2></div>
+      <div class="sec-count">10 Pasta-Gerichte</div>
+    </div>
+    <div class="grid">
+
+      <div class="card" onclick="openR('carbonara')">
+        <div class="card-stripe" style="background:#c8960c;"></div>
+        <div class="card-img"><img src="Pasta_carbonara.png" alt="Carbonara" onerror="this.style.display='none'"><div class="card-img-placeholder">🍝</div><div class="card-img-grad"></div><div class="card-chip"><span class="chip-stars">★★★★</span> 9/10</div></div>
+        <div class="card-body">
+          <span class="card-cat" style="background:#fdf4dc;color:#b8860b;"><span class="card-cat-dot" style="background:#c8960c;"></span>Classic</span>
+          <div class="card-name">Spaghetti alla Carbonara Originale</div>
+          <div class="card-script">la vera ricetta romana</div>
+          <div class="card-desc">Das echte Original — keine Sahne! Nur Eier, Pecorino, Guanciale und frisch gemahlener schwarzer Pfeffer. Cremig durch Können.</div>
+          <div class="card-info">
+            <div class="card-info-item"><div class="ci-label">Zeit</div><div class="ci-val">20</div><div class="ci-sub">Minuten</div></div>
+            <div class="card-info-item"><div class="ci-label">Schwierigkeit</div><div class="ci-val">3/10</div><div class="ci-sub">Einfach</div></div>
+            <div class="card-info-item"><div class="ci-label">Portionen</div><div class="ci-val">4</div><div class="ci-sub">Personen</div></div>
+          </div>
+        </div>
+        <div class="card-cta" style="background:#c8960c;">Rezept öffnen →</div>
+      </div>
+
+      <div class="card" onclick="openR('vodka')">
+        <div class="card-stripe" style="background:#c0392b;"></div>
+        <div class="card-img"><img src="Pasta_vodka.jpg" alt="Vodka Pasta" onerror="this.style.display='none'"><div class="card-img-placeholder">🍅</div><div class="card-img-grad"></div><div class="card-chip"><span class="chip-stars">★★★★★</span> 10/10</div></div>
+        <div class="card-body">
+          <span class="card-cat" style="background:#fdecea;color:#c0392b;"><span class="card-cat-dot" style="background:#c0392b;"></span>OnlyLove</span>
+          <div class="card-name">Tomaten-Wodka-Pasta mit Burrata</div>
+          <div class="card-script">pasta alla vodka con burrata</div>
+          <div class="card-desc">Cherry-Tomaten, ein Schuss Wodka, cremige pürierte Sauce — obendrauf eine ganze oder halbe Burrata. Einfach aber spektakulär.</div>
+          <div class="card-info">
+            <div class="card-info-item"><div class="ci-label">Zeit</div><div class="ci-val">35</div><div class="ci-sub">Minuten</div></div>
+            <div class="card-info-item"><div class="ci-label">Schwierigkeit</div><div class="ci-val">3/10</div><div class="ci-sub">Leicht</div></div>
+            <div class="card-info-item"><div class="ci-label">Portionen</div><div class="ci-val">4</div><div class="ci-sub">Personen</div></div>
+          </div>
+        </div>
+        <div class="card-cta" style="background:#c0392b;">Rezept öffnen →</div>
+      </div>
+
+      <div class="card" onclick="openR('toscana')">
+        <div class="card-stripe" style="background:#b85c1a;"></div>
+        <div class="card-img"><img src="Pasta_toscana.png" alt="Toscana Pasta" onerror="this.style.display='none'"><div class="card-img-placeholder">🍅🐔</div><div class="card-img-grad"></div><div class="card-chip"><span class="chip-stars">★★★★</span> 8/10</div></div>
+        <div class="card-body">
+          <span class="card-cat" style="background:#fdf0e8;color:#b85c1a;"><span class="card-cat-dot" style="background:#b85c1a;"></span>Toscana</span>
+          <div class="card-name">Creamy Toscana Pasta mit Hähnchen</div>
+          <div class="card-script">pollo alla toscana cremoso</div>
+          <div class="card-desc">Hähnchen, getrocknete Tomaten, Babyspinat, Weißwein und cremige Parmesan-Sauce — würzig, intensiv, wie vom TikTok-Koch.</div>
+          <div class="card-info">
+            <div class="card-info-item"><div class="ci-label">Zeit</div><div class="ci-val">35</div><div class="ci-sub">Minuten</div></div>
+            <div class="card-info-item"><div class="ci-label">Schwierigkeit</div><div class="ci-val">4/10</div><div class="ci-sub">Einfach</div></div>
+            <div class="card-info-item"><div class="ci-label">Portionen</div><div class="ci-val">3</div><div class="ci-sub">Personen</div></div>
+          </div>
+        </div>
+        <div class="card-cta" style="background:#b85c1a;">Rezept öffnen →</div>
+      </div>
+
+      <div class="card" onclick="openR('alfredo')">
+        <div class="card-stripe" style="background:#c05e1a;"></div>
+        <div class="card-img"><img src="Pasta_alfredo.png" alt="Chicken Alfredo" onerror="this.style.display='none'"><div class="card-img-placeholder">🍗</div><div class="card-img-grad"></div><div class="card-chip"><span class="chip-stars">★★★★</span> 7,5/10</div></div>
+        <div class="card-body">
+          <span class="card-cat" style="background:#fdf0e8;color:#c05e1a;"><span class="card-cat-dot" style="background:#c05e1a;"></span>Comfort Food</span>
+          <div class="card-name">Chicken Alfredo Pasta</div>
+          <div class="card-script">pollo croccante su linguine cremose</div>
+          <div class="card-desc">Knusprig panierte Hähnchenbrust auf cremiger Linguine mit Mascarpone-Sauce. Die Cornflakes-Panade ist das Geheimnis.</div>
+          <div class="card-info">
+            <div class="card-info-item"><div class="ci-label">Zeit</div><div class="ci-val">30</div><div class="ci-sub">Minuten</div></div>
+            <div class="card-info-item"><div class="ci-label">Schwierigkeit</div><div class="ci-val">4/10</div><div class="ci-sub">fast Einfach</div></div>
+            <div class="card-info-item"><div class="ci-label">Portionen</div><div class="ci-val">4</div><div class="ci-sub">Personen</div></div>
+          </div>
+        </div>
+        <div class="card-cta" style="background:#c05e1a;">Rezept öffnen →</div>
+      </div>
+
+      <div class="card" onclick="openR('lachs')">
+        <div class="card-stripe" style="background:#1a6a8a;"></div>
+        <div class="card-img"><img src="Pasta_lachs.jpg" alt="Lachs Pasta" onerror="this.style.display='none'"><div class="card-img-placeholder">🐟</div><div class="card-img-grad"></div><div class="card-chip"><span class="chip-stars">★★★★★</span> 9/10</div></div>
+        <div class="card-body">
+          <span class="card-cat" style="background:#e4f2f8;color:#1a6a8a;"><span class="card-cat-dot" style="background:#1a6a8a;"></span>Creamy</span>
+          <div class="card-name">Lachs-Pasta mit Burrata</div>
+          <div class="card-script">salmone con burrata e basilico</div>
+          <div class="card-desc">Frischer Lachs, Sahnesauce mit Basilikum und Zitrone — gekrönt mit einer cremigen Burrata die langsam über die heiße Pasta fließt.</div>
+          <div class="card-info">
+            <div class="card-info-item"><div class="ci-label">Zeit</div><div class="ci-val">30</div><div class="ci-sub">Minuten</div></div>
+            <div class="card-info-item"><div class="ci-label">Schwierigkeit</div><div class="ci-val">4/10</div><div class="ci-sub">Einfach</div></div>
+            <div class="card-info-item"><div class="ci-label">Portionen</div><div class="ci-val">3</div><div class="ci-sub">Personen</div></div>
+          </div>
+        </div>
+        <div class="card-cta" style="background:#1a6a8a;">Rezept öffnen →</div>
+      </div>
+
+      <div class="card" onclick="openR('limone')">
+        <div class="card-stripe" style="background:#4a8a10;"></div>
+        <div class="card-img"><img src="Pasta_limone.png" alt="Pasta al Limone" onerror="this.style.display='none'"><div class="card-img-placeholder">🍋</div><div class="card-img-grad"></div><div class="card-chip"><span class="chip-stars">★★★★</span> 8/10</div></div>
+        <div class="card-body">
+          <span class="card-cat" style="background:#eef8e4;color:#4a8a10;"><span class="card-cat-dot" style="background:#4a8a10;"></span>Summer Refresh</span>
+          <div class="card-name">Pasta al Limone mit Weißwein</div>
+          <div class="card-script">fresca, cremosa, senza panna</div>
+          <div class="card-desc">Ohne Sahne — Bio-Zitrone, Parmesan, Weißwein und Technik. Cremig, frisch, restaurantmäßig in 20 Minuten. Bewertet mit 8/10.</div>
+          <div class="card-info">
+            <div class="card-info-item"><div class="ci-label">Zeit</div><div class="ci-val">20</div><div class="ci-sub">Minuten</div></div>
+            <div class="card-info-item"><div class="ci-label">Schwierigkeit</div><div class="ci-val">3/10</div><div class="ci-sub">Einfach</div></div>
+            <div class="card-info-item"><div class="ci-label">Portionen</div><div class="ci-val">3</div><div class="ci-sub">Personen</div></div>
+          </div>
+        </div>
+        <div class="card-cta" style="background:#4a8a10;">Rezept öffnen →</div>
+      </div>
+
+      <div class="card" onclick="openR('garnelen')">
+        <div class="card-stripe" style="background:#a03050;"></div>
+        <div class="card-img"><img src="Pasta_garnelen.png" alt="Garnelen Pasta" onerror="this.style.display='none'"><div class="card-img-placeholder">🦐</div><div class="card-img-grad"></div><div class="card-chip"><span class="chip-stars">★★★★</span> 8/10</div></div>
+        <div class="card-body">
+          <span class="card-cat" style="background:#fce8ee;color:#a03050;"><span class="card-cat-dot" style="background:#a03050;"></span>Di Mare</span>
+          <div class="card-name">Pasta mit Garnelen, Spinat &amp; Tomaten</div>
+          <div class="card-script">gamberi al burro alle erbe</div>
+          <div class="card-desc">Scharf angebratene Garnelen, Cherry-Tomaten, Blattspinat in Sahnesauce — mit Zitronenaroma als finalem Highlight.</div>
+          <div class="card-info">
+            <div class="card-info-item"><div class="ci-label">Zeit</div><div class="ci-val">35</div><div class="ci-sub">Minuten</div></div>
+            <div class="card-info-item"><div class="ci-label">Schwierigkeit</div><div class="ci-val">4/10</div><div class="ci-sub">Einfach</div></div>
+            <div class="card-info-item"><div class="ci-label">Portionen</div><div class="ci-val"></div><div class="ci-sub">Personen</div></div>
+          </div>
+        </div>
+        <div class="card-cta" style="background:#a03050;">Rezept öffnen →</div>
+      </div>
+
+      <!-- 8 KÜRBISCREME -->
+      <div class="card" onclick="openR('kuerbis')">
+        <div class="card-stripe" style="background:#d4650a;"></div>
+        <div class="card-img"><img src="Pasta_kuerbis.png" alt="Pasta Kürbis" onerror="this.style.display='none'"><div class="card-img-placeholder">🎃</div><div class="card-img-grad"></div><div class="card-chip"><span class="chip-stars">★★★★</span> 7/10</div></div>
+        <div class="card-body">
+          <span class="card-cat" style="background:#fdf0e4;color:#c05a08;"><span class="card-cat-dot" style="background:#d4650a;"></span>Autumn · comfort</span>
+          <div class="card-name">Pasta mit Kürbiscreme</div>
+          <div class="card-script">pasta alla crema di zucca</div>
+          <div class="card-desc">Gerösteter Hokkaido-Kürbis mit Kokosmilch zu einer samtigen Creme püriert — cremig, herbstlich, einfach und unvergesslich gut.</div>
+          <div class="card-info">
+            <div class="card-info-item"><div class="ci-label">Zeit</div><div class="ci-val">65</div><div class="ci-sub">Minuten inkl Ofen</div></div>
+            <div class="card-info-item"><div class="ci-label">Schwierigkeit</div><div class="ci-val">2/10</div><div class="ci-sub">Leicht</div></div>
+            <div class="card-info-item"><div class="ci-label">Portionen</div><div class="ci-val">4</div><div class="ci-sub">Personen</div></div>
+          </div>
+        </div>
+        <div class="card-cta" style="background:#d4650a;">Rezept öffnen →</div>
+      </div>
+
+      <!-- 9 ROTE BETE -->
+      <div class="card" onclick="openR('rotebete')">
+        <div class="card-stripe" style="background:#8b1a4a;"></div>
+        <div class="card-img"><img src="Pasta_rotebete.jpg" alt="Pasta Rote Bete" onerror="this.style.display='none'"><div class="card-img-placeholder">🫀</div><div class="card-img-grad"></div><div class="card-chip"><span class="chip-stars">★★★★</span> 8/10</div></div>
+        <div class="card-body">
+          <span class="card-cat" style="background:#f8e4ee;color:#7a1040;"><span class="card-cat-dot" style="background:#8b1a4a;"></span>New · colorful</span>
+          <div class="card-name">Pasta mit Roter Bete</div>
+          <div class="card-script">pasta alla barbabietola rossa</div>
+          <div class="card-desc">Gebackene Rote Bete mit Feta, Zwiebeln und Knoblauch zu einer leuchtend roten Sauce püriert — modern, überraschend und wahnsinnig lecker.</div>
+          <div class="card-info">
+            <div class="card-info-item"><div class="ci-label">Zeit</div><div class="ci-val">0</div><div class="ci-sub">Minuten</div></div>
+            <div class="card-info-item"><div class="ci-label">Schwierigkeit</div><div class="ci-val">2/10</div><div class="ci-sub">Leicht</div></div>
+            <div class="card-info-item"><div class="ci-label">Portionen</div><div class="ci-val">4</div><div class="ci-sub">Personen</div></div>
+          </div>
+        </div>
+        <div class="card-cta" style="background:#8b1a4a;">Rezept öffnen →</div>
+      </div>
+
+      <!-- 10 RAGÙ BOLOGNESE -->
+      <div class="card" onclick="openR('bolognese')">
+        <div class="card-stripe" style="background:#8b2000;"></div>
+        <div class="card-img"><img src="Pasta_bolognese.png" alt="Ragù Bolognese" onerror="this.style.display='none'"><div class="card-img-placeholder">🥩</div><div class="card-img-grad"></div><div class="card-chip"><span class="chip-stars">★★★★★</span> 10/10</div></div>
+        <div class="card-body">
+          <span class="card-cat" style="background:#fdecea;color:#8b2000;"><span class="card-cat-dot" style="background:#8b2000;"></span>Classico · bolognese</span>
+          <div class="card-name">Ragù alla Bolognese</div>
+          <div class="card-script">con beinscheiben — il ragù perfetto</div>
+          <div class="card-desc">Mit geschmorten Rinderbeinscheiben — 4 Stunden Schmoren bis das Fleisch vom Knochen fällt. Das Lieblingsrezept für die perfekte Fleischsauce.</div>
+          <div class="card-info">
+            <div class="card-info-item"><div class="ci-label">Zeit</div><div class="ci-val">3h+</div><div class="ci-sub">Schmoren</div></div>
+            <div class="card-info-item"><div class="ci-label">Schwierigkeit</div><div class="ci-val">5/10</div><div class="ci-sub">Mittel</div></div>
+            <div class="card-info-item"><div class="ci-label">Portionen</div><div class="ci-val">6</div><div class="ci-sub">Personen</div></div>
+          </div>
+        </div>
+        <div class="card-cta" style="background:#8b2000;">Rezept öffnen →</div>
+      </div>
+
+    </div>
+
+</div>  <!-- Ende .sec -->
+</div>    <!-- Ende .page-body -->
+
+<footer class="footer">   <!-- ← muss hier sein, außerhalb -->
+  <p>Handgemacht mit <strong>♥ Leidenschaft</strong> &nbsp;·&nbsp; <strong>Rezepte vom Besten</strong> &nbsp;·&nbsp; ogni giorno pasta</p>
+</footer>
+
+<div id="overlay">
+  <div class="ov-backdrop" onclick="closeR()"></div>
+  <div class="ov-page" id="ov-page"></div>
+</div>
+
+<script>
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-r');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function tick(){rx+=(mx-rx)*.13;ry+=(my-ry)*.13;cur.style.left=mx+'px';cur.style.top=my+'px';ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(tick);})();
+function hov(els){els.forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));});}
+hov(document.querySelectorAll('a,.card,button,.ing-item,.nav-back,.reset-btn,#scroll-top'));
+
+window.addEventListener('scroll',()=>{
+  const s=window.scrollY,h=document.documentElement.scrollHeight-window.innerHeight;
+  document.getElementById('prog').style.width=(s/h*100)+'%';
+  document.getElementById('scroll-top').classList.toggle('show',s>400);
+});
+
+const obs=new IntersectionObserver(e=>{e.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});},{threshold:.08});
+document.querySelectorAll('.card').forEach(c=>obs.observe(c));
+
+const pc=document.getElementById('pts');
+for(let i=0;i<20;i++){const p=document.createElement('div');p.className='pt';p.style.cssText=`left:${Math.random()*100}%;bottom:0;--dx:${(Math.random()-.5)*80}px;animation-duration:${14+Math.random()*18}s;animation-delay:${-Math.random()*26}s;`;pc.appendChild(p);}
+
+const R={
+  carbonara:{name:'Spaghetti alla Carbonara Originale',script:'la vera ricetta romana',time:'20 Min',diff:'3/10 — Einfach',portions:'4 Personen',rating:'★★★★ 9/10',img:'Pasta_carbonara.png',accent:'#c8960c',hbg:'linear-gradient(135deg,#3a2000,#1e1000 50%,#2a1a00)',
+    ings:[['400 g','Spaghetti'],['150 g','Guanciale (oder Pancetta)'],['3','Eigelb'],['1','ganzes Ei'],['100 g','Pecorino Romano, frisch gerieben'],['50 g','Parmigiano Reggiano, frisch gerieben'],['nach Bedarf','Salz (fürs Kochwasser)'],['reichlich','frisch gemahlener schwarzer Pfeffer']],
+    steps:[['Guanciale vorbereiten','Guanciale in dünne Streifen oder Würfel schneiden. In einer Pfanne bei mittlerer Hitze anbraten, bis das Fett schmilzt und das Fleisch goldbraun und knusprig ist.'],['Spaghetti kochen','Großen Topf Wasser zum Kochen bringen, reichlich Salz. Spaghetti al dente kochen. Unbedingt etwas Kochwasser aufbewahren!'],['Eiermischung','In einer Schüssel Eigelb, ganzes Ei, Pecorino Romano, Parmigiano und reichlich schwarzen Pfeffer gut verrühren bis eine cremige Masse entsteht.'],['Fertigstellen','Pfanne vom Herd nehmen! Heiße Spaghetti zur Guanciale geben, vermengen. Ei-Käse-Mischung unterrühren und mit Kochwasser cremige Konsistenz erreichen.'],['Servieren','Sofort auf Tellern anrichten, mit Pecorino und frisch gemahlenem Pfeffer garnieren. Direkt essen!']],
+    notes:['Kein Sahne — der cremige Effekt kommt ausschließlich durch Eier und Käse.','Pfanne vom Herd nehmen bevor die Eiermischung dazukommt — sonst stockt das Ei.','Alternative: Statt Guanciale kann auch Bauchspeck verwendet werden.']},
+  vodka:{name:'Tomaten-Wodka-Pasta mit Burrata',script:'pasta alla vodka con burrata',time:'35 Min',diff:'3/10 — Leicht',portions:'4 Personen',rating:'★★★★★ 10/10',img:'Pasta_vodka.jpg',accent:'#c0392b',hbg:'linear-gradient(135deg,#3d0a0a,#1a0505 50%,#2a0808)',
+    ings:[['400 g','Nudeln (Rigatoni empfohlen)'],['20','Cherry-Tomaten, halbiert'],['4 EL','Olivenöl'],['2','Schalotten, fein gehackt'],['2-3','Knoblauchzehen, gehackt'],['1½ EL','Tomatenmark'],['45 ml','Wodka'],['Saft ½ ','Zitrone'],['200 ml',' Sahne'],['75 g','Parmigiano Reggiano, gerieben'],['1 TL','rote Paprikaflocken'],['Salz & Pfeffer','nach Geschmack'],['1','Burrata (ganz oder halb je nach Portion)'],['etwas','frische Baslikum']],
+    steps:[['Nudeln kochen','Wasser mit 1 EL Salz kochen. Nudeln al dente kochen. Eine Kelle Nudelkochwasser aufbewahren!'],['Sauce','Olivenöl erhitzen. Cherry-Tomaten ~2 Min anbraten bis sie aufplatzen. Schalotten und Knoblauch 1 Min anschwitzen. Paprikaflocken einrühren.'],['Tomatenmark & Wodka','Tomatenmark einrühren und kurz anrösten. Wodka hinzufügen und 30–60 Sek köcheln bis der Alkohol verdampft.'],['Sahne & Pürieren','Sahne und 25 g Parmesan einrühren. Hitze reduzieren. Sauce mit Pürierstab glatt pürieren — das macht sie seidig!'],['Servieren','Nudeln in die Sauce. Restlichen Parmesan, Zitronensaft dazugeben und Nudelwasser einrühren. Auf Tellern anrichten, mit Basilikum bestreuen, Burrata obenauf — ganz oder halb je nach Hunger. Sofort genießen!']],
+    notes:['Sauce unbedingt pürieren — das macht sie cremig statt stückig.','Wodka nicht weglassen: Er hebt die Tomatensäure und macht die Sauce komplexer.','Burrata ganz für einen großen Wow-Effekt, halb für leichtere Variante.']},
+  toscana:{name:'Creamy Toscana Pasta mit Hähnchen',script:'pollo alla toscana cremoso',time:'35 Min',diff:'4/10 — Einfach',portions:'3–4 Personen',rating:'★★★★ 8/10',img:'Pasta_toscana.png',accent:'#b85c1a',hbg:'linear-gradient(135deg,#2e1200,#1a0a00 50%,#261000)',
+    ings:[['250 g','Hähnchenbrust'],['400 g','Pasta (Rigatoni oder Penne)'],['2–3','Knoblauchzehen'],['1 kleine','Zwiebel'],['1 EL','Tomatenmark'],['eine Handvoll','Cherrytomaten'],['5–6','getrocknete / eingelegte Tomaten'],['150–200 ml','Sahne'],['ordentlicher Schuss','Weißwein'],['etwas','Nudelwasser'],['nach Bedarf','Parmesan'],['nach Bedarf','Babyblattspinat'],['nach Bedarf','frisches Basilikum'],['nach Bedarf','Olivenöl'],['1 TL','Oregano'],['1 TL','Paprikapulver'],['optional','Chili'],['Salz & Pfeffer','nach Geschmack']],
+    steps:[['Pasta kochen','Pasta in Salzwasser al dente kochen. Eine Tasse Nudelwasser aufheben — wichtig für die Sauce!'],['Aromabasis','Olivenöl in einer großen Pfanne erhitzen. Knoblauch fein schneiden und mit Oregano, Paprikapulver und optional Chili kurz anbraten. Nur kurz rösten, damit der Knoblauch nicht bitter wird.'],['Hähnchen anbraten','Hähnchen in Stücke schneiden und direkt in die Pfanne geben. Goldbraun anbraten.'],['Tomatenbasis','Zwiebel schneiden und dazugeben. Tomatenmark mit anrösten. Cherrytomaten dazugeben und leicht einkochen lassen.'],['Weißwein-Sauce','Ordentlichen Schluck Weißwein ablöschen. Etwas Nudelwasser dazugeben. Einkochen lassen, bis die Sauce intensiver wird.'],['Cremigkeit & Toscana-Flavour','Getrocknete Tomaten klein schneiden und dazugeben. Sahne einrühren. Babyblattspinat unterheben. Etwas Parmesan dazugeben. Basilikum mitkochen lassen.'],['Finalisieren','Hähnchen wieder dazugeben. Pasta direkt in die Sauce geben. Alles kräftig durchschwenken bis cremig und sämig.']],
+    notes:['Knoblauch nur kurz anrösten — er wird sonst bitter und ruiniert die ganze Sauce.','Weißwein wirklich gut einkochen lassen — das ist der Tiefgang.','Die getrockneten Tomaten geben den typischen Toscana-Geschmack — nicht weglassen!','Würzig · cremig · tomatig · leicht scharf · intensiver Weißwein-Tiefgang']},
+alfredo:{
+  name:'Chicken Alfredo Pasta',
+
+  script:'cremig · würzig · perfekt für Pasta-Abende',
+
+  time:'35 Min',
+
+  diff:'4/10 — fast Einfach',
+
+  portions:'4 Personen',
+
+  rating:'★★★★ 7,5/10',
+
+  img:'Pasta_alfredo.png',
+
+  accent:'#c05e1a',
+
+  hbg:'linear-gradient(135deg,#2a1400,#160a00 50%,#221000)',
+
+  ings:[
+   
+    ['2','Hähnchenbrüste'],
+    ['etwas','Salz'],
+    ['etwas','Pfeffer'],
+    ['etwas','Paprika edelsüß'],
+    ['etwas','Chiliflocken'],
+    ['etwas','italienische Kräuter'],
+
+    ['400 g','Pasta (Fettuccine oder Tagliatelle)'],
+    ['etwas','Olivenöl'],
+    ['2–3 Zehen','Knoblauch'],
+    ['1 kleinen EL','Tomatenmarkt'],
+    ['200–250 ml','Sahne'],
+    ['80–100 g','Parmesan'],
+    ['etwas','Pastawasser'],
+    ['etwas','frische Petersilie'],
+    ['optional','etwas Zitronensaft']
+  ],
+  steps:[
+    ['Chicken marinieren',
+     'Hähnchenbrüste mit Olivenöl, Salz, Pfeffer, Paprika edelsüß, Chiliflocken und italienischen Kräutern einreiben. Anschließend etwa 1 Stunde ziehen lassen damit das Fleisch mehr Geschmack bekommt.'
+    ],
+    ['Pasta kochen',
+     'Die Pasta in reichlich Salzwasser al dente kochen. Vor dem Abgießen etwas Pastawasser aufheben.'
+    ],
+    ['Chicken anbraten',
+     'Die marinierten Hähnchenbrüste in einer Pfanne mit Olivenöl goldbraun anbraten bis sie außen schön gebräunt und innen saftig sind. Danach kurz beiseitestellen.'
+    ],
+    ['Knoblauch anschwitzen',
+     'Etwas Olivenöl in die gleiche Pfanne geben und den fein gehackten Knoblauch kurz anschwitzen bis er aromatisch duftet.'
+    ],
+    ['Sauce zubereiten',
+     'Tomatenmark kurz mit anbraten. Sahne in die Pfanne geben und anschließend etwas Pastawasser hinzufügen. Dadurch wird die Sauce cremiger und verbindet sich später besser mit der Pasta.'
+    ],
+    ['Parmesan einrühren',
+     'Den Parmesan langsam unterrühren bis eine cremige Alfredo-Sauce entsteht.'
+    ],
+    ['Abschmecken',
+     'Mit Salz, Pfeffer, Chiliflocken und frischer Petersilie würzen. Optional einen kleinen Spritzer Zitronensaft hinzufügen für mehr Frische.'
+    ],
+    ['Alles vermengen',
+     'Die gekochte Pasta und das Chicken in die Sauce geben und alles gut miteinander vermengen bis die Pasta vollständig von der Sauce umhüllt ist.'
+    ]
+  ],
+
+  notes:[
+    'Pastawasser ist wichtig — dadurch wird die Sauce besonders cremig.',
+    'Frisch geriebener Parmesan schmilzt deutlich besser als fertiger Streukäse.',
+    'Mit extra Petersilie und Parmesan servieren.',
+    'Perfekt für ein schnelles aber trotzdem luxuriöses Pasta-Gericht.'
+  ]
+},
+  lachs:{name:'Lachs-Pasta mit Burrata',script:'salmone con burrata e basilico',time:'30 Min',diff:'4/10 — Einfach',portions:'3 Personen',rating:'★★★★★ 9/10',img:'Pasta_lachs.jpg',accent:'#1a6a8a',hbg:'linear-gradient(135deg,#001c2e,#000f1a 50%,#001826)',
+    ings:[['400 g','Lachs'],['300 g','Pasta (Linguine)'],['1','Zwiebeln'],['2','Knoblauchzehen'],['5-6','Tomaten'],['250 - 300 ml','Sahne'],['Zitronensaft'],['frischen Basilikum'],['1','Burrata'],['Salz & Pfeffer','nach Geschmack'],['nach Bedarf','Olivenöl']],
+    steps:[['Lachs anbraten','Lachs in Stücke schneiden, würzen und in Olivenöl kurz anbraten. Beiseitestellen.'],['Gemüse sautieren','Zwiebeln und Knoblauch hacken und glasig anbraten. Tomaten würfeln und dazugeben.'],['Sahnesauce','Sahne hinzufügen und einkochen lassen. Mit Basilikum, Zitronensaft, Salz & Pfeffer abschmecken.'],['Pasta vermengen','Vorgekochte Pasta in die Pfanne geben und gut vermengen.'],['Anrichten','Pasta anrichten, Lachs darauf verteilen. Mit Burrata und frischen Basilikumblättern krönen.']],
+    notes:['Am besten wird er Lachs wenn, unterm anbraten er kurz mit Zitrone betreufelt wird','Mit Zitronenschale oder Parmesan für mehr Aroma.','Mit etwas Peterselie bei Bedarf verfeinern']},
+  limone:{name:'Pasta al Limone mit Weißwein',script:'fresca, cremosa, senza panna',time:'20 Min',diff:'3/10 — Einfach',portions:'3 Personen',rating:'★★★★★ 8/10',img:'Pasta_limone.png',accent:'#4a8a10',hbg:'linear-gradient(135deg,#1a2200,#0d1200 50%,#162000)',
+    ings:[['300 g','Pasta (Spaghetti oder Linguine)'],['1–2','Bio-Zitronen (Abrieb + Saft)'],['1','Knoblauchzehe'],['2–3 EL','Olivenöl'],['1–2 EL','Butter'],['ca. 40 g','Parmesan, fein gerieben'],['ein Schuss','Weißwein'],['Salz & Pfeffer','nach Geschmack'],['reichlich','frisches Basilikum']],
+    steps:[['Pasta kochen','Pasta in gesalzenem Wasser al dente kochen. Eine Tasse Nudelwasser aufheben — das ist das Herzstück der Sauce!'],['Zitronen vorbereiten','Zitronen fein abreiben (nur die gelbe Schale!). Saft auspressen.'],['Aromabasis','Olivenöl erhitzen, Knoblauch anschwitzen, Zitronenabrieb und Basilikum dazugeben.'],['Weißwein reduzieren','Weißwein dazugeben und einkochen bis der Alkohol verkocht. Macht die Sauce komplexer.'],['Sauce bauen','Pasta in die Pfanne. Zitronensaft, Nudelwasser und Parmesan einrühren. Kräftig schwenken bis cremig — Emulgiertechnik!'],['Finish','Butter einrühren und pfeffern. Sofort servieren!']],
+    notes:['⭐ 8/10 — Der Weißwein macht die Sauce komplexer und runder.','Keine Sahne — Cremigkeit durch Parmesan + Nudelwasser + Butter.','Bio-Zitronen verwenden — die Schale wird mitgekocht!',]},
+  garnelen:{name:'Pasta mit Garnelen, Spinat & Tomaten',script:'gamberi al burro alle erbe',time:'35 Min',diff:'4/10 — Einfach',portions:'3-4 Personen',rating:'★★★★ 8/10',img:'Pasta_garnelen.png',accent:'#a03050',hbg:'linear-gradient(135deg,#2a001a,#160010 50%,#200018)',
+    ings:[['200 g','Garnelen'],['1 TL','Salz'],['1 TL','Paprika edelsüß'],['350 g','Cherry-Tomaten'],['150 g','Baby-Blattspinat'],['4–5','Knoblauchzehen'],['350 g','Pasta (Linguine)'],['150 ml','Sahne'],['2–3 EL','Olivenöl'],['1','Zitrone']],
+    steps:[['Garnelen anbraten','Mit Salz und Paprika würzen. Bei hoher Hitze scharf anbraten (1–2 Min pro Seite) bis sie rosa und gebräunt. Beiseitestellen.'],['Tomaten & Knoblauch','Cherrytomaten halbieren, Knoblauch hacken. In derselben Pfanne anbraten bis die Tomaten aufplatzen.'],['Sahne & Spinat','Sahne einrühren und einkochen. Baby-Blattspinat hinzufügen und 1–2 Min zusammenfallen lassen.'],['Pasta einarbeiten','Pasta al dente kochen, abgießen und in die Pfanne geben. Gut vermengen.'],['Finish','Garnelen zurück in die Pfanne. Mit Zitronensaft verfeinern — Sofort servieren.']],
+    notes:['Garnelen kurz und scharf braten — zu lange und sie werden gummiartig.','Schuss Weißwein beim Anbraten der Tomaten für mehr Tiefe.']},
+
+  kuerbis:{name:'Pasta mit Kürbiscreme',script:'pasta alla crema di zucca',time:'65 Min',diff:'2/10 — Leicht',portions:'4 Personen',rating:'★★★★ 7/10',img:'Pasta_kuerbis.png',accent:'#d4650a',hbg:'linear-gradient(135deg,#2e1200,#1a0900 50%,#251000)',
+    ings:[['1 kleiner','Hokkaido-Kürbis'],['etwas','Öl'],['Salz & Pfeffer','nach Geschmack'],['150 ml','Kokosmilch (kleine Dose)'],['400 g','Pasta'],['1','Knoblauchzehe'],['80 g','Parmesan, gerieben']],
+    steps:[['Kürbis rösten','Kürbis waschen, vierteln und Kerne entfernen. Kürbisviertel auf ein mit Backpapier ausgelegtes Backblech legen und mit etwas Öl bestreichen. Im vorgeheizten Ofen bei 180–200 °C Umluft garen bis er so weich ist, dass man ihn zerdrücken kann.'],['Kürbiscreme pürieren','Kürbisviertel in den Standmixer geben. Salz, Pfeffer und die Kokosmilch hinzugeben und auf mittlerer Stufe zu einer cremigen Masse pürieren. Beiseitestellen.'],['Pasta kochen & Sauce','Pasta nach Packungsanweisung in reichlich Salzwasser bissfest garen. In einer großen Pfanne Olivenöl erhitzen, Knoblauch fein würfeln und dünsten. Kürbiscreme dazugeben und kurz aufkochen lassen.'],['Fertigstellen','1–2 Kellen Nudelwasser zur Kürbiscreme geben — die Stärke bindet die Sauce. Abgegossene Nudeln in die Pfanne, Parmesan dazu und unter mehrmaligem Rühren kochen bis die Sauce cremig ist. Kürbiscreme unter die Nudeln heben.']],
+    notes:['Die Konsistenz der Kürbiscreme spielt keine große Rolle — fest und cremig ist ideal.','Statt Kokusmilch ist auch Sahne möglich.','Hokkaido-Kürbis muss nicht geschält werden — die Schale wird beim Rösten weich.']},
+
+  rotebete:{name:'Pasta mit Roter Bete',script:'pasta alla barbabietola rossa',time:'50 Min',diff:'2/10 — Leicht',portions:'4 Personen',rating:'★★★★ 8/10 ',img:'Pasta_rotebete.png',accent:'#8b1a4a',hbg:'linear-gradient(135deg,#220010,#110008 50%,#1a000e)',
+    ings:[['2–3','mittelgroße Rote Beten (oder vorgekocht)'],['1','mittelgroße Zwiebel'],['2','Knoblauchzehen'],['150 g','Feta (Schafskäse)'],['2 TL','Salz'],['1 TL','italienische Kräuter'],['1½ EL','Olivenöl'],['400 g','Pasta'],['optional','Walnüsse'],['optional','Parmesan']],
+    steps:[['Rote Bete kochen','Rote Beten waschen und ungeschält in einen Topf geben. Mit Wasser auffüllen bis sie gut bedeckt sind. Einmal aufkochen, dann bei leicht köchelndem Wasser ca. 45 Minuten garen bis eine Gabel ohne Druck hineingeht. Herausnehmen und 30 Minuten abkühlen lassen. (Alternativ: vorgekochte Rote Bete kaufen.)'],['Backen','Rote Beten schälen und vierteln. Zwiebel schälen und vierteln, Knoblauch schälen. Rote Bete, Zwiebel und Knoblauchzehen in eine Auflaufform verteilen. Feta im Ganzen mittig in die Form legen. Salz, Kräuter und Olivenöl gleichmäßig über alles verteilen. Bei 220 °C Umluft ca. 30 Minuten backen bis Feta und Zwiebel leicht geröstet sind.'],['Sauce pürieren','Auflaufform aus dem Ofen nehmen. Inhalt in den Standmixer geben und auf mittlerer Stufe zerkleinern bis eine homogene Masse entsteht. Dabei den Mixer immer wieder ausschalten und den Inhalt von oben nach unten schieben.'],['Pasta & Finish','Pasta nach Packungsanweisung garen. 1–2 Schöpfkellen Nudelwasser zur Sauce in den Mixbecher geben und kurz durchmixen. Pasta abgießen und zurück in den Topf. Rote-Bete-Sauce dazugeben und unterheben. Mit gehackten Walnüssen und geriebenem Parmesan als Topping servieren.']],
+    notes:['Walnüsse und Parmesan als Topping sind Pflicht — sie geben Crunch und Tiefe.','Rote Beten färben alles — am besten Handschuhe tragen beim Schälen.','Vorgekochte Rote Bete aus dem Supermarkt spart viel Zeit.']},
+
+  bolognese:{name:'Ragù alla Bolognese',script:'con beinscheiben — il ragù perfetto',time:'3 Std+',diff:'5/10 — Mittel',portions:'6 Personen',rating:'★★★★★ 10/10 delicious',img:'Pasta_bolognese.png',accent:'#8b2000',hbg:'linear-gradient(135deg,#2a0800,#160400 50%,#220600)',
+    ings:[['2','Karotten'],['2 Stangen','Staudensellerie'],['2 EL','Butterschmalz (oder Sonnenblumenöl)'],['800 g','Rinderbeinscheibe (mit Knochen)'],['3','mittelgroße Zwiebeln'],['2 EL','Tomatenmark'],['1 Dose','Tomaten'],['500 ml','Hühnerbrühe'],['2','Lorbeerblätter'],['1 Zweig','Thymian'],['Salz & Pfeffer','nach Geschmack']],
+    steps:[['Gemüse vorbereiten','Karotten und Sellerie putzen, waschen, schälen und in feine Würfel schneiden.'],['Fleisch anbraten','Einen Schmortopf auf hoher Temperatur erhitzen und das Butterschmalz darin zergehen lassen. Beinscheibe dazugeben und Temperatur auf mittlere Hitze reduzieren. Von beiden Seiten ca. 3–4 Minuten anbraten bis eine schöne Kruste entsteht. Fleisch aus dem Topf nehmen und beiseite stellen.'],['Gemüse & Sauce aufbauen','Zwiebeln fein würfeln und mit Karotten und Sellerie in den Topf geben. Sobald das Gemüse weich gedünstet ist, Tomatenmark hinzufügen und kurz mitrösten. Dosentomaten und Brühe hinzugeben und alles einmal aufkochen lassen. Temperatur auf niedrige Stufe reduzieren.'],['Schmoren','Fleisch mit Lorbeerblättern, Thymian, Salz und Pfeffer zurück in den Topf geben. Bei geschlossenem Deckel unter gelegentlichem Umrühren ca. 4 Stunden schmoren lassen.'],['Finalisieren','Nach ca. 4 Stunden ist das Fleisch unglaublich zart und löst sich vom Knochen. Beinscheibe herausnehmen, Fleisch vom Knochen lösen und mit einer Gabel zerkleinern. Zurück in den Topf geben und die Fleischsauce nochmal aufkochen. Mit Spaghetti oder Linguine servieren.']],
+    notes:['Wenn sich das Fleisch von alleine vom Knochen löst — dann ist alles richtig gemacht.','Am besten wird das Ragù, wenn es noch übernacht zieht!','Ein Schuss Rotwein könnte noch ein Highlight sein vorm ablöschen.']}
+};
+
+let ck={};
+let isFullscreen=false;
+let currentId=null;
+
+function buildOverlay(id){
+  const r=R[id];
+  ck[id]=ck[id]||{};
+  const cnt=Object.values(ck[id]).filter(Boolean).length;
+  const pct=r.ings.length?Math.round(cnt/r.ings.length*100):0;
+  const ings=r.ings.map((g,i)=>{const cls=ck[id][i]?'done':'';return `<li class="ing-item ${cls}" onclick="togIng('${id}',${i},this)"><div class="ing-cb">✓</div><span class="ing-t"><span class="ing-a">${g[0]}</span> ${g[1]}</span></li>`;}).join('');
+  const steps=r.steps.map((s,i)=>`<li class="step-item"><div class="step-n">${String(i+1).padStart(2,'0')}</div><div><div class="step-t">${s[0]}</div><div class="step-p">${s[1]}</div></div></li>`).join('');
+  const notes=r.notes.map(n=>`<div class="note">${n}</div>`).join('');
+  return `<div class="rh"><div class="rh-bg" style="background:${r.hbg};"></div><div class="rh-inner"><div class="rh-btns"><button class="rh-btn rh-btn-fs" onclick="toggleFS()" title="Vollbild">⛶</button><button class="rh-btn rh-btn-close" onclick="closeR()" title="Schließen">✕</button></div><span class="rh-script" style="color:${r.accent};">${r.script}</span><h1 class="rh-title">${r.name}</h1><div class="rh-stats"><div class="rh-stat"><div class="rh-stat-l">Zeit</div><div class="rh-stat-v">${r.time}</div></div><div class="rh-stat"><div class="rh-stat-l">Schwierigkeit</div><div class="rh-stat-v">${r.diff}</div></div><div class="rh-stat"><div class="rh-stat-l">Portionen</div><div class="rh-stat-v">${r.portions}</div></div><div class="rh-stat"><div class="rh-stat-l">Bewertung</div><div class="rh-stat-v" style="color:${r.accent};">${r.rating}</div></div></div></div><div class="rh-bigword">${r.name.split(' ')[0]}</div></div><div class="ri"><img src="${r.img}" alt="${r.name}" onerror="this.parentElement.style.background='${r.hbg}';this.parentElement.style.height='140px';this.style.display='none';"><div class="ri-grad"></div><div class="ri-cap">${r.script}</div></div><div class="rb" style="border-top:4px solid ${r.accent};"><div class="rb-ing"><div class="rb-col-h">Zutaten</div><span class="rb-col-s">gli ingredienti</span><ul class="ing-list" id="il-${id}">${ings}</ul><div class="ing-prog"><div class="ing-prog-lbl"><span>Fortschritt</span><span id="pc-${id}">${cnt} / ${r.ings.length}</span></div><div class="ing-track"><div class="ing-fill" id="if-${id}" style="background:${r.accent};width:${pct}%;"></div></div></div><button class="reset-btn" onclick="resetIng('${id}')"><svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.95"/></svg>Zutaten zurücksetzen</button></div><div class="rb-steps"><div class="rb-col-h">Zubereitung</div><span class="rb-col-s">la preparazione</span><ul class="step-list">${steps}</ul></div><div class="rb-notes"><div class="rb-notes-h">✦ Tipps & Notizen</div><div class="notes-grid">${notes}</div></div></div>`;
+}
+
+function openR(id){
+  currentId=id;isFullscreen=false;
+  const ov=document.getElementById('overlay'),pg=document.getElementById('ov-page');
+  pg.innerHTML=buildOverlay(id);
+  ov.style.display='block';ov.scrollTop=0;
+  document.body.style.overflow='hidden';
+  ov.classList.remove('fullscreen');
+  requestAnimationFrame(()=>{ov.classList.add('vis');setTimeout(()=>{pg.querySelectorAll('.step-item').forEach((s,i)=>setTimeout(()=>s.classList.add('vis'),i*75));setTimeout(()=>equalizeSteps(pg),400);},320);});
+  hov(pg.querySelectorAll('button,.ing-item,.rh-btn,.reset-btn'));
+}
+
+function equalizeSteps(pg){
+  const ing=pg.querySelector('.rb-ing'),steps=pg.querySelector('.rb-steps');
+  if(!ing||!steps)return;
+  const items=steps.querySelectorAll('.step-item');
+  if(!items.length)return;
+  items.forEach(s=>s.style.paddingTop=s.style.paddingBottom='');
+  const diff=ing.offsetHeight-steps.offsetHeight;
+  if(diff>10){const extra=Math.floor(diff/items.length/2);items.forEach(s=>{s.style.paddingTop=(28+extra)+'px';s.style.paddingBottom=(28+extra)+'px';});}
+}
+
+function closeR(){const ov=document.getElementById('overlay');ov.classList.remove('vis','fullscreen');isFullscreen=false;setTimeout(()=>{ov.style.display='none';document.body.style.overflow='';},420);}
+function toggleFS(){const ov=document.getElementById('overlay');isFullscreen=!isFullscreen;ov.classList.toggle('fullscreen',isFullscreen);ov.scrollTop=0;const b=ov.querySelector('.rh-btn-fs');if(b)b.textContent=isFullscreen?'⊡':'⛶';}
+function togIng(rid,idx,el){el.classList.toggle('done');ck[rid]=ck[rid]||{};ck[rid][idx]=el.classList.contains('done');updateProg(rid);}
+function updateProg(rid){const r=R[rid];const cnt=Object.values(ck[rid]||{}).filter(Boolean).length;const pct=Math.round(cnt/r.ings.length*100);const f=document.getElementById('if-'+rid),p=document.getElementById('pc-'+rid);if(f)f.style.width=pct+'%';if(p)p.textContent=cnt+' / '+r.ings.length;}
+function resetIng(rid){ck[rid]={};document.querySelectorAll(`#il-${rid} .ing-item`).forEach(el=>el.classList.remove('done'));updateProg(rid);}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(isFullscreen)toggleFS();else closeR();}});
+</script>
+</body>
+</html>

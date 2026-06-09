@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rezepte vom Besten</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lato:wght@100;300;400;700&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d0c0b;--bg2:#161412;
+  --cream:#f0ead8;--warm:#d4c9a8;--muted:#7a7468;
+  --border:rgba(212,201,168,0.1);
+  --green:#4a9c4a;--red:#c94444;--yellow:#c8960c;
+  --orange:#c86e2a;--purple:#8b4aaa;--blue:#2e7bc4;--gray:#888;--teal:#2a9d8f;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+*{cursor:none!important;}
+html{scroll-behavior:smooth;}
+body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--cream);overflow-x:hidden;min-height:100vh;}
+#cur{position:fixed;z-index:99999;pointer-events:none;width:12px;height:12px;background:var(--cream);border-radius:50%;transform:translate(-50%,-50%);transition:width .18s,height .18s;}
+#cur-r{position:fixed;z-index:99998;pointer-events:none;width:38px;height:38px;border:1.5px solid rgba(240,234,216,0.35);border-radius:50%;transform:translate(-50%,-50%);transition:all .14s ease;}
+body.hov #cur{width:8px;height:8px;}
+body.hov #cur-r{width:54px;height:54px;border-color:rgba(240,234,216,0.65);}
+#prog{position:fixed;top:0;left:0;height:2px;width:0%;z-index:9999;background:linear-gradient(90deg,var(--orange),var(--yellow),var(--cream));box-shadow:0 0 12px rgba(200,150,12,.6);}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");opacity:.35;}
+header{position:relative;z-index:10;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 24px 80px;overflow:hidden;}
+.deco-ring{position:absolute;border-radius:50%;pointer-events:none;top:50%;left:50%;transform:translate(-50%,-50%);animation:spin linear infinite;}
+.deco-ring:nth-child(1){width:680px;height:680px;border:1px solid rgba(240,234,216,.04);animation-duration:90s;}
+.deco-ring:nth-child(2){width:480px;height:480px;border:1px solid rgba(240,234,216,.03);animation-duration:60s;animation-direction:reverse;}
+.deco-ring:nth-child(3){width:920px;height:920px;border:1px solid rgba(200,150,12,.035);animation-duration:130s;}
+.deco-ring:nth-child(4){width:1200px;height:1200px;border:1px solid rgba(240,234,216,.015);animation-duration:200s;animation-direction:reverse;}
+@keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg);}}
+.hero-glow-a{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(200,150,12,.06) 0%,transparent 70%);top:20%;left:30%;pointer-events:none;animation:blob 12s ease-in-out infinite alternate;}
+.hero-glow-b{position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(74,156,74,.04) 0%,transparent 70%);bottom:20%;right:25%;pointer-events:none;animation:blob 16s ease-in-out infinite alternate-reverse;}
+@keyframes blob{0%{transform:scale(1) translate(0,0);}100%{transform:scale(1.2) translate(30px,-20px);}}
+.ornament{font-size:.6rem;letter-spacing:.55em;text-transform:uppercase;color:var(--muted);margin-bottom:36px;opacity:0;animation:up .9s .2s forwards;display:flex;align-items:center;gap:18px;}
+.oln{width:55px;height:1px;background:linear-gradient(90deg,transparent,var(--muted));}
+.oln.r{transform:scaleX(-1);}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(4.5rem,13vw,12rem);font-weight:900;line-height:.88;letter-spacing:-.03em;color:var(--cream);opacity:0;animation:up 1.2s .4s forwards;}
+.hero-title em{display:block;font-style:italic;font-weight:400;font-size:.52em;color:var(--warm);margin-top:18px;letter-spacing:-.01em;}
+.hero-caveat{font-family:'Caveat',cursive;font-size:clamp(1.4rem,3vw,2.4rem);font-weight:600;color:var(--yellow);margin-top:18px;display:block;opacity:0;animation:up .9s .85s forwards;}
+.hr-fancy{width:200px;height:1px;margin:38px auto;background:linear-gradient(90deg,transparent,var(--warm),rgba(212,201,168,.25),var(--warm),transparent);position:relative;opacity:0;animation:up .9s .8s forwards;}
+.hr-fancy::before{content:'✦';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--bg);padding:0 14px;font-size:.65rem;color:var(--warm);}
+.hero-sub{font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--muted);opacity:0;animation:up .9s 1s forwards;}
+.scroll-hint{position:absolute;bottom:42px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;font-size:.52rem;letter-spacing:.38em;text-transform:uppercase;color:var(--muted);opacity:0;animation:up .8s 1.6s forwards;}
+.scroll-hint .bar{width:1px;height:52px;background:linear-gradient(180deg,var(--muted),transparent);animation:pulse2 2.4s ease-in-out infinite;}
+@keyframes pulse2{0%,100%{opacity:.35;transform:scaleY(1);}50%{opacity:1;transform:scaleY(.65);}}
+@keyframes up{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+.stats-wrap{position:relative;z-index:10;padding:0 48px;max-width:1500px;margin:0 auto;}
+.stats{display:flex;justify-content:center;align-items:stretch;border:1px solid var(--border);border-radius:2px;overflow:hidden;background:rgba(255,255,255,.015);}
+.stat{flex:1;padding:30px 20px;text-align:center;border-right:1px solid var(--border);transition:background .3s;}
+.stat:last-child{border-right:none;}
+.stat:hover{background:rgba(255,255,255,.045);}
+.stat-n{font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:700;color:var(--cream);line-height:1;}
+.stat-l{font-size:.52rem;letter-spacing:.32em;text-transform:uppercase;color:var(--muted);margin-top:7px;}
+.marquee-wrap{position:relative;z-index:10;overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:18px 0;margin:60px 0 0;background:rgba(255,255,255,.012);}
+.marquee-track{display:flex;gap:52px;width:max-content;animation:march 32s linear infinite;}
+.m-item{font-family:'Playfair Display',serif;font-size:1.1rem;font-style:italic;color:var(--warm);white-space:nowrap;display:flex;align-items:center;gap:20px;}
+.m-item::after{content:'·';color:var(--muted);font-style:normal;}
+@keyframes march{to{transform:translateX(-50%);}}
+.sec-head{position:relative;z-index:10;padding:80px 48px 24px;max-width:1500px;margin:0 auto;display:flex;align-items:flex-end;justify-content:space-between;border-bottom:1px solid var(--border);}
+.sec-tag{font-size:.58rem;letter-spacing:.42em;text-transform:uppercase;color:var(--muted);}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4.5vw,3.8rem);font-weight:700;color:var(--cream);line-height:1;}
+.sec-title em{font-style:italic;font-weight:400;color:var(--warm);}
+.sec-count{font-size:.58rem;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);padding-bottom:8px;}
+
+/* ═══ COLLAGE GRID ═══ */
+.grid{
+  position:relative;z-index:10;
+  max-width:1500px;margin:0 auto;
+  padding:3px 3px 100px;
+  display:grid;gap:3px;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  grid-template-rows: 460px 320px 320px 260px;
+}
+/* Pasta — links, sehr groß, 3 Reihen hoch */
+.card-pasta      {grid-row:1/3; grid-column:1/2;}
+/* Fleisch — breite Karte oben mitte */
+.card-fleisch    {grid-row:1/2; grid-column:2/4;}
+/* Gebäck — rechts oben, 2 Reihen hoch */
+.card-gebaeck    {grid-row:2/3; grid-column:2/3;}
+/* Suppen — mitte links, mittelgroß */
+.card-suppen     {grid-row:2/3; grid-column:3/4;}
+/* Kuchen — mitte rechts */
+.card-kuchen     {grid-row:3/4; grid-column:2/3;}
+/* Dessert — mitte links unten, etwas breiter */
+.card-dessert    {grid-row:3/4; grid-column:3/4;}
+/* Sonstiges — rechts, 2 Reihen hoch */
+.card-sonstiges  {grid-row:3/4; grid-column:1/2;}
+/* Frühstück — unten links+mitte, breit */
+.card-fruehstueck{grid-row:4/5; grid-column:1/4;}
+/* Lücke mitte rechts row3 → Kuchen nimmt es */
+
+/* CARD */
+.card{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;text-decoration:none;color:inherit;transform:translateY(50px);opacity:0;transition:transform .65s cubic-bezier(.22,1,.36,1),opacity .65s,box-shadow .4s;}
+.card.vis{transform:translateY(0);opacity:1;}
+.card:nth-child(1){transition-delay:.00s}.card:nth-child(2){transition-delay:.08s}.card:nth-child(3){transition-delay:.14s}
+.card:nth-child(4){transition-delay:.20s}.card:nth-child(5){transition-delay:.26s}.card:nth-child(6){transition-delay:.32s}
+.card:nth-child(7){transition-delay:.38s}.card:nth-child(8){transition-delay:.44s}
+.card-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .85s cubic-bezier(.22,1,.36,1),filter .5s;filter:brightness(.32) saturate(.55);}
+.card:hover .card-bg{transform:scale(1.08);filter:brightness(.48) saturate(.95);}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;z-index:3;transition:height .3s;}
+.card:hover::before{height:8px;}
+.c-tint{position:absolute;inset:0;z-index:1;opacity:.18;transition:opacity .4s;}
+.card:hover .c-tint{opacity:.32;}
+.c-grad{position:absolute;inset:0;z-index:2;background:linear-gradient(to top,rgba(0,0,0,.98) 0%,rgba(0,0,0,.5) 42%,rgba(0,0,0,.05) 100%);}
+.c-shine{position:absolute;inset:0;z-index:3;background:linear-gradient(115deg,transparent 36%,rgba(255,255,255,.055) 50%,transparent 64%);transform:translateX(-130%);transition:transform .75s ease;}
+.card:hover .c-shine{transform:translateX(130%);}
+.c-num{position:absolute;top:22px;left:28px;z-index:4;font-family:'Playfair Display',serif;font-size:5rem;font-weight:900;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;transition:color .4s;}
+.card:hover .c-num{color:rgba(255,255,255,.07);}
+.c-body{position:relative;z-index:4;padding:32px 36px 30px;overflow:hidden;}
+.c-icon{font-size:2.2rem;display:block;margin-bottom:12px;line-height:1;filter:drop-shadow(0 3px 12px rgba(0,0,0,.8));transition:transform .35s;white-space:nowrap;}
+.card:hover .c-icon{transform:scale(1.1);}
+.card-pasta .c-icon{font-size:2.8rem;}
+.card-fleisch .c-icon,.card-fruehstueck .c-icon{font-size:2.4rem;}
+.card-suppen .c-body,.card-kuchen .c-body,.card-gebaeck .c-body,.card-dessert .c-body{padding:28px 30px 24px;}
+.c-cat{font-size:.52rem;letter-spacing:.38em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:10px;}
+.c-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.c-name{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,2.8vw,2.8rem);font-weight:700;line-height:1.05;color:#fff;text-shadow:0 2px 28px rgba(0,0,0,.95);margin-bottom:14px;}
+.card-pasta .c-name{font-size:clamp(2.4rem,3.5vw,3.6rem);}
+.c-script{font-family:'Caveat',cursive;font-size:1.05rem;font-weight:600;display:block;margin-bottom:8px;transform:translateY(8px);opacity:0;transition:opacity .32s .04s,transform .32s .04s;}
+.card:hover .c-script{opacity:.7;transform:translateY(0);}
+.c-desc{font-size:.71rem;font-weight:300;line-height:1.8;letter-spacing:.03em;color:rgba(240,234,216,.5);max-width:480px;transform:translateY(10px);opacity:0;transition:opacity .38s,transform .38s;}
+.card:hover .c-desc{opacity:1;transform:translateY(0);}
+.c-arrow{position:absolute;right:30px;bottom:30px;z-index:4;width:46px;height:46px;border-radius:50%;border:1.5px solid rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:rgba(255,255,255,.6);transform:scale(.65) rotate(-45deg);opacity:0;transition:all .35s;}
+.card:hover .c-arrow{opacity:1;transform:scale(1) rotate(-45deg);}
+.c-badge{position:absolute;top:22px;right:22px;z-index:4;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(8px);border-radius:40px;padding:5px 14px;font-size:.52rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.5);opacity:0;transform:translateY(-8px);transition:opacity .35s,transform .35s;}
+.card:hover .c-badge{opacity:1;transform:translateY(0);}
+
+/* COLORS */
+.card-pasta::before{background:var(--green);}.card-pasta .c-tint{background:var(--green);}.card-pasta .c-dot{background:var(--green);}.card-pasta .c-cat{color:var(--green);}.card-pasta .c-script{color:var(--green);}
+.card-fleisch::before{background:var(--red);}.card-fleisch .c-tint{background:var(--red);}.card-fleisch .c-dot{background:var(--red);}.card-fleisch .c-cat{color:var(--red);}.card-fleisch .c-script{color:var(--red);}
+.card-gebaeck::before{background:var(--yellow);}.card-gebaeck .c-tint{background:var(--yellow);}.card-gebaeck .c-dot{background:var(--yellow);}.card-gebaeck .c-cat{color:var(--yellow);}.card-gebaeck .c-script{color:var(--yellow);}
+.card-suppen::before{background:var(--orange);}.card-suppen .c-tint{background:var(--orange);}.card-suppen .c-dot{background:var(--orange);}.card-suppen .c-cat{color:var(--orange);}.card-suppen .c-script{color:var(--orange);}
+.card-kuchen::before{background:var(--purple);}.card-kuchen .c-tint{background:var(--purple);}.card-kuchen .c-dot{background:var(--purple);}.card-kuchen .c-cat{color:var(--purple);}.card-kuchen .c-script{color:var(--purple);}
+.card-dessert::before{background:var(--blue);}.card-dessert .c-tint{background:var(--blue);}.card-dessert .c-dot{background:var(--blue);}.card-dessert .c-cat{color:var(--blue);}.card-dessert .c-script{color:var(--blue);}
+.card-sonstiges::before{background:var(--gray);}.card-sonstiges .c-tint{background:var(--gray);}.card-sonstiges .c-dot{background:var(--gray);}.card-sonstiges .c-cat{color:var(--gray);}.card-sonstiges .c-script{color:var(--gray);}
+.card-fruehstueck::before{background:var(--teal);}.card-fruehstueck .c-tint{background:var(--teal);}.card-fruehstueck .c-dot{background:var(--teal);}.card-fruehstueck .c-cat{color:var(--teal);}.card-fruehstueck .c-script{color:var(--teal);}
+
+/* PARTICLES */
+#pts{position:fixed;inset:0;pointer-events:none;z-index:1;}
+.pt{position:absolute;width:2px;height:2px;border-radius:50%;background:var(--warm);opacity:0;animation:rise linear infinite;}
+@keyframes rise{0%{transform:translateY(0) translateX(0);opacity:0;}10%{opacity:.25;}90%{opacity:.04;}100%{transform:translateY(-100vh) translateX(var(--dx));opacity:0;}}
+footer{position:relative;z-index:10;text-align:center;padding:52px 20px;border-top:1px solid var(--border);font-size:.58rem;letter-spacing:.32em;text-transform:uppercase;color:var(--muted);}
+footer strong{color:var(--warm);font-weight:400;}
+
+@media(max-width:1200px){
+  .grid{grid-template-columns:1fr 1fr;grid-template-rows:auto;}
+  .card-pasta{grid-row:auto;grid-column:1/3;min-height:480px;}
+  .card-fleisch,.card-gebaeck,.card-suppen,.card-kuchen,.card-dessert{grid-row:auto;grid-column:auto;min-height:340px;}
+  .card-sonstiges{grid-row:auto;grid-column:auto;min-height:340px;}
+  .card-fruehstueck{grid-column:1/-1;min-height:340px;}
+}
+@media(max-width:640px){
+  .grid{grid-template-columns:1fr;}
+  .card-pasta,.card-fleisch,.card-fruehstueck{grid-column:1/2;}
+  .sec-head{flex-direction:column;align-items:flex-start;gap:8px;}.sec-count{display:none;}
+  .c-num{font-size:3.5rem;}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div>
+<div id="cur-r"></div>
+<div id="prog"></div>
+<div id="pts"></div>
+
+<header>
+  <div class="deco-ring"></div><div class="deco-ring"></div>
+  <div class="deco-ring"></div><div class="deco-ring"></div>
+  <div class="hero-glow-a"></div><div class="hero-glow-b"></div>
+  <div class="ornament"><span class="oln"></span>Hausgemacht &nbsp;·&nbsp; Mit Liebe &nbsp;·&nbsp; Vom Besten<span class="oln r"></span></div>
+  <h1 class="hero-title">Rezepte<em>vom Besten</em></h1>
+  <span class="hero-caveat">direkt aus meiner Küche — für dich</span>
+  <div class="hr-fancy"></div>
+  <p class="hero-sub">Kulinarische Leidenschaft · 8 Kategorien · 30+ Rezepte</p>
+  <div class="scroll-hint"><div class="bar"></div><span>Entdecken</span></div>
+</header>
+
+<div class="stats-wrap">
+  <div class="stats">
+    <div class="stat"><div class="stat-n">8</div><div class="stat-l">Kategorien</div></div>
+    <div class="stat"><div class="stat-n">30+</div><div class="stat-l">Rezepte</div></div>
+    <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Leidenschaft</div></div>
+    <div class="stat"><div class="stat-n">0</div><div class="stat-l">Kompromisse</div></div>
+  </div>
+</div>
+
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="m-item">Spaghetti Carbonara</span><span class="m-item">Smash Burger</span><span class="m-item">24h-Pizzateig</span><span class="m-item">Fudgy Brownies</span><span class="m-item">Zitronen-Lachs</span><span class="m-item">Himbeer-Tiramisu</span><span class="m-item">Blaubeermuffins</span><span class="m-item">Zwiebelrostbraten</span><span class="m-item">Nutellabrötchen</span><span class="m-item">Oreo-Cheesecake</span><span class="m-item">Menemen</span><span class="m-item">Çilbir</span><span class="m-item">Honey Chicken Burger</span><span class="m-item">Bratapfel-Dessert</span>
+    <span class="m-item">Spaghetti Carbonara</span><span class="m-item">Smash Burger</span><span class="m-item">24h-Pizzateig</span><span class="m-item">Fudgy Brownies</span><span class="m-item">Zitronen-Lachs</span><span class="m-item">Himbeer-Tiramisu</span><span class="m-item">Blaubeermuffins</span><span class="m-item">Zwiebelrostbraten</span><span class="m-item">Nutellabrötchen</span><span class="m-item">Oreo-Cheesecake</span><span class="m-item">Menemen</span><span class="m-item">Çilbir</span><span class="m-item">Honey Chicken Burger</span><span class="m-item">Bratapfel-Dessert</span>
+  </div>
+</div>
+
+<div class="sec-head">
+  <div><div class="sec-tag">— Alle Kategorien —</div><h2 class="sec-title">Was kochst du <em>heute</em>?</h2></div>
+  <div class="sec-count">8 Kategorien &nbsp;·&nbsp; 30+ Rezepte</div>
+</div>
+
+<div class="grid">
+
+  <a href="pasta.html" class="card card-pasta">
+    <div class="card-bg" style="background-image:url('img/pasta.jpg');background-color:#0e1f0e;"></div>
+    <div class="c-tint"></div><div class="c-grad"></div><div class="c-shine"></div>
+    <div class="c-num">01</div><div class="c-badge">Meistgekocht ★</div>
+    <div class="c-body">
+      <span class="c-icon">🍝</span>
+      <div class="c-cat"><span class="c-dot"></span>Pasta</div>
+      <div class="c-name">Pasta</div>
+      <span class="c-script">Carbonara · Vodka · Limone · Bolognese</span>
+      <p class="c-desc">Von der klassischen Carbonara bis zur Tomaten-Wodka-Pasta mit Burrata — meine Pasta-Welt in ihrer ganzen Tiefe. Immer frisch, immer al dente.</p>
+    </div>
+    <div class="c-arrow">→</div>
+  </a>
+
+  <a href="fleisch.html" class="card card-fleisch">
+    <div class="card-bg" style="background-image:url('img/fleisch.jpg');background-color:#1f0a0a;"></div>
+    <div class="c-tint"></div><div class="c-grad"></div><div class="c-shine"></div>
+    <div class="c-num">02</div><div class="c-badge">Grill &amp; Pfanne</div>
+    <div class="c-body">
+      <span class="c-icon">🥩</span>
+      <div class="c-cat"><span class="c-dot"></span>Fleisch &amp; Fisch</div>
+      <div class="c-name">Fleisch &amp; Fisch</div>
+      <span class="c-script">Smash Burger · Rostbraten · Moussaka · Butter Chicken</span>
+      <p class="c-desc">Saftige Smash Burger, Zwiebelrostbraten mit Rotwein-Sauce, Honey Chicken &amp; Zitronen-Lachs.</p>
+    </div>
+    <div class="c-arrow">→</div>
+  </a>
+
+  <a href="gebaeck.html" class="card card-gebaeck">
+    <div class="card-bg" style="background-image:url('img/gebaeck.jpg');background-color:#1f1800;"></div>
+    <div class="c-tint"></div><div class="c-grad"></div><div class="c-shine"></div>
+    <div class="c-num">03</div><div class="c-badge">Frisch aus dem Ofen</div>
+    <div class="c-body">
+      <span class="c-icon">🥐</span>
+      <div class="c-cat"><span class="c-dot"></span>Gebäck</div>
+      <div class="c-name">Gebäck</div>
+      <span class="c-script">Pizza · Pfannenbrot · Nutellabrötchen</span>
+      <p class="c-desc">24h-Pizzateig auf Restaurant-Level, türkisches Pfannenbrot &amp; fluffige Nutellabrötchen.</p>
+    </div>
+    <div class="c-arrow">→</div>
+  </a>
+
+  <a href="suppen.html" class="card card-suppen">
+    <div class="card-bg" style="background-image:url('img/suppen.jpg');background-color:#1f1000;"></div>
+    <div class="c-tint"></div><div class="c-grad"></div><div class="c-shine"></div>
+    <div class="c-num">04</div><div class="c-badge">Warm &amp; Cremig</div>
+    <div class="c-body">
+      <span class="c-icon">🍲</span>
+      <div class="c-cat"><span class="c-dot"></span>Vorspeisen &amp; Suppe</div>
+      <div class="c-name">Vorspeisen<br>&amp; Suppe</div>
+      <span class="c-script">Zwiebelsuppe · Kürbis · Tomato Soup</span>
+      <p class="c-desc">Cremige Suppen, herzhafte Eintöpfe &amp; feine Vorspeisen die jeden Abend eröffnen.</p>
+    </div>
+    <div class="c-arrow">→</div>
+  </a>
+
+  <a href="kuchen.html" class="card card-kuchen">
+    <div class="card-bg" style="background-image:url('img/kuchen.jpg');background-color:#160a1f;"></div>
+    <div class="c-tint"></div><div class="c-grad"></div><div class="c-shine"></div>
+    <div class="c-num">05</div><div class="c-badge">Süß &amp; Cremig</div>
+    <div class="c-body">
+      <span class="c-icon">🎂</span>
+      <div class="c-cat"><span class="c-dot"></span>Kuchen &amp; Torten</div>
+      <div class="c-name">Kuchen &amp; Torten</div>
+      <span class="c-script">Brownies · Cookies · Muffins · Cheesecake</span>
+      <p class="c-desc">Fudgy Brownies, American Cookies, Blaubeermuffins &amp; Oreo-Cheesecake.</p>
+    </div>
+    <div class="c-arrow">→</div>
+  </a>
+
+  <a href="dessert.html" class="card card-dessert">
+    <div class="card-bg" style="background-image:url('img/dessert.jpg');background-color:#0a1220;"></div>
+    <div class="c-tint"></div><div class="c-grad"></div><div class="c-shine"></div>
+    <div class="c-num">06</div><div class="c-badge">Das süße Finale</div>
+    <div class="c-body">
+      <span class="c-icon">🍓</span>
+      <div class="c-cat"><span class="c-dot"></span>Dessert</div>
+      <div class="c-name">Dessert</div>
+      <span class="c-script">Bratapfel · Himbeer-Tiramisu · im Glas</span>
+      <p class="c-desc">Weihnachtliches Bratapfel-Dessert mit Mascarpone &amp; Amarettini — oder Himbeer-Tiramisu im Glas.</p>
+    </div>
+    <div class="c-arrow">→</div>
+  </a>
+
+  <a href="sonstiges.html" class="card card-sonstiges">
+    <div class="card-bg" style="background-image:url('img/sonstiges.jpg');background-color:#141414;"></div>
+    <div class="c-tint"></div><div class="c-grad"></div><div class="c-shine"></div>
+    <div class="c-num">07</div><div class="c-badge">Beilagen &amp; Mehr</div>
+    <div class="c-body">
+      <span class="c-icon">🥗</span>
+      <div class="c-cat"><span class="c-dot"></span>Sonstiges &amp; Beilagen</div>
+      <div class="c-name">Beilagen</div>
+      <span class="c-script">Spätzle · Salate · Dips · Saucen</span>
+      <p class="c-desc">Hausgemachte Spätzle, Salate, Dips &amp; Saucen — alles was den Teller erst vollständig macht.</p>
+    </div>
+    <div class="c-arrow">→</div>
+  </a>
+
+  <a href="fruehstueck.html" class="card card-fruehstueck">
+    <div class="card-bg" style="background-image:url('img/fruehstueck.jpg');background-color:#0a1614;"></div>
+    <div class="c-tint"></div><div class="c-grad"></div><div class="c-shine"></div>
+    <div class="c-num">08</div><div class="c-badge">Morgens ☀️</div>
+    <div class="c-body">
+      <span class="c-icon">🍳</span>
+      <div class="c-cat"><span class="c-dot"></span>Frühstück</div>
+      <div class="c-name">Frühstück</div>
+      <span class="c-script">Menemen · Çilbir · Pancakes · Rührei · Omelett</span>
+      <p class="c-desc">Türkisches Menemen, pochierte Eier auf Joghurt (Çilbir), High-Protein Pancakes, cremiges Rührei &amp; italienisches Omelett — der perfekte Start in den Tag.</p>
+    </div>
+    <div class="c-arrow">→</div>
+  </a>
+
+</div>
+
+<footer>
+  <p>Handgemacht mit <strong>♥ Leidenschaft</strong> &nbsp;·&nbsp; <strong>Rezepte vom Besten</strong> &nbsp;·&nbsp; direkt aus meiner Küche</p>
+</footer>
+
+<script>
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-r');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function loop(){rx+=(mx-rx)*.15;ry+=(my-ry)*.15;cur.style.left=mx+'px';cur.style.top=my+'px';ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+document.querySelectorAll('a,.card,.stat').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));});
+window.addEventListener('scroll',()=>{const s=window.scrollY,h=document.documentElement.scrollHeight-window.innerHeight;document.getElementById('prog').style.width=(s/h*100)+'%';});
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});},{threshold:.05});
+document.querySelectorAll('.card').forEach(c=>obs.observe(c));
+document.querySelectorAll('.card').forEach(card=>{
+  const wide = card.classList.contains('card-fruehstueck') || card.classList.contains('card-pasta');
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+    if(wide){
+      // wide cards: only subtle bg parallax, no card tilt
+      card.style.transform=`translateY(-4px) scale(1.005)`;
+    } else {
+      card.style.transform=`perspective(1000px) rotateX(${-y*5}deg) rotateY(${x*5}deg) translateY(-6px) scale(1.008)`;
+    }
+    const bg=card.querySelector('.card-bg');if(bg)bg.style.transform=`scale(1.08) translate(${x*8}px,${y*6}px)`;
+  });
+  card.addEventListener('mouseleave',()=>{card.style.transform='';const bg=card.querySelector('.card-bg');if(bg)bg.style.transform='';});
+});
+window.addEventListener('scroll',()=>{document.querySelector('header').style.transform=`translateY(${window.scrollY*.25}px)`;});
+const pc=document.getElementById('pts');
+for(let i=0;i<28;i++){const p=document.createElement('div');p.className='pt';p.style.cssText=`left:${Math.random()*100}%;bottom:0;--dx:${(Math.random()-.5)*100}px;animation-duration:${12+Math.random()*22}s;animation-delay:${-Math.random()*30}s;`;pc.appendChild(p);}
+</script>
+</body>
+</html>

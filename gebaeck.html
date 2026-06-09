@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gebäck — Rezepte vom Besten</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lato:wght@100;300;400;700&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --dark:    #0f0e0d;
+  --dark2:   #18150a;
+  --cream:   #f2ece0;
+  --warm:    #d6cdb8;
+  --muted:   #8a8478;
+  --yellow:  #c8960c;
+  --yellow-d:#7a5c06;
+  --yellow-l:#f5e6c0;
+  --bg-page: #f5f3ee;
+  --bg-card: #ffffff;
+  --text:    #1a1815;
+  --border:  #e2ddd5;
+  --shadow:  0 4px 24px rgba(0,0,0,.08);
+  --shadow2: 0 16px 60px rgba(0,0,0,.14);
+  --shadow3: 0 32px 100px rgba(0,0,0,.22);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+*{cursor:none!important;}
+html{scroll-behavior:smooth;}
+body{font-family:'Lato',sans-serif;background:var(--bg-page);color:var(--text);overflow-x:hidden;}
+
+#cur{position:fixed;z-index:99999;pointer-events:none;width:11px;height:11px;background:var(--yellow);border-radius:50%;transform:translate(-50%,-50%);transition:width .18s,height .18s;}
+#cur-r{position:fixed;z-index:99998;pointer-events:none;width:36px;height:36px;border:1.5px solid rgba(200,150,12,.5);border-radius:50%;transform:translate(-50%,-50%);transition:all .14s ease;}
+body.hov #cur{width:7px;height:7px;}
+body.hov #cur-r{width:52px;height:52px;border-color:rgba(200,150,12,.8);}
+
+#prog{position:fixed;top:0;left:0;height:2px;width:0%;z-index:9999;background:linear-gradient(90deg,var(--yellow-d),var(--yellow),#f5d060);box-shadow:0 0 10px rgba(200,150,12,.5);}
+
+#scroll-top{position:fixed;bottom:36px;right:36px;z-index:900;width:48px;height:48px;border-radius:50%;background:var(--yellow);border:none;display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:#fff;box-shadow:0 4px 20px rgba(200,150,12,.4);cursor:pointer!important;opacity:0;transform:translateY(12px);transition:opacity .3s,transform .3s,background .2s;pointer-events:none;}
+#scroll-top.show{opacity:1;transform:translateY(0);pointer-events:auto;}
+#scroll-top:hover{background:var(--yellow-d);}
+
+.nav{position:sticky;top:0;z-index:600;background:rgba(15,14,13,.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.05);}
+.nav-inner{max-width:1460px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:15px 52px;}
+.nav-back{display:flex;align-items:center;gap:11px;font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(242,236,224,.3);text-decoration:none;transition:color .25s;}
+.nav-back:hover{color:rgba(242,236,224,.7);}
+.nav-back-btn{width:30px;height:30px;border:1px solid rgba(242,236,224,.12);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;transition:all .25s;}
+.nav-back:hover .nav-back-btn{border-color:rgba(242,236,224,.35);background:rgba(242,236,224,.04);}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:400;color:rgba(242,236,224,.6);letter-spacing:.06em;}
+.nav-logo em{font-style:italic;color:rgba(242,236,224,.25);}
+.nav-tag{font-family:'Caveat',cursive;font-size:1.1rem;font-weight:600;color:var(--yellow);}
+
+.hero{position:relative;overflow:hidden;background:var(--dark2);min-height:90vh;display:flex;flex-direction:column;justify-content:flex-end;padding:80px 52px 88px;}
+.hero-glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 60% at 0% 100%, rgba(122,92,6,.32) 0%, transparent 55%),radial-gradient(ellipse 50% 40% at 100% 0%, rgba(200,150,12,.06) 0%, transparent 50%),linear-gradient(170deg,#181408 0%,#0f0e0d 60%,#1a1508 100%);}
+.hero-lines{position:absolute;inset:0;pointer-events:none;}
+.hero-lines i{position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.04) 40%,rgba(255,255,255,.07) 50%,rgba(255,255,255,.04) 60%,transparent);}
+.hero-lines i:nth-child(1){top:30%}.hero-lines i:nth-child(2){top:60%}
+.hero-content{position:relative;z-index:2;max-width:1460px;margin:0 auto;width:100%;}
+.hero-eyebrow{display:flex;align-items:center;gap:16px;margin-bottom:28px;opacity:0;animation:fadeUp .9s .1s forwards;}
+.hero-eyebrow-bar{width:44px;height:1px;background:linear-gradient(90deg,var(--yellow),transparent);}
+.hero-eyebrow span{font-family:'Caveat',cursive;font-size:1.35rem;font-weight:600;color:var(--yellow);letter-spacing:.02em;}
+.hero-h1{font-family:'Playfair Display',serif;font-size:clamp(4rem,11vw,11rem);font-weight:900;line-height:.85;letter-spacing:-.03em;color:#fff;opacity:0;animation:fadeUp 1.1s .25s forwards;}
+.hero-h1 em{display:block;font-style:italic;font-weight:400;font-size:.38em;color:rgba(255,255,255,.28);letter-spacing:.01em;margin-top:14px;}
+.hero-script{font-family:'Caveat',cursive;font-size:clamp(1.5rem,3.2vw,2.6rem);font-weight:700;color:var(--yellow);margin-top:22px;margin-left:4px;display:block;opacity:0;animation:fadeUp .9s .65s forwards;}
+.hero-rule{width:56px;height:2px;margin-top:36px;background:linear-gradient(90deg,var(--yellow),rgba(200,150,12,.1));opacity:0;animation:fadeUp .7s .85s forwards;}
+.hero-stats{display:flex;gap:48px;margin-top:44px;opacity:0;animation:fadeUp .8s 1.05s forwards;}
+.hero-stat-n{font-family:'Playfair Display',serif;font-size:2.7rem;font-weight:900;color:#fff;line-height:1;}
+.hero-stat-l{font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-top:4px;}
+.hero-bg-n{position:absolute;right:36px;bottom:-30px;z-index:1;font-family:'Playfair Display',serif;font-size:clamp(160px,24vw,320px);font-weight:900;color:rgba(255,255,255,.022);line-height:1;pointer-events:none;user-select:none;letter-spacing:-.05em;}
+.hero-scroll{position:absolute;bottom:40px;right:52px;z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fadeUp .7s 1.4s forwards;}
+.hero-scroll span{font-size:.5rem;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,255,255,.2);writing-mode:vertical-rl;}
+.hero-scroll-track{width:1px;height:50px;background:rgba(255,255,255,.08);position:relative;overflow:hidden;}
+.hero-scroll-track::after{content:'';position:absolute;inset:0;background:var(--yellow);animation:track 2.2s ease-in-out infinite;}
+@keyframes track{0%{transform:translateY(-100%);}50%{transform:translateY(0);}100%{transform:translateY(100%);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+
+.band{background:var(--yellow);overflow:hidden;}
+.band-inner{display:flex;gap:60px;width:max-content;padding:15px 0;animation:march 22s linear infinite;}
+.band-item{font-family:'Caveat',cursive;font-size:1.2rem;font-weight:600;color:rgba(255,255,255,.8);white-space:nowrap;display:flex;align-items:center;gap:22px;}
+.band-item::after{content:'·';color:rgba(255,255,255,.45);}
+@keyframes march{to{transform:translateX(-50%);}}
+
+.page-body{background:var(--bg-page);}
+.sec{max-width:1400px;margin:0 auto;padding:0 48px;}
+.sec-top{display:flex;align-items:flex-end;justify-content:space-between;padding:64px 0 32px;border-bottom:1.5px solid var(--border);margin-bottom:48px;}
+.sec-kicker{font-family:'Caveat',cursive;font-size:1.1rem;font-weight:600;color:var(--yellow);margin-bottom:6px;display:block;}
+.sec-h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:700;color:var(--text);line-height:1;}
+.sec-h2 em{font-style:italic;font-weight:400;color:var(--muted);}
+.sec-count{font-size:.56rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);padding-bottom:5px;}
+
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding-bottom:100px;}
+
+.card{position:relative;background:var(--bg-card);border:1px solid var(--border);border-radius:4px;overflow:hidden;cursor:pointer!important;box-shadow:var(--shadow);opacity:0;transform:translateY(32px);transition:opacity .6s,transform .6s cubic-bezier(.22,1,.36,1),box-shadow .35s,border-color .3s,scale .35s cubic-bezier(.22,1,.36,1);}
+.card.vis{opacity:1;transform:translateY(0);}
+.card:nth-child(1){transition-delay:.0s}.card:nth-child(2){transition-delay:.07s}.card:nth-child(3){transition-delay:.14s}.card:nth-child(4){transition-delay:.21s}
+.card:hover{scale:1.034;box-shadow:var(--shadow3);border-color:transparent;z-index:10;}
+.card-stripe{height:5px;width:100%;transition:height .3s;}
+.card:hover .card-stripe{height:7px;}
+.card-img{position:relative;height:210px;overflow:hidden;background:#e8e4dc;}
+.card-img img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.88) saturate(.8);transition:transform .75s cubic-bezier(.22,1,.36,1),filter .5s;}
+.card:hover .card-img img{transform:scale(1.1);filter:brightness(1) saturate(1);}
+.card-img-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:4.5rem;opacity:.18;}
+.card-img-grad{position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(255,255,255,.45) 100%);pointer-events:none;}
+.card-chip{position:absolute;top:14px;right:14px;background:rgba(0,0,0,.62);backdrop-filter:blur(8px);border-radius:30px;padding:4px 12px;font-size:.58rem;font-weight:700;color:#fff;display:flex;align-items:center;gap:5px;border:1px solid rgba(255,255,255,.1);}
+.chip-stars{color:#d4a017;}
+.card-body{padding:24px 26px 20px;display:flex;flex-direction:column;gap:10px;}
+.card-cat{display:inline-flex;align-items:center;gap:7px;border-radius:30px;padding:4px 12px;font-size:.52rem;letter-spacing:.25em;text-transform:uppercase;font-weight:700;align-self:flex-start;}
+.card-cat-dot{width:5px;height:5px;border-radius:50%;}
+.card-name{font-family:'Playfair Display',serif;font-size:clamp(1.25rem,1.8vw,1.6rem);font-weight:700;line-height:1.1;color:var(--text);transition:color .25s;}
+.card:hover .card-name{color:var(--yellow);}
+.card-script{font-family:'Caveat',cursive;font-size:1rem;font-weight:600;color:var(--muted);margin-top:-4px;}
+.card-desc{font-size:.73rem;line-height:1.75;font-weight:300;color:var(--muted);}
+.card-info{display:flex;margin-top:8px;border-top:1px solid var(--border);padding-top:16px;}
+.card-info-item{flex:1;text-align:center;padding:0 6px;border-right:1px solid var(--border);}
+.card-info-item:first-child{padding-left:0;text-align:left;}
+.card-info-item:last-child{border-right:none;text-align:right;}
+.ci-label{font-size:.48rem;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;}
+.ci-val{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--text);line-height:1;}
+.ci-sub{font-size:.55rem;color:var(--muted);margin-top:1px;}
+.card-cta{display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;font-weight:700;color:#fff;opacity:0;transform:translateY(4px);transition:opacity .3s,transform .3s;}
+.card:hover .card-cta{opacity:1;transform:translateY(0);}
+
+#overlay{position:fixed;inset:0;z-index:2000;display:none;overflow-y:auto;opacity:0;transition:opacity .4s;}
+#overlay.open{display:block;}
+#overlay.vis{opacity:1;}
+.ov-backdrop{position:fixed;inset:0;background:rgba(8,8,8,.78);backdrop-filter:blur(10px);z-index:-1;}
+.ov-page{max-width:1240px;margin:28px auto 80px;border-radius:4px;overflow:hidden;box-shadow:0 40px 120px rgba(0,0,0,.6);background:#fff;position:relative;}
+#overlay.fullscreen .ov-page{max-width:100%;margin:0;border-radius:0;min-height:100vh;}
+#overlay.fullscreen .ov-backdrop{display:none;}
+#overlay.fullscreen{background:#fff;}
+
+.rh{position:relative;overflow:hidden;padding:60px 64px 56px;color:#fff;}
+.rh-bg{position:absolute;inset:0;z-index:0;}
+.rh-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05) 60%,rgba(0,0,0,.35) 100%);}
+.rh-inner{position:relative;z-index:1;}
+.rh-btns{position:absolute;top:22px;right:22px;z-index:2;display:flex;gap:8px;}
+.rh-btn{width:44px;height:44px;border-radius:50%;border:1.5px solid rgba(255,255,255,.22);background:rgba(0,0,0,.3);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;font-size:.95rem;color:rgba(255,255,255,.7);cursor:pointer!important;transition:background .25s,transform .3s;}
+.rh-btn:hover{background:rgba(0,0,0,.55);}
+.rh-btn-close:hover{transform:rotate(90deg);}
+.rh-script{font-family:'Caveat',cursive;font-size:1.4rem;font-weight:700;opacity:.6;margin-bottom:8px;display:block;}
+.rh-title{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,6.5vw,6rem);font-weight:900;line-height:.88;letter-spacing:-.025em;margin-bottom:32px;}
+.rh-stats{display:flex;flex-wrap:wrap;gap:10px;}
+.rh-stat{background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.13);border-radius:3px;padding:14px 24px;backdrop-filter:blur(8px);min-width:110px;transition:background .2s;}
+.rh-stat:hover{background:rgba(0,0,0,.48);}
+.rh-stat-l{font-size:.48rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:5px;}
+.rh-stat-v{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;line-height:1;}
+.rh-bigword{position:absolute;right:20px;bottom:-18px;z-index:0;font-family:'Playfair Display',serif;font-size:clamp(80px,16vw,200px);font-weight:900;color:rgba(255,255,255,.035);line-height:1;pointer-events:none;user-select:none;}
+
+.ri{position:relative;overflow:hidden;height:clamp(240px,32vw,460px);background:#111;}
+.ri img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .65s ease;}
+.ri:hover img{transform:scale(1.03);}
+.ri-grad{position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.45) 100%);pointer-events:none;}
+.ri-cap{position:absolute;bottom:20px;left:30px;font-family:'Caveat',cursive;font-size:1.3rem;font-weight:700;color:rgba(255,255,255,.5);}
+
+.rb{display:grid;grid-template-columns:320px 1fr;}
+.rb-ing{background:#f8f6f2;border-right:1.5px solid #eae6de;padding:44px 34px;position:sticky;top:0;align-self:start;}
+.rb-col-h{font-family:'Playfair Display',serif;font-size:1.65rem;font-weight:700;color:var(--text);margin-bottom:2px;}
+.rb-col-s{font-family:'Caveat',cursive;font-size:.95rem;font-weight:600;color:var(--muted);margin-bottom:26px;display:block;}
+.ing-list{list-style:none;}
+.ing-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #eae6de;cursor:pointer!important;transition:opacity .2s;}
+.ing-item:last-child{border-bottom:none;}
+.ing-cb{width:22px;height:22px;border-radius:50%;border:2px solid #d0ccc4;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.62rem;color:transparent;transition:all .22s;}
+.ing-item.done .ing-cb{border-color:var(--yellow);background:var(--yellow);color:#fff;}
+.ing-item.done .ing-t{opacity:.28;text-decoration:line-through;}
+.ing-t{font-size:.78rem;line-height:1.4;color:#444;}
+.ing-a{font-weight:700;color:var(--text);}
+.ing-prog{margin-top:20px;padding-top:16px;border-top:1px solid #eae6de;}
+.ing-prog-lbl{font-size:.5rem;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;margin-bottom:7px;}
+.ing-track{height:3px;background:#e0dbd2;border-radius:3px;overflow:hidden;}
+.ing-fill{height:100%;width:0%;border-radius:3px;transition:width .4s cubic-bezier(.22,1,.36,1);}
+.reset-btn{margin-top:14px;display:flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:10px;border-radius:3px;border:1.5px solid var(--border);background:transparent;font-size:.55rem;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);font-weight:700;font-family:'Lato',sans-serif;cursor:pointer!important;transition:background .22s,color .22s,border-color .22s;}
+.reset-btn:hover{background:var(--yellow);color:#fff;border-color:var(--yellow);}
+.reset-btn svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+
+.rb-steps{padding:44px 48px;background:#fff;}
+.step-list{list-style:none;}
+.step-item{display:grid;grid-template-columns:56px 1fr;gap:18px;padding:28px 0;border-bottom:1px solid #f0ece4;opacity:0;transform:translateY(18px);transition:opacity .5s,transform .5s;}
+.step-item.vis{opacity:1;transform:translateY(0);}
+.step-item:last-child{border-bottom:none;}
+.step-n{font-family:'Playfair Display',serif;font-size:3.4rem;font-weight:900;color:#1a1815;opacity:.055;line-height:1;padding-top:2px;}
+.step-t{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:9px;line-height:1.1;}
+.step-p{font-size:.78rem;line-height:1.9;font-weight:300;color:#555;}
+
+.rb-notes{grid-column:1/-1;background:#f5f3ee;border-top:1px solid #e8e4dc;padding:36px 48px;}
+.rb-notes-h{font-family:'Caveat',cursive;font-size:1.7rem;font-weight:700;color:var(--text);margin-bottom:18px;}
+.notes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;}
+.note{background:#fff;border:1px solid #e8e4dc;border-radius:3px;padding:14px 16px;font-size:.74rem;line-height:1.75;font-weight:300;color:#555;display:flex;gap:10px;align-items:flex-start;box-shadow:0 1px 6px rgba(0,0,0,.04);}
+.note::before{content:'✦';color:var(--yellow);font-size:.55rem;flex-shrink:0;margin-top:3px;}
+
+#pts{position:fixed;inset:0;pointer-events:none;z-index:1;}
+.pt{position:absolute;width:2px;height:2px;border-radius:50%;background:rgba(200,150,12,.45);opacity:0;animation:rise linear infinite;}
+@keyframes rise{0%{transform:translateY(0) translateX(0);opacity:0;}10%{opacity:.3;}90%{opacity:.04;}100%{transform:translateY(-100vh) translateX(var(--dx));opacity:0;}}
+
+.footer{background:var(--dark);padding:40px;text-align:center;border-top:1px solid rgba(255,255,255,.04);}
+.footer p{font-size:.56rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(242,236,224,.2);}
+.footer strong{color:rgba(242,236,224,.38);font-weight:400;}
+
+@media(max-width:1100px){.grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:900px){.rb{grid-template-columns:1fr;}.rb-ing{position:static;}.rh,.rb-steps,.rb-ing,.rb-notes,.nav-inner,.sec,.hero{padding-left:22px;padding-right:22px;}}
+@media(max-width:600px){.grid{grid-template-columns:1fr;}.hero-h1{font-size:clamp(3.5rem,14vw,6rem);}.sec-top{flex-direction:column;align-items:flex-start;gap:4px;}.sec-count{display:none;}.hero-stats{gap:26px;}.rh-title{font-size:clamp(2rem,10vw,3.5rem);}}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-r"></div>
+<div id="prog"></div>
+<div id="pts"></div>
+<button id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Nach oben">↑</button>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-back">
+      <div class="nav-back-btn">←</div><span>Alle Kategorien</span>
+    </a>
+    <div class="nav-logo">Rezepte <em>vom Besten</em></div>
+    <div class="nav-tag">🥐 Gebäck</div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-lines"><i></i><i></i></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-bar"></div>
+      <span>frisch aus dem Ofen · hausgemacht · warm genießen</span>
+    </div>
+    <h1 class="hero-h1">Gebäck<em>Brote · Brötchen · Pizzateig</em></h1>
+    <span class="hero-script">Vier Rezepte — von der Pfanne bis zum 24h-Teig</span>
+    <div class="hero-rule"></div>
+    <div class="hero-stats">
+      <div><div class="hero-stat-n">4</div><div class="hero-stat-l">Rezepte</div></div>
+      <div><div class="hero-stat-n">∞</div><div class="hero-stat-l">Genuss</div></div>
+      <div><div class="hero-stat-n">100%</div><div class="hero-stat-l">Leidenschaft</div></div>
+    </div>
+  </div>
+  <div class="hero-bg-n">04</div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-track"></div>
+    <span>Entdecken</span>
+  </div>
+</section>
+
+<!-- BAND -->
+<div class="band">
+  <div class="band-inner">
+    <span class="band-item">Türkisches Pfannenbrot</span>
+    <span class="band-item">Schneller Pizzateig</span>
+    <span class="band-item">Nutellabrötchen</span>
+    <span class="band-item">24h-Pizzateig</span>
+    <span class="band-item">Türkisches Pfannenbrot</span>
+    <span class="band-item">Schneller Pizzateig</span>
+    <span class="band-item">Nutellabrötchen</span>
+    <span class="band-item">24h-Pizzateig</span>
+  </div>
+</div>
+
+<!-- CARDS -->
+<div class="page-body">
+  <div class="sec">
+    <div class="sec-top">
+      <div>
+        <span class="sec-kicker">alle rezepte entdecken</span>
+        <h2 class="sec-h2">Was bäckst du <em>heute?</em></h2>
+      </div>
+      <div class="sec-count">4 Backrezepte</div>
+    </div>
+
+    <div class="grid">
+
+      <!-- 1 SCHNELLER PIZZATEIG — rot · 8/10 · 1,5h · 5/10 · 2-3 Pizzen -->
+      <div class="card" onclick="openR('pizzaschnell')">
+        <div class="card-stripe" style="background:#c0392b;"></div>
+        <div class="card-img">
+          <img src="Gebaeck_pizzaschnell.png" alt="Schneller Pizzateig" onerror="this.style.display='none'">
+          <div class="card-img-placeholder">🍕</div>
+          <div class="card-img-grad"></div>
+          <div class="card-chip"><span class="chip-stars">★★★★</span> 8/10</div>
+        </div>
+        <div class="card-body">
+          <span class="card-cat" style="background:#fdecea;color:#c0392b;"><span class="card-cat-dot" style="background:#c0392b;"></span>Pizza · Fast</span>
+          <div class="card-name">Schneller Pizzateig</div>
+          <div class="card-script">mit bier · 250°C ober-/unterhitze · haushaltsofen</div>
+          <div class="card-desc">Pizzateig mit der Geheimzutat Bier — ready in 1,5 Stunden. Knuspriger Rand, fluffig innen. Ofen auf maximale Hitze: 250 °C.</div>
+          <div class="card-info">
+            <div class="card-info-item"><div class="ci-label">Zeit</div><div class="ci-val">1,5h</div><div class="ci-sub">Gesamt</div></div>
+            <div class="card-info-item"><div class="ci-label">Schwierigkeit</div><div class="ci-val">5/10</div><div class="ci-sub">Mittel</div></div>
+            <div class="card-info-item"><div class="ci-label">Ergibt</div><div class="ci-val">2–3</div><div class="ci-sub">Pizzen</div></div>
+          </div>
+        </div>
+        <div class="card-cta" style="background:#c0392b;">Rezept öffnen →</div>
+      </div>
+
+      <!-- 2 24H PIZZATEIG — grün · 10/10 · 24h+ · 7/10 · 3-4 Pizzen -->
+      <div class="card" onclick="openR('pizza24h')">
+        <div class="card-stripe" style="background:#27ae60;"></div>
+        <div class="card-img">
+          <img src="Gebaeck_pizza24h.jpg" alt="24h Pizzateig" onerror="this.style.display='none'">
+          <div class="card-img-placeholder">🍕⏱</div>
+          <div class="card-img-grad"></div>
+          <div class="card-chip"><span class="chip-stars">★★★★★</span> 10/10</div>
+        </div>
+        <div class="card-body">
+          <span class="card-cat" style="background:#d5f5e3;color:#1e8449;"><span class="card-cat-dot" style="background:#27ae60;"></span>Pizza · Patience</span>
+          <div class="card-name">24h-Pizzateig</div>
+          <div class="card-script">kalte gare · wenig hefe · 250°C restaurant-qualität</div>
+          <div class="card-desc">Der ultimative Pizzateig — 24 Stunden Gare, winzige Hefemenge, maximaler Geschmack. Ofen auf 250 °C Ober-/Unterhitze. Ergebnis: Restaurant-Level.</div>
+          <div class="card-info">
+            <div class="card-info-item"><div class="ci-label">Zeit</div><div class="ci-val">24h+</div><div class="ci-sub">Gesamt</div></div>
+            <div class="card-info-item"><div class="ci-label">Schwierigkeit</div><div class="ci-val">7/10</div><div class="ci-sub">Aufwändig</div></div>
+            <div class="card-info-item"><div class="ci-label">Ergibt</div><div class="ci-val">3–4</div><div class="ci-sub">Pizzen</div></div>
+          </div>
+        </div>
+        <div class="card-cta" style="background:#27ae60;">Rezept öffnen →</div>
+      </div>
+
+      <!-- 3 TÜRKISCHES PFANNENBROT — gelb · 10/10 · 90 Min · 4/10 · 9 Brote -->
+      <div class="card" onclick="openR('pfannenbrot')">
+        <div class="card-stripe" style="background:#c8960c;"></div>
+        <div class="card-img">
+          <img src="Gebaeck_pfannenbrot.png" alt="Türkisches Pfannenbrot" onerror="this.style.display='none'">
+          <div class="card-img-placeholder">🫓</div>
+          <div class="card-img-grad"></div>
+          <div class="card-chip"><span class="chip-stars">★★★★★</span> 9/10</div>
+        </div>
+        <div class="card-body">
+          <span class="card-cat" style="background:#fdf4dc;color:#a07208;"><span class="card-cat-dot" style="background:#c8960c;"></span>Pan · turkish  </span>
+          <div class="card-name">Türkisches Pfannenbrot</div>
+          <div class="card-script">ohne ofen · joghurt-teig · weich & fluffig</div>
+          <div class="card-desc">Fluffiges Fladenbrot aus der Pfanne — kein Ofen nötig! Mit Joghurt im Teig wird es besonders weich. Perfekt als Beilage oder zum Dippen.</div>
+          <div class="card-info">
+            <div class="card-info-item"><div class="ci-label">Zeit</div><div class="ci-val">90</div><div class="ci-sub">Minuten</div></div>
+            <div class="card-info-item"><div class="ci-label">Schwierigkeit</div><div class="ci-val">4/10</div><div class="ci-sub">Einfach</div></div>
+            <div class="card-info-item"><div class="ci-label">Ergibt</div><div class="ci-val">9</div><div class="ci-sub">Brote</div></div>
+          </div>
+        </div>
+        <div class="card-cta" style="background:#c8960c;">Rezept öffnen →</div>
+      </div>
+
+      <!-- 4 NUTELLABRÖTCHEN — blau · 9/10 · 3h · 3/10 · 16 Brötchen -->
+      <div class="card" onclick="openR('nutella')">
+        <div class="card-stripe" style="background:#2e86c1;"></div>
+        <div class="card-img">
+          <img src="Gebaeck_nutellabrotchen.png" alt="Nutellabrötchen" onerror="this.style.display='none'">
+          <div class="card-img-placeholder">🍫</div>
+          <div class="card-img-grad"></div>
+          <div class="card-chip"><span class="chip-stars">★★★★★</span> 9/10</div>
+        </div>
+        <div class="card-body">
+          <span class="card-cat" style="background:#d6eaf8;color:#1a5276;"><span class="card-cat-dot" style="background:#2e86c1;"></span>Sweet · breakfast</span>
+          <div class="card-name">Nutellabrötchen</div>
+          <div class="card-script">fluffig · nutella-füllung · mit puderzucker</div>
+          <div class="card-desc">Weiche Hefebrötchen gefüllt mit Nutella, goldbraun gebacken und mit Puderzucker bestäubt. Am besten noch warm genießen.</div>
+          <div class="card-info">
+            <div class="card-info-item"><div class="ci-label">Zeit</div><div class="ci-val">3h</div><div class="ci-sub">inkl. Ruhezeit</div></div>
+            <div class="card-info-item"><div class="ci-label">Schwierigkeit</div><div class="ci-val">3/10</div><div class="ci-sub">Leicht</div></div>
+            <div class="card-info-item"><div class="ci-label">Ergibt</div><div class="ci-val">16</div><div class="ci-sub">Brötchen</div></div>
+          </div>
+        </div>
+        <div class="card-cta" style="background:#2e86c1;">Rezept öffnen →</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <p>Handgemacht mit <strong>♥ Leidenschaft</strong> &nbsp;·&nbsp; <strong>Rezepte vom Besten</strong> &nbsp;·&nbsp; frisch aus dem Ofen</p>
+</footer>
+
+<!-- OVERLAY -->
+<div id="overlay">
+  <div class="ov-backdrop" onclick="closeR()"></div>
+  <div class="ov-page" id="ov-page"></div>
+</div>
+
+<script>
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-r');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function tick(){rx+=(mx-rx)*.13;ry+=(my-ry)*.13;cur.style.left=mx+'px';cur.style.top=my+'px';ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(tick);})();
+function hov(els){els.forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));});}
+hov(document.querySelectorAll('a,.card,button,.ing-item,.nav-back,.reset-btn,#scroll-top'));
+
+const scrollBtn=document.getElementById('scroll-top');
+window.addEventListener('scroll',()=>{
+  const s=window.scrollY,h=document.documentElement.scrollHeight-window.innerHeight;
+  document.getElementById('prog').style.width=(s/h*100)+'%';
+  scrollBtn.classList.toggle('show',s>400);
+});
+
+const obs=new IntersectionObserver(e=>{e.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});},{threshold:.08});
+document.querySelectorAll('.card').forEach(c=>obs.observe(c));
+
+const pc=document.getElementById('pts');
+for(let i=0;i<20;i++){const p=document.createElement('div');p.className='pt';p.style.cssText=`left:${Math.random()*100}%;bottom:0;--dx:${(Math.random()-.5)*80}px;animation-duration:${14+Math.random()*18}s;animation-delay:${-Math.random()*26}s;`;pc.appendChild(p);}
+
+const R={
+  pfannenbrot:{
+    name:'Türkisches Pfannenbrot',
+    script:'ohne ofen · joghurt-teig · weich & fluffig',
+    time:'90 Min',diff:'4/10 — Einfach',portions:'9 Brote',rating:'★★★★★ 9/10',
+    img:'Gebaeck_pfannenbrot.png',accent:'#c8960c',
+    hbg:'linear-gradient(135deg,#2a1e00,#181200 50%,#221800)',
+    ings:[
+      ['320 g','Mehl'],['165 ml','lauwarmes Wasser'],
+      ['1,5 TL','Hefe'],['1 Schuss','Olivenöl'],
+      ['2 EL','Joghurt'],['2–3 TL','Salz']
+    ],
+    steps:[
+      ['Teig zubereiten','Alle Zutaten in eine Schüssel geben und vermengen. Anschließend den Teig ca. 10 Minuten kneten bis er geschmeidig ist.'],
+      ['Ruhen lassen','Den Teig abgedeckt an einem warmen Ort ca. 1 Stunde gehen lassen bis er sein Volumen verdoppelt hat.'],
+      ['Portionieren','Den Teig in 60-Gramm-Stücke teilen und diese zu Kugeln formen. Abgedeckt ruhen lassen damit sie nicht austrocknen.'],
+      ['Fladen formen','Jede Kugel so dünn wie möglich ausrollen.'],
+      ['Braten','Die Fladen in einer Pfanne bei stärkerer Hitze auf beiden Seiten kurz anbraten bis sie leicht aufgehen.'],
+      ['Servieren','Die fertigen Brote auf einen Teller geben und warm servieren.']
+    ],
+    notes:['Ergibt ca. 5–6 Brote.','<a href="fleisch.html" style="color:#c8960c;font-weight:700;text-decoration:underline;">→ Perfekt dazu Butter Chicken-Rezept: findest du unter Fleisch &amp; Fisch</a>','Je dünner ausgerollt desto knuspriger wird das Brot.']
+  },
+
+  nutella:{
+    name:'Nutellabrötchen',
+    script:'fluffig · nutella-füllung · mit puderzucker',
+    time:'3 Stunden',diff:'3/10 — Leicht',portions:'16 Brötchen',rating:'★★★★★ 9/10',
+    img:'Gebaeck_nutellabrotchen.png',accent:'#2e86c1',
+    hbg:'linear-gradient(135deg,#001830,#000f1c 50%,#001428)',
+    ings:[
+      ['270 ml','Milch'],['ca. 20 g','frische Hefe (½ Stück)'],
+      ['100 g','Zucker'],['1 Pck.','Vanillezucker'],
+      ['ca. 600 g','Mehl'],['½ TL','Salz'],
+      ['1','Ei'],['100 g','geschmolzene Butter'],
+      ['— Füllung & Dekoration —',''],
+      ['nach Bedarf','Nutella'],['1','Ei zum Bestreichen'],
+      ['nach Bedarf','Puderzucker zum Bestäuben']
+    ],
+    steps:[
+      ['Teig vorbereiten','In einer großen Schüssel Milch, Hefe, Zucker und Vanillezucker verrühren. Das Mehl und Salz hinzufügen, dann das Ei und die geschmolzene Butter dazugeben. Alles zu einem glatten Teig kneten.'],
+      ['Erste Ruhephase','Den Teig abdecken und an einem warmen Ort 1 Stunde ruhen lassen.'],
+      ['Formen','Den Teig in 14–16 Portionen teilen und zu Brötchen formen. Jedes Brötchen flachdrücken, mit etwas Nutella füllen, die Ränder nach innen klappen und aufrollen.'],
+      ['Zweite Ruhephase','Die geformten Brötchen auf ein mit Backpapier belegtes Blech legen, abdecken und weitere 30–45 Minuten gehen lassen.'],
+      ['Backen','Die Brötchen mit verquirltem Ei bestreichen und im vorgeheizten Backofen bei 190 °C (Ober- und Unterhitze) ca. 10 Minuten backen.'],
+      ['Verzieren','Mit Puderzucker bestäuben und am besten noch warm genießen.']
+    ],
+    notes:['Nutella kann durch eine andere Lieblingsfüllung wie Marmelade oder Nussmus ersetzt werden.','Noch warm servieren — schmecken sie am besten!','Die Brötchen am nächsten Tag kurz bei 160 °C aufwärmen, dann werden sie wieder weich.']
+  },
+
+  pizzaschnell:{
+    name:'Schneller Pizzateig',
+    script:'mit bier · 1 stunde ruhe · haushaltsofen',
+    time:'1 Std 40 Min',diff:'5/10 — Mittel',portions:'2–3 Pizzen',rating:'★★★★ 8/10',
+    img:'Gebaeck_pizzaschnell.png',accent:'#c0392b',
+    hbg:'linear-gradient(135deg,#3d0a0a,#1a0505 50%,#2a0808)',
+    ings:[
+      ['325 g','Weizenmehl (Typ 00)'],['200 g','Bier'],
+      ['14 g','frische Hefe'],['12 g','Olivenöl'],
+      ['8 g','feines Meersalz'],['5 g','Zucker']
+    ],
+    steps:[
+      ['Teig kneten','Alle Zutaten in eine Schüssel geben und 1–2 Minuten kneten bis ein homogener Teig entsteht. Anschließend den Teig 3–4 Minuten von Hand weiterkneten bis er geschmeidig ist.'],
+      ['Teig teilen & ruhen','Den fertigen Teig in 280-g-Stücke teilen. Die Teigstücke mit Spannung von innen nach außen ziehen und zu runden Kugeln formen. Die Teiglinge luftdicht verschließen und 1 Stunde ruhen lassen.'],
+      ['Ausrollen & vorbacken','Nach der Ruhezeit die Luft aus den Kugeln drücken und den Teig flach ausrollen. Mit Tomatensoße bestreichen und bei maximaler Ofenhitze — 250 °C Ober-/Unterhitze — für ca. 2 Minuten vorbacken.'],
+      ['Belegen & fertig backen','Die Lieblings-Toppings auf den vorgebackenen Pizzaböden verteilen. Die Pizzen weitere 3–4 Minuten fertig backen bis der Rand goldbraun ist.']
+    ],
+    notes:['Ofen unbedingt auf maximale Hitze vorheizen: 250 °C Ober-/Unterhitze — je heißer desto besser der Rand.','Echten Mozzarella für den Belag verwenden — macht den entscheidenden Unterschied.','Vor dem zweiten Backen, für einen optimalen Rand, ihn leicht mit Olvienöl bepinseln','Ideale auf der Obersten oder Vorletzen Schiene die Pizza zu backen.']
+  },
+
+  pizza24h:{
+    name:'24h-Pizzateig',
+    script:'kalte gare · wenig hefe · restaurant-qualität',
+    time:'24h+',diff:'7/10 — Aufwändig',portions:'3–4 Pizzen (à 280 g)',rating:'★★★★★ 10/10',
+    img:'Gebaeck_pizza24h.jpg',accent:'#27ae60',
+    hbg:'linear-gradient(135deg,#062010,#030e08 50%,#041a0c)',
+    ings:[
+      ['400 ml','kaltes Wasser'],['1 g','frische Hefe'],
+      ['20 g','Salz'],['700 g','Weizenmehl (Typ 00)'],
+      ['etwas','Olivenöl']
+    ],
+    steps:[
+      ['Hefe lösen & Mehl einarbeiten','Die Hefe im kalten Wasser auflösen und die Hälfte des Mehls hinzugeben. Gut vermischen bis ein glatter Teig entsteht. Das restliche Mehl einarbeiten. Den Teig 2 Minuten kneten bis er geschmeidig wird. Dann 15 Minuten ruhen lassen (Autolyse).'],
+      ['Salz & Olivenöl','Salz hinzugeben und mit etwas Olivenöl auf den Teig einreiben um ihn geschmeidig zu halten.'],
+      ['Lange Ruhephase (18+ Stunden)','Den Teig luftdicht abdecken und für mindestens 18 Stunden bei Raumtemperatur ruhen lassen. In dieser Zeit entwickelt der Teig seinen vollen Geschmack.'],
+      ['Portionieren & zweite Gare','Nach der Ruhezeit den Teig in 280-g-Stücke teilen, zu runden Kugeln formen und abgedeckt für weitere 6–8 Stunden gehen lassen.'],
+      ['Formen & vorbacken','Die Kugeln zu flachen Pizzaböden ausrollen. Den Boden mit Tomatensauce bestreichen und kurz im Ofen vorbacken.'],
+      ['Finalisieren','Die Pizzen mit den gewünschten Toppings belegen und nochmals für ca. 4 Minuten fertigbacken. Ofen unbedingt auf maximale Hitze vorheizen: 250 °C Ober-/Unterhitze — das ist entscheidend für den perfekten Rand!']
+    ],
+    notes:['Ofen auf maximale Hitze: 250 °C Ober-/Unterhitze — je heißer desto besser Boden und Rand.','Vor dem zweiten Backen, für einen optimalen Rand, ihn leicht mit Olvienöl bepinseln','Ideale auf der Obersten oder Vorletzen Schiene die Pizza zu backen.','Mit frischem Mozzarella oder Parmaschinken belegen für das beste Ergebnis.']
+  }
+};
+
+let ck={};
+let isFS=false;
+
+function buildOverlay(id){
+  const r=R[id];
+  ck[id]=ck[id]||{};
+  const total=r.ings.filter(g=>g[1]!=='').length;
+  const cnt=Object.values(ck[id]).filter(Boolean).length;
+  const pct=total?Math.round(cnt/total*100):0;
+
+  const ings=r.ings.map((g,i)=>{
+    if(g[1]===''){return `<li style="padding:8px 0 4px;font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid #eae6de;font-weight:700;">${g[0].replace(/^—\s*|—\s*$/g,'').trim()}</li>`;}
+    const cls=ck[id][i]?'done':'';
+    return `<li class="ing-item ${cls}" onclick="togIng('${id}',${i},this)">
+      <div class="ing-cb">✓</div>
+      <span class="ing-t"><span class="ing-a">${g[0]}</span> ${g[1]}</span>
+    </li>`;
+  }).join('');
+
+  const steps=r.steps.map((s,i)=>`
+    <li class="step-item">
+      <div class="step-n">${String(i+1).padStart(2,'0')}</div>
+      <div><div class="step-t">${s[0]}</div><div class="step-p">${s[1]}</div></div>
+    </li>`).join('');
+
+  const notes=r.notes.map(n=>`<div class="note">${n}</div>`).join('');
+
+  return `
+    <div class="rh">
+      <div class="rh-bg" style="background:${r.hbg};"></div>
+      <div class="rh-inner">
+        <div class="rh-btns">
+          <button class="rh-btn" onclick="toggleFS()" title="Vollbild">⛶</button>
+          <button class="rh-btn rh-btn-close" onclick="closeR()" title="Schließen">✕</button>
+        </div>
+        <span class="rh-script" style="color:${r.accent};">${r.script}</span>
+        <h1 class="rh-title">${r.name}</h1>
+        <div class="rh-stats">
+          <div class="rh-stat"><div class="rh-stat-l">Zeit</div><div class="rh-stat-v">${r.time}</div></div>
+          <div class="rh-stat"><div class="rh-stat-l">Schwierigkeit</div><div class="rh-stat-v">${r.diff}</div></div>
+          <div class="rh-stat"><div class="rh-stat-l">Ergibt</div><div class="rh-stat-v">${r.portions}</div></div>
+          <div class="rh-stat"><div class="rh-stat-l">Bewertung</div><div class="rh-stat-v" style="color:${r.accent};">${r.rating}</div></div>
+        </div>
+      </div>
+      <div class="rh-bigword">${r.name.split(' ')[0]}</div>
+    </div>
+    <div class="ri">
+      <img src="${r.img}" alt="${r.name}" onerror="this.parentElement.style.background='${r.hbg}';this.parentElement.style.height='140px';this.style.display='none';">
+      <div class="ri-grad"></div>
+      <div class="ri-cap">${r.script}</div>
+    </div>
+    <div class="rb" style="border-top:4px solid ${r.accent};">
+      <div class="rb-ing">
+        <div class="rb-col-h">Zutaten</div>
+        <span class="rb-col-s">die Zutaten</span>
+        <ul class="ing-list" id="il-${id}">${ings}</ul>
+        <div class="ing-prog">
+          <div class="ing-prog-lbl"><span>Fortschritt</span><span id="pc-${id}">${cnt} / ${total}</span></div>
+          <div class="ing-track"><div class="ing-fill" id="if-${id}" style="background:${r.accent};width:${pct}%;"></div></div>
+        </div>
+        <button class="reset-btn" onclick="resetIng('${id}',${total})">
+          <svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.95"/></svg>
+          Zutaten zurücksetzen
+        </button>
+      </div>
+      <div class="rb-steps">
+        <div class="rb-col-h">Zubereitung</div>
+        <span class="rb-col-s">die Zubereitung</span>
+        <ul class="step-list">${steps}</ul>
+      </div>
+      <div class="rb-notes">
+        <div class="rb-notes-h">✦ Tipps & Notizen</div>
+        <div class="notes-grid">${notes}</div>
+      </div>
+    </div>`;
+}
+
+function openR(id){
+  const ov=document.getElementById('overlay');
+  const pg=document.getElementById('ov-page');
+  isFS=false;
+  pg.innerHTML=buildOverlay(id);
+  ov.classList.remove('fullscreen');
+  ov.style.display='block';ov.scrollTop=0;
+  document.body.style.overflow='hidden';
+  requestAnimationFrame(()=>{
+    ov.classList.add('vis');
+    setTimeout(()=>{
+      pg.querySelectorAll('.step-item').forEach((s,i)=>setTimeout(()=>s.classList.add('vis'),i*75));
+      setTimeout(()=>equalizeSteps(pg),400);
+    },320);
+  });
+  hov(pg.querySelectorAll('button,.ing-item,.rh-btn,.reset-btn'));
+}
+
+function equalizeSteps(pg){
+  const ing=pg.querySelector('.rb-ing');
+  const steps=pg.querySelector('.rb-steps');
+  if(!ing||!steps)return;
+  const items=steps.querySelectorAll('.step-item');
+  if(!items.length)return;
+  items.forEach(s=>{s.style.paddingTop='';s.style.paddingBottom='';});
+  const diff=ing.offsetHeight-steps.offsetHeight;
+  if(diff>10){
+    const extra=Math.floor(diff/items.length/2);
+    items.forEach(s=>{s.style.paddingTop=(28+extra)+'px';s.style.paddingBottom=(28+extra)+'px';});
+  }
+}
+
+function closeR(){
+  const ov=document.getElementById('overlay');
+  ov.classList.remove('vis','fullscreen');
+  isFS=false;
+  setTimeout(()=>{ov.style.display='none';document.body.style.overflow='';},420);
+}
+
+function toggleFS(){
+  const ov=document.getElementById('overlay');
+  isFS=!isFS;
+  ov.classList.toggle('fullscreen',isFS);
+  ov.scrollTop=0;
+  const btn=ov.querySelector('.rh-btn');
+  if(btn)btn.textContent=isFS?'⊡':'⛶';
+}
+
+function togIng(rid,idx,el){
+  el.classList.toggle('done');
+  ck[rid]=ck[rid]||{};
+  ck[rid][idx]=el.classList.contains('done');
+  updateProg(rid);
+}
+
+function updateProg(rid){
+  const r=R[rid];
+  const total=r.ings.filter(g=>g[1]!=='').length;
+  const cnt=Object.values(ck[rid]||{}).filter(Boolean).length;
+  const pct=Math.round(cnt/total*100);
+  const f=document.getElementById('if-'+rid);
+  const p=document.getElementById('pc-'+rid);
+  if(f)f.style.width=pct+'%';
+  if(p)p.textContent=cnt+' / '+total;
+}
+
+function resetIng(rid,total){
+  ck[rid]={};
+  document.querySelectorAll(`#il-${rid} .ing-item`).forEach(el=>el.classList.remove('done'));
+  const f=document.getElementById('if-'+rid);
+  const p=document.getElementById('pc-'+rid);
+  if(f)f.style.width='0%';
+  if(p)p.textContent='0 / '+total;
+}
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(isFS)toggleFS();else closeR();}});
+</script>
+</body>
+</html>
