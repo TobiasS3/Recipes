@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fleisch & Fisch — Rezepte vom Besten</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lato:wght@100;300;400;700&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══ ROOT — ROT statt Grün ═══ */
+:root {
+  --dark:    #0f0e0d;
+  --dark2:   #171512;
+  --cream:   #f2ece0;
+  --warm:    #d6cdb8;
+  --muted:   #8a8478;
+  --red:     #c0392b;
+  --red-l:   #f5c6c0;
+  --red-d:   #7a1c10;
+  --bg-page: #f5f3ee;
+  --bg-card: #ffffff;
+  --text:    #1a1815;
+  --border:  #e2ddd5;
+  --shadow:  0 4px 24px rgba(0,0,0,.08);
+  --shadow2: 0 16px 60px rgba(0,0,0,.14);
+  --shadow3: 0 32px 100px rgba(0,0,0,.22);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+*{cursor:none!important;}
+html{scroll-behavior:smooth;}
+body{font-family:'Lato',sans-serif;background:var(--bg-page);color:var(--text);overflow-x:hidden;}
+
+/* CURSOR */
+#cur{position:fixed;z-index:99999;pointer-events:none;width:11px;height:11px;background:var(--red);border-radius:50%;transform:translate(-50%,-50%);transition:width .18s,height .18s;}
+#cur-r{position:fixed;z-index:99998;pointer-events:none;width:36px;height:36px;border:1.5px solid rgba(192,57,43,.5);border-radius:50%;transform:translate(-50%,-50%);transition:all .14s ease;}
+body.hov #cur{width:7px;height:7px;}
+body.hov #cur-r{width:52px;height:52px;border-color:rgba(192,57,43,.8);}
+
+/* PROGRESS */
+#prog{position:fixed;top:0;left:0;height:2px;width:0%;z-index:9999;background:linear-gradient(90deg,var(--red-d),var(--red),#e87060);box-shadow:0 0 10px rgba(192,57,43,.5);}
+
+/* SCROLL TO TOP */
+#scroll-top{
+  position:fixed;bottom:36px;right:36px;z-index:900;
+  width:48px;height:48px;border-radius:50%;
+  background:var(--red);border:none;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;color:#fff;
+  box-shadow:0 4px 20px rgba(192,57,43,.4);
+  cursor:pointer!important;
+  opacity:0;transform:translateY(12px);
+  transition:opacity .3s,transform .3s,background .2s;
+  pointer-events:none;
+}
+#scroll-top.show{opacity:1;transform:translateY(0);pointer-events:auto;}
+#scroll-top:hover{background:var(--red-d);}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:600;background:rgba(15,14,13,.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.05);}
+.nav-inner{max-width:1460px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:15px 52px;}
+.nav-back{display:flex;align-items:center;gap:11px;font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(242,236,224,.3);text-decoration:none;transition:color .25s;}
+.nav-back:hover{color:rgba(242,236,224,.7);}
+.nav-back-btn{width:30px;height:30px;border:1px solid rgba(242,236,224,.12);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;transition:all .25s;}
+.nav-back:hover .nav-back-btn{border-color:rgba(242,236,224,.35);background:rgba(242,236,224,.04);}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:400;color:rgba(242,236,224,.6);letter-spacing:.06em;}
+.nav-logo em{font-style:italic;color:rgba(242,236,224,.25);}
+.nav-tag{font-family:'Caveat',cursive;font-size:1.1rem;font-weight:600;color:var(--red);}
+
+/* HERO */
+.hero{position:relative;overflow:hidden;background:var(--dark2);min-height:90vh;display:flex;flex-direction:column;justify-content:flex-end;padding:80px 52px 88px;}
+.hero-glow{position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 80% 60% at 0% 100%, rgba(122,28,16,.35) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 100% 0%, rgba(180,80,50,.06) 0%, transparent 50%),
+    linear-gradient(170deg,#1a1210 0%,#0f0e0d 60%,#1a1010 100%);}
+.hero-lines{position:absolute;inset:0;pointer-events:none;}
+.hero-lines i{position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.04) 40%,rgba(255,255,255,.07) 50%,rgba(255,255,255,.04) 60%,transparent);}
+.hero-lines i:nth-child(1){top:30%}
+.hero-lines i:nth-child(2){top:60%}
+.hero-content{position:relative;z-index:2;max-width:1460px;margin:0 auto;width:100%;}
+.hero-eyebrow{display:flex;align-items:center;gap:16px;margin-bottom:28px;opacity:0;animation:fadeUp .9s .1s forwards;}
+.hero-eyebrow-bar{width:44px;height:1px;background:linear-gradient(90deg,var(--red),transparent);}
+.hero-eyebrow span{font-family:'Caveat',cursive;font-size:1.35rem;font-weight:600;color:var(--red);letter-spacing:.02em;}
+.hero-h1{font-family:'Playfair Display',serif;font-size:clamp(4.5rem,12vw,12rem);font-weight:900;line-height:.85;letter-spacing:-.03em;color:#fff;opacity:0;animation:fadeUp 1.1s .25s forwards;}
+.hero-h1 em{display:block;font-style:italic;font-weight:400;font-size:.38em;color:rgba(255,255,255,.28);letter-spacing:.01em;margin-top:14px;}
+.hero-script{font-family:'Caveat',cursive;font-size:clamp(1.5rem,3.2vw,2.6rem);font-weight:700;color:var(--red);margin-top:22px;margin-left:4px;display:block;opacity:0;animation:fadeUp .9s .65s forwards;}
+.hero-rule{width:56px;height:2px;margin-top:36px;background:linear-gradient(90deg,var(--red),rgba(192,57,43,.1));opacity:0;animation:fadeUp .7s .85s forwards;}
+.hero-stats{display:flex;gap:48px;margin-top:44px;opacity:0;animation:fadeUp .8s 1.05s forwards;}
+.hero-stat-n{font-family:'Playfair Display',serif;font-size:2.7rem;font-weight:900;color:#fff;line-height:1;}
+.hero-stat-l{font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-top:4px;}
+.hero-bg-n{position:absolute;right:36px;bottom:-30px;z-index:1;font-family:'Playfair Display',serif;font-size:clamp(160px,24vw,320px);font-weight:900;color:rgba(255,255,255,.022);line-height:1;pointer-events:none;user-select:none;letter-spacing:-.05em;}
+.hero-scroll{position:absolute;bottom:40px;right:52px;z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fadeUp .7s 1.4s forwards;}
+.hero-scroll span{font-size:.5rem;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,255,255,.2);writing-mode:vertical-rl;}
+.hero-scroll-track{width:1px;height:50px;background:rgba(255,255,255,.08);position:relative;overflow:hidden;}
+.hero-scroll-track::after{content:'';position:absolute;inset:0;background:var(--red);animation:track 2.2s ease-in-out infinite;}
+@keyframes track{0%{transform:translateY(-100%);}50%{transform:translateY(0);}100%{transform:translateY(100%);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+
+/* BAND */
+.band{background:var(--red);overflow:hidden;}
+.band-inner{display:flex;gap:60px;width:max-content;padding:15px 0;animation:march 22s linear infinite;}
+.band-item{font-family:'Caveat',cursive;font-size:1.2rem;font-weight:600;color:rgba(255,255,255,.75);white-space:nowrap;display:flex;align-items:center;gap:22px;}
+.band-item::after{content:'·';color:rgba(255,255,255,.4);}
+@keyframes march{to{transform:translateX(-50%);}}
+
+/* SECTION */
+.page-body{background:var(--bg-page);}
+.sec{max-width:1400px;margin:0 auto;padding:0 48px;}
+.sec-top{display:flex;align-items:flex-end;justify-content:space-between;padding:64px 0 32px;border-bottom:1.5px solid var(--border);margin-bottom:48px;}
+.sec-kicker{font-family:'Caveat',cursive;font-size:1.1rem;font-weight:600;color:var(--red);margin-bottom:6px;display:block;}
+.sec-h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:700;color:var(--text);line-height:1;}
+.sec-h2 em{font-style:italic;font-weight:400;color:var(--muted);}
+.sec-count{font-size:.56rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);padding-bottom:5px;}
+
+/* GRID */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding-bottom:100px;}
+
+/* CARD */
+.card{position:relative;background:var(--bg-card);border:1px solid var(--border);border-radius:4px;overflow:hidden;cursor:pointer!important;box-shadow:var(--shadow);opacity:0;transform:translateY(32px);transition:opacity .6s,transform .6s cubic-bezier(.22,1,.36,1),box-shadow .35s,border-color .3s,scale .35s cubic-bezier(.22,1,.36,1);}
+.card.vis{opacity:1;transform:translateY(0);}
+.card:nth-child(1){transition-delay:.0s}.card:nth-child(2){transition-delay:.07s}.card:nth-child(3){transition-delay:.14s}
+.card:nth-child(4){transition-delay:.21s}.card:nth-child(5){transition-delay:.28s}.card:nth-child(6){transition-delay:.35s}.card:nth-child(7){transition-delay:.42s}.card:nth-child(8){transition-delay:.49s}.card:nth-child(9){transition-delay:.56s}.card:nth-child(10){transition-delay:.63s}.card:nth-child(6){transition-delay:.35s}
+.card:nth-child(7){transition-delay:.42s}.card:nth-child(8){transition-delay:.49s}
+.card:hover{scale:1.034;box-shadow:var(--shadow3);border-color:transparent;z-index:10;}
+
+.card-stripe{height:5px;width:100%;transition:height .3s;}
+.card:hover .card-stripe{height:7px;}
+
+.card-img{position:relative;height:210px;overflow:hidden;background:#e8e4dc;}
+.card-img img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.88) saturate(.8);transition:transform .75s cubic-bezier(.22,1,.36,1),filter .5s;}
+.card:hover .card-img img{transform:scale(1.1);filter:brightness(1) saturate(1);}
+.card-img-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:4.5rem;opacity:.18;}
+.card-img-grad{position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(255,255,255,.45) 100%);pointer-events:none;}
+.card-chip{position:absolute;top:14px;right:14px;background:rgba(0,0,0,.62);backdrop-filter:blur(8px);border-radius:30px;padding:4px 12px;font-size:.58rem;font-weight:700;color:#fff;display:flex;align-items:center;gap:5px;border:1px solid rgba(255,255,255,.1);}
+.chip-stars{color:#d4a017;}
+
+.card-body{padding:24px 26px 20px;display:flex;flex-direction:column;gap:10px;}
+.card-cat{display:inline-flex;align-items:center;gap:7px;border-radius:30px;padding:4px 12px;font-size:.52rem;letter-spacing:.25em;text-transform:uppercase;font-weight:700;align-self:flex-start;}
+.card-cat-dot{width:5px;height:5px;border-radius:50%;}
+.card-name{font-family:'Playfair Display',serif;font-size:clamp(1.25rem,1.8vw,1.6rem);font-weight:700;line-height:1.1;color:var(--text);transition:color .25s;}
+.card:hover .card-name{color:var(--red);}
+.card-script{font-family:'Caveat',cursive;font-size:1rem;font-weight:600;color:var(--muted);margin-top:-4px;}
+.card-desc{font-size:.73rem;line-height:1.75;font-weight:300;color:var(--muted);}
+
+.card-info{display:flex;margin-top:8px;border-top:1px solid var(--border);padding-top:16px;}
+.card-info-item{flex:1;text-align:center;padding:0 6px;border-right:1px solid var(--border);}
+.card-info-item:first-child{padding-left:0;text-align:left;}
+.card-info-item:last-child{border-right:none;text-align:right;}
+.ci-label{font-size:.48rem;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;}
+.ci-val{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--text);line-height:1;}
+.ci-sub{font-size:.55rem;color:var(--muted);margin-top:1px;}
+
+.card-cta{display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;font-weight:700;color:#fff;opacity:0;transform:translateY(4px);transition:opacity .3s,transform .3s;}
+.card:hover .card-cta{opacity:1;transform:translateY(0);}
+
+/* OVERLAY */
+#overlay{position:fixed;inset:0;z-index:2000;display:none;overflow-y:auto;opacity:0;transition:opacity .4s;}
+#overlay.open{display:block;}
+#overlay.vis{opacity:1;}
+.ov-backdrop{position:fixed;inset:0;background:rgba(8,8,8,.78);backdrop-filter:blur(10px);z-index:-1;}
+.ov-page{max-width:1240px;margin:28px auto 80px;border-radius:4px;overflow:hidden;box-shadow:0 40px 120px rgba(0,0,0,.6);background:#fff;position:relative;transition:max-width .4s,margin .4s,border-radius .4s;}
+#overlay.fullscreen .ov-page{max-width:100%;margin:0;border-radius:0;min-height:100vh;}
+#overlay.fullscreen .ov-backdrop{display:none;}
+#overlay.fullscreen{background:#fff;}
+
+.rh{position:relative;overflow:hidden;padding:60px 64px 56px;color:#fff;}
+.rh-bg{position:absolute;inset:0;z-index:0;}
+.rh-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05) 60%,rgba(0,0,0,.35) 100%);}
+.rh-inner{position:relative;z-index:1;}
+.rh-btns{position:absolute;top:22px;right:22px;z-index:2;display:flex;gap:8px;}
+.rh-btn{width:44px;height:44px;border-radius:50%;border:1.5px solid rgba(255,255,255,.22);background:rgba(0,0,0,.3);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;font-size:.95rem;color:rgba(255,255,255,.7);cursor:pointer!important;transition:background .25s,transform .3s;}
+.rh-btn:hover{background:rgba(0,0,0,.55);}
+.rh-btn-close:hover{transform:rotate(90deg);}
+.rh-btn-fs{font-size:1rem;}
+.rh-script{font-family:'Caveat',cursive;font-size:1.4rem;font-weight:700;opacity:.6;margin-bottom:8px;display:block;}
+.rh-title{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,6.5vw,6rem);font-weight:900;line-height:.88;letter-spacing:-.025em;margin-bottom:32px;}
+.rh-stats{display:flex;flex-wrap:wrap;gap:10px;}
+.rh-stat{background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.13);border-radius:3px;padding:14px 24px;backdrop-filter:blur(8px);min-width:110px;transition:background .2s;}
+.rh-stat:hover{background:rgba(0,0,0,.48);}
+.rh-stat-l{font-size:.48rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:5px;}
+.rh-stat-v{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;line-height:1;}
+.rh-bigword{position:absolute;right:20px;bottom:-18px;z-index:0;font-family:'Playfair Display',serif;font-size:clamp(80px,16vw,200px);font-weight:900;color:rgba(255,255,255,.035);line-height:1;pointer-events:none;user-select:none;}
+
+.ri{position:relative;overflow:hidden;height:clamp(240px,32vw,460px);background:#111;}
+.ri img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .65s ease;}
+.ri:hover img{transform:scale(1.03);}
+.ri-grad{position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.45) 100%);pointer-events:none;}
+.ri-cap{position:absolute;bottom:20px;left:30px;font-family:'Caveat',cursive;font-size:1.3rem;font-weight:700;color:rgba(255,255,255,.5);}
+
+.rb{display:grid;grid-template-columns:320px 1fr;}
+.rb-ing{background:#f8f6f2;border-right:1.5px solid #eae6de;padding:44px 34px;position:sticky;top:0;align-self:start;}
+.rb-col-h{font-family:'Playfair Display',serif;font-size:1.65rem;font-weight:700;color:var(--text);margin-bottom:2px;}
+.rb-col-s{font-family:'Caveat',cursive;font-size:.95rem;font-weight:600;color:var(--muted);margin-bottom:26px;display:block;}
+.ing-list{list-style:none;}
+.ing-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #eae6de;cursor:pointer!important;transition:opacity .2s;}
+.ing-item:last-child{border-bottom:none;}
+.ing-cb{width:22px;height:22px;border-radius:50%;border:2px solid #d0ccc4;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.62rem;color:transparent;transition:all .22s;}
+.ing-item.done .ing-cb{border-color:var(--red);background:var(--red);color:#fff;}
+.ing-item.done .ing-t{opacity:.28;text-decoration:line-through;}
+.ing-t{font-size:.78rem;line-height:1.4;color:#444;}
+.ing-a{font-weight:700;color:var(--text);}
+
+.ing-prog{margin-top:20px;padding-top:16px;border-top:1px solid #eae6de;}
+.ing-prog-lbl{font-size:.5rem;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;margin-bottom:7px;}
+.ing-track{height:3px;background:#e0dbd2;border-radius:3px;overflow:hidden;}
+.ing-fill{height:100%;width:0%;border-radius:3px;transition:width .4s cubic-bezier(.22,1,.36,1);}
+
+.reset-btn{margin-top:14px;display:flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:10px;border-radius:3px;border:1.5px solid var(--border);background:transparent;font-size:.55rem;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);font-weight:700;font-family:'Lato',sans-serif;cursor:pointer!important;transition:background .22s,color .22s,border-color .22s;}
+.reset-btn:hover{background:var(--red);color:#fff;border-color:var(--red);}
+.reset-btn svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+
+/* Steps column stretches to fill full height — no white gap ever */
+.rb-steps{
+  flex:1;
+  padding:44px 48px;
+  background:#fff;
+  display:flex;
+  flex-direction:column;
+}
+.step-list{
+  list-style:none;
+  flex:1;
+  display:flex;
+  flex-direction:column;
+}
+/* Each step gets equal share of the available space */
+.step-item{
+  display:grid;
+  grid-template-columns:56px 1fr;
+  gap:18px;
+  flex:1;
+  padding:24px 0;
+  border-bottom:1px solid #f0ece4;
+  opacity:0;
+  transform:translateY(18px);
+  transition:opacity .5s,transform .5s;
+}
+.step-item.vis{opacity:1;transform:translateY(0);}
+.step-item:last-child{border-bottom:none;}
+.step-n{font-family:'Playfair Display',serif;font-size:3.4rem;font-weight:900;color:#1a1815;opacity:.055;line-height:1;padding-top:2px;}
+.step-t{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:9px;line-height:1.1;}
+.step-p{font-size:.78rem;line-height:1.9;font-weight:300;color:#555;}
+
+.rb-notes{grid-column:1/-1;background:#f5f3ee;border-top:1px solid #e8e4dc;padding:36px 48px;}
+.rb-notes-h{font-family:'Caveat',cursive;font-size:1.7rem;font-weight:700;color:var(--text);margin-bottom:18px;}
+.notes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;}
+.note{background:#fff;border:1px solid #e8e4dc;border-radius:3px;padding:14px 16px;font-size:.74rem;line-height:1.75;font-weight:300;color:#555;display:flex;gap:10px;align-items:flex-start;box-shadow:0 1px 6px rgba(0,0,0,.04);}
+.note::before{content:'✦';color:var(--red);font-size:.55rem;flex-shrink:0;margin-top:3px;}
+
+#pts{position:fixed;inset:0;pointer-events:none;z-index:1;}
+.pt{position:absolute;width:2px;height:2px;border-radius:50%;background:rgba(192,57,43,.45);opacity:0;animation:rise linear infinite;}
+@keyframes rise{0%{transform:translateY(0) translateX(0);opacity:0;}10%{opacity:.3;}90%{opacity:.04;}100%{transform:translateY(-100vh) translateX(var(--dx));opacity:0;}}
+
+.footer{background:var(--dark);padding:40px;text-align:center;border-top:1px solid rgba(255,255,255,.04);}
+.footer p{font-size:.56rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(242,236,224,.2);}
+.footer strong{color:rgba(242,236,224,.38);font-weight:400;}
+
+@media(max-width:1100px){.grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:900px){.rb{grid-template-columns:1fr;}.rb-ing{position:static;}.rh,.rb-steps,.rb-ing,.rb-notes,.nav-inner,.sec,.hero{padding-left:22px;padding-right:22px;}}
+@media(max-width:600px){.grid{grid-template-columns:1fr;}.hero-h1{font-size:clamp(3.5rem,14vw,6rem);}.sec-top{flex-direction:column;align-items:flex-start;gap:4px;}.sec-count{display:none;}.hero-stats{gap:26px;}.rh-title{font-size:clamp(2rem,10vw,3.5rem);}}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-r"></div>
+<div id="prog"></div>
+<div id="pts"></div>
+
+<!-- SCROLL TO TOP -->
+<button id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Nach oben">↑</button>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-back">
+      <div class="nav-back-btn">←</div><span>Alle Kategorien</span>
+    </a>
+    <div class="nav-logo">Rezepte <em>vom Besten</em></div>
+    <div class="nav-tag">🥩 Fleisch & Fisch</div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-lines"><i></i><i></i></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-bar"></div>
+      <span>vom Grill, aus der Pfanne, aus dem Ofen</span>
+    </div>
+    <h1 class="hero-h1">Fleisch<em>&amp; Fisch · Saftig · Intensiv · Perfekt</em></h1>
+    <span class="hero-script">Zehn Rezepte — von Smash bis Moussaka — hausgemacht</span>
+    <div class="hero-rule"></div>
+    <div class="hero-stats">
+      <div><div class="hero-stat-n">10</div><div class="hero-stat-l">Rezepte</div></div>
+      <div><div class="hero-stat-n">∞</div><div class="hero-stat-l">Geschmack</div></div>
+      <div><div class="hero-stat-n">100%</div><div class="hero-stat-l">Leidenschaft</div></div>
+    </div>
+  </div>
+  <div class="hero-bg-n">10</div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-track"></div>
+    <span>Entdecken</span>
+  </div>
+</section>
+
+<!-- BAND -->
+<div class="band">
+  <div class="band-inner">
+    <span class="band-item">Smash Burger</span>
+    <span class="band-item">Zitronen-Lachs</span>
+    <span class="band-item">650 Kal All-in-All</span>
+    <span class="band-item">Chickenparm Sandwich</span>
+    <span class="band-item">Pesto-Brot mit Hähnchen</span>
+    <span class="band-item">Crispy Honey Chicken</span>
+    <span class="band-item">Taco-Buffet</span>
+    <span class="band-item">Zwiebelrostbraten</span>
+    <span class="band-item">Moussaka 🫙</span>
+    <span class="band-item">Butter Chicken 🍗</span>
+    <span class="band-item">Smash Burger</span>
+    <span class="band-item">Zitronen-Lachs</span>
+    <span class="band-item">650 Kal All-in-All</span>
+    <span class="band-item">Chickenparm Sandwich</span>
+    <span class="band-item">Pesto-Brot mit Hähnchen</span>
+    <span class="band-item">Crispy Honey Chicken</span>
+    <span class="band-item">Taco-Buffet</span>
+    <span class="band-item">Zwiebelrostbraten</span>
+  </div>
+</div>
+
+<!-- CARDS -->
+<div class="page-body">
+  <div class="sec">
+    <div class="sec-top">
+      <div>
+        <span class="sec-kicker">alle rezepte entdecken</span>
+        <h2 class="sec-h2">Was kochst du <em>heute?</em></h2>
+      </div>
+      <div class="sec-count">10 Gerichte</div>
+    </div>
+
+    <div class="grid">
+
+      <!-- 1 SMASH BURGER — rot · 10/10 · 30 min · 4/10 · 4 Burger -->
+      <div class="card" onclick="openR('smash')">
+        <div class="card-stripe" style="background:#c0392b;"></div>
+        <div class="card-img">
+          <img src="Fleisch&Fisch_smashburger.png" alt="Smash Burger" onerror="this.style.display='none'">
+          <div class="card-img-placeholder" style="font-size:1.4rem;line-height:1.6;flex-direction:column;gap:0;opacity:.22;">
+            🍞<span style="font-size:.75rem;letter-spacing:.05em;">SOSSE</span>
+            🥬<span style="font-size:.75rem;letter-spacing:.05em;">SALAT</span>
+            🍅<span style="font-size:.75rem;letter-spacing:.05em;">TOMATE</span>
+            🥩<span style="font-size:.75rem;letter-spacing:.05em;">PATTY + 🧀</span>
+            🧅<span style="font-size:.75rem;letter-spacing:.05em;">ZWIEBELN</span>
+            🥓<span style="font-size:.75rem;letter-spacing:.05em;">BACON</span>
+            🥩<span style="font-size:.75rem;letter-spacing:.05em;">PATTY + 🧀</span>
+            🥒<span style="font-size:.75rem;letter-spacing:.05em;">GURKEN</span>
+            🍞<span style="font-size:.75rem;letter-spacing:.05em;">BUN</span>
+          </div>
+          <div class="card-img-grad"></div>
+          <div class="card-chip"><span class="chip-stars">★★★★★</span> 10/10</div>
+        </div>
+        <div class="card-body">
+          <span class="card-cat" style="background:#fdecea;color:#c0392b;"><span class="card-cat-dot" style="background:#c0392b;"></span>TheBEST · Smasher</span>
+          <div class="card-name">Smash Burger</div>
+          <div class="card-script">double smash · cheddar · karamellisierte Zwiebeln</div>
+          <div class="card-desc">600 g Rinderhack, doppelter Cheddar, karamellisierte Zwiebeln, knuspriger Bacon und die beste Burger-Soße die du je gegessen hast.</div>
+          <div class="card-info">
+            <div class="card-info-item"><div class="ci-label">Zeit</div><div class="ci-val">30</div><div class="ci-sub">Minuten</div></div>
+            <div class="card-info-item"><div class="ci-label">Schwierigkeit</div><div class="ci-val">4/10</div><div class="ci-sub">Einfach</div></div>
+            <div class="card-info-item"><div class="ci-label">Portionen</div><div class="ci-val">4</div><div class="ci-sub">Burger</div></div>
+          </div>
+        </div>
+        <div class="card-cta" style="background:#c0392b;">Rezept öffnen →</div>
+      </div>
+
+      <!-- 2 CRISPY HONEY CHICKEN — orange/gelb/rot · 8,5/10 · 60+ · 6/10 · 2 Burger -->
+      <div class="card" onclick="openR('honeychicken')">
+        <div class="card-stripe" style="background:linear-gradient(90deg,#e07a3a,#d4a017);"></div>
+        <div class="card-img">
+          <img src="Fleisch&Fisch_honeychicken.png" alt="Crispy Honey Chicken" onerror="this.style.display='none'">
+          <div class="card-img-placeholder" style="font-size:1.4rem;line-height:1.6;flex-direction:column;gap:0;opacity:.22;">
+            🍞<span style="font-size:.75rem;letter-spacing:.05em;">BUN</span>
+            🥣<span style="font-size:.75rem;letter-spacing:.05em;">JOGHURT SAUCE</span>
+            🥬<span style="font-size:.75rem;letter-spacing:.05em;">RUCOLA</span>
+            🍅<span style="font-size:.75rem;letter-spacing:.05em;">TOMATE</span>
+            🍯<span style="font-size:.75rem;letter-spacing:.05em;">HONEY GLAZE</span>
+            🧀<span style="font-size:.75rem;letter-spacing:.05em;">GOUDA + CHEDDAR</span>
+            🍗<span style="font-size:.75rem;letter-spacing:.05em;">CRISPY CHICKEN</span>
+            🍞<span style="font-size:.75rem;letter-spacing:.05em;">BUN</span>
+          </div>
+          <div class="card-img-grad"></div>
+          <div class="card-chip"><span class="chip-stars">★★★★★</span> 9/10</div>
+        </div>
+        <div class="card-body">
+          <span class="card-cat" style="background:#fdf4dc;color:#b8860b;"><span class="card-cat-dot" style="background:#d4a017;"></span>Spicy · Honey</span>
+          <div class="card-name">Crispy Honey Chicken Burger</div>
+          <div class="card-script">frittiert · honey-glaze · joghurt-sour-cream</div>
+          <div class="card-desc">Buttermilch-mariniertes Hähnchen, doppelt paniert und frittiert — mit süßer Honey-Glaze, doppeltem Käse und frischer Joghurt-Sour-Cream-Sauce.</div>
+          <div class="card-info">
+            <div class="card-info-item"><div class="ci-label">Zeit</div><div class="ci-val">60+</div><div class="ci-sub">Marinierzeit</div></div>
+            <div class="card-info-item"><div class="ci-label">Schwierigkeit</div><div class="ci-val">6/10</div><div class="ci-sub">Mittel</div></div>
+            <div class="card-info-item"><div class="ci-label">Portionen</div><div class="ci-val">2</div><div class="ci-sub">Burger</div></div>
+          </div>
+        </div>
+        <div class="card-cta" style="background:linear-gradient(90deg,#e07a3a,#d4a017);">Rezept öffnen →</div>
+      </div>
+
+      <!-- 3 TACO-BUFFET — blau · 8/10 · 45 min · 6/10 · 2 Pers -->
+      <div class="card" onclick="openR('taco')">
+        <div class="card-stripe" style="background:#2e86c1;"></div>
+        <div class="card-img">
+          <img src="Fleisch&Fisch_taco.png" alt="Taco Buffet" onerror="this.style.display='none'">
+          <div class="card-img-placeholder">🌮✨</div>
+          <div class="card-img-grad"></div>
+          <div class="card-chip"><span class="chip-stars">★★★★★</span> 9,5/10</div>
+        </div>
+        <div class="card-body">
+          <span class="card-cat" style="background:#d6eaf8;color:#1a5276;"><span class="card-cat-dot" style="background:#2e86c1;"></span>Taco-Bar · Dips</span>
+          <div class="card-name">Taco-Buffet für 2 Personen</div>
+          <div class="card-script">hack + chicken · 3 dips · pico de gallo</div>
+          <div class="card-desc">Knusprige Taco-Schiffchen, würziges Hackfleisch, frisches Zitronen-Chicken, Pico de Gallo, Avocado-Cream, Sour Cream und Chipotle-Dip.</div>
+          <div class="card-info">
+            <div class="card-info-item"><div class="ci-label">Zeit</div><div class="ci-val">45</div><div class="ci-sub">Minuten</div></div>
+            <div class="card-info-item"><div class="ci-label">Schwierigkeit</div><div class="ci-val">6/10</div><div class="ci-sub">Mittel</div></div>
+            <div class="card-info-item"><div class="ci-label">Portionen</div><div class="ci-val">2</div><div class="ci-sub">Personen</div></div>
+          </div>
+        </div>
+        <div class="card-cta" style="background:#2e86c1;">Rezept öffnen →</div>
+      </div>
+
+      <!-- 4 PESTO-BROT — grün · 7,5/10 · Zeit passt · 3/10 -->
+      <div class="card" onclick="openR('pesto')">
+        <div class="card-stripe" style="background:#27ae60;"></div>
+        <div class="card-img">
+          <img src="Fleisch&Fisch_pestobrot.png" alt="Pesto-Brot" onerror="this.style.display='none'">
+          <div class="card-img-placeholder">🫓</div>
+          <div class="card-img-grad"></div>
+          <div class="card-chip"><span class="chip-stars">★★★★</span> 7,5/10</div>
+        </div>
+        <div class="card-body">
+          <span class="card-cat" style="background:#d5f5e3;color:#1e8449;"><span class="card-cat-dot" style="background:#27ae60;"></span>Refreshing · Bread</span>
+          <div class="card-name">Pesto-Brot mit Hähnchen</div>
+          <div class="card-script">hausgemachtes brot · pesto · mariniertes hähnchen</div>
+          <div class="card-desc">Selbstgebackenes Pesto-Parmesan-Brot mit mariniertem Hähnchen, Mozzarella, Tomaten und Rucola — aufwändig, aber jeden Bissen wert.</div>
+          <div class="card-info">
+            <div class="card-info-item"><div class="ci-label">Zeit</div><div class="ci-val">2,5h</div><div class="ci-sub">Gesamt</div></div>
+            <div class="card-info-item"><div class="ci-label">Schwierigkeit</div><div class="ci-val">3/10</div><div class="ci-sub">Leicht</div></div>
+            <div class="card-info-item"><div class="ci-label">Portionen</div><div class="ci-val">6</div><div class="ci-sub">Stück</div></div>
+          </div>
+        </div>
+        <div class="card-cta" style="background:#27ae60;">Rezept öffnen →</div>
+      </div>
+
+      <!-- 5 CHICKENPARM — orange/rot · 6/10 · 60 min · 4/10 -->
+      <div class="card" onclick="openR('chickenparm')">
+        <div class="card-stripe" style="background:linear-gradient(90deg,#c0392b,#e07a3a);"></div>
+        <div class="card-img">
+          <img src="Fleisch&Fisch_chickenparm.png" alt="Chickenparm Sandwich" onerror="this.style.display='none'">
+          <div class="card-img-placeholder">🥪</div>
+          <div class="card-img-grad"></div>
+          <div class="card-chip"><span class="chip-stars">★★★</span> 6/10</div>
+        </div>
+        <div class="card-body">
+          <span class="card-cat" style="background:#fdf0e8;color:#b85c1a;"><span class="card-cat-dot" style="background:#c0392b;"></span>Sandwich · Italian</span>
+          <div class="card-name">Chickenparm-Sandwich</div>
+          <div class="card-script">paniertes hähnchen · tomatensauce · mozzarella</div>
+          <div class="card-desc">Knusprig paniertes Hähnchen auf geröstetem Ciabatta mit hausgemachter Tomatensauce, Mozzarella, Parmesan und frischem Basilikum.</div>
+          <div class="card-info">
+            <div class="card-info-item"><div class="ci-label">Zeit</div><div class="ci-val">60</div><div class="ci-sub">Minuten</div></div>
+            <div class="card-info-item"><div class="ci-label">Schwierigkeit</div><div class="ci-val">4/10</div><div class="ci-sub">Einfach</div></div>
+            <div class="card-info-item"><div class="ci-label">Portionen</div><div class="ci-val">2</div><div class="ci-sub">Sandwiches</div></div>
+          </div>
+        </div>
+        <div class="card-cta" style="background:linear-gradient(90deg,#c0392b,#e07a3a);">Rezept öffnen →</div>
+      </div>
+
+      <!-- 6 ZWIEBELROSTBRATEN — dunkelrot · 9/10 · 70 min · 8/10 · 3 Pers -->
+      <div class="card" onclick="openR('rostbraten')">
+        <div class="card-stripe" style="background:#7b0000;"></div>
+        <div class="card-img">
+          <img src="Fleisch&Fisch_zwiebelrostbraten.png" alt="Zwiebelrostbraten" onerror="this.style.display='none'">
+          <div class="card-img-placeholder">🥩</div>
+          <div class="card-img-grad"></div>
+          <div class="card-chip"><span class="chip-stars">★★★★★</span> 9,5/10</div>
+        </div>
+        <div class="card-body">
+          <span class="card-cat" style="background:#fadbd8;color:#7b0000;"><span class="card-cat-dot" style="background:#7b0000;"></span>Austria · Time</span>
+          <div class="card-name">Zwiebelrostbraten mit Rotwein-Sauce</div>
+          <div class="card-script">röstzwiebeln · rotwein · spätzle · rotkohl</div>
+          <div class="card-desc">Saftiges Rindersteak mit tiefer Rotwein-Zwiebelsauce, knusprigen Röstzwiebeln, Spätzle und Rotkohl — das perfekte Sonntagsgericht.</div>
+          <div class="card-info">
+            <div class="card-info-item"><div class="ci-label">Zeit</div><div class="ci-val">70</div><div class="ci-sub">Minuten</div></div>
+            <div class="card-info-item"><div class="ci-label">Schwierigkeit</div><div class="ci-val">8/10</div><div class="ci-sub">Anspruchsvoll</div></div>
+            <div class="card-info-item"><div class="ci-label">Portionen</div><div class="ci-val">3</div><div class="ci-sub">Personen</div></div>
+          </div>
+        </div>
+        <div class="card-cta" style="background:#7b0000;">Rezept öffnen →</div>
+      </div>
+
+      <!-- 7 ZITRONEN-LACHS — gelb/zitrone · 9/10 · 40 min · 2/10 -->
+      <div class="card" onclick="openR('lachs')">
+        <div class="card-stripe" style="background:#d4ac0d;"></div>
+        <div class="card-img">
+          <img src="Fleisch&Fisch_zitronenlachs.png" alt="Zitronen-Lachs" onerror="this.style.display='none'">
+          <div class="card-img-placeholder">🐟🍋</div>
+          <div class="card-img-grad"></div>
+          <div class="card-chip"><span class="chip-stars">★★★★★</span> 9/10</div>
+        </div>
+        <div class="card-body">
+          <span class="card-cat" style="background:#fef9e7;color:#b7950b;"><span class="card-cat-dot" style="background:#d4ac0d;"></span>Lovly · Zitrone</span>
+          <div class="card-name">Zitronen-Lachs mit Petersilienkartoffeln</div>
+          <div class="card-script">lachs im ofen · honig-olivenöl-marinade</div>
+          <div class="card-desc">Lachsfilets in Honig-Olivenöl-Marinade mit Thymian und Zitrone im Ofen gegart — dazu klassische Petersilienkartoffeln.</div>
+          <div class="card-info">
+            <div class="card-info-item"><div class="ci-label">Zeit</div><div class="ci-val">40</div><div class="ci-sub">Minuten</div></div>
+            <div class="card-info-item"><div class="ci-label">Schwierigkeit</div><div class="ci-val">2/10</div><div class="ci-sub">Sehr leicht</div></div>
+            <div class="card-info-item"><div class="ci-label">Portionen</div><div class="ci-val">4</div><div class="ci-sub">Personen</div></div>
+          </div>
+        </div>
+        <div class="card-cta" style="background:#d4ac0d;">Rezept öffnen →</div>
+      </div>
+
+      <!-- 8 650 KALORIEN -->
+      <div class="card" onclick="openR('kalorien')">
+        <div class="card-stripe" style="background:#4a8a10;"></div>
+        <div class="card-img">
+          <img src="Fleisch&Fisch_650kalorien.jpg" alt="650 Kalorien" onerror="this.style.display='none'">
+          <div class="card-img-placeholder">🥗</div>
+          <div class="card-img-grad"></div>
+          <div class="card-chip"><span class="chip-stars">★★★★</span> 7/10</div>
+        </div>
+        <div class="card-body">
+          <span class="card-cat" style="background:#eef8e4;color:#4a8a10;"><span class="card-cat-dot" style="background:#4a8a10;"></span>Low fat · 650 kcal</span>
+          <div class="card-name">650 Kalorien All-in-All</div>
+          <div class="card-script">rinderhack · avocado · kartoffeln · gesund</div>
+          <div class="card-desc">Ofenkartoffeln, gewürztes Rinderhack mit Käse, frischer Avocado-Dip und Tomatensalat — alles für ca. 650 Kalorien.</div>
+          <div class="card-info">
+            <div class="card-info-item"><div class="ci-label">Zeit</div><div class="ci-val">30</div><div class="ci-sub">Minuten</div></div>
+            <div class="card-info-item"><div class="ci-label">Schwierigkeit</div><div class="ci-val">4/10</div><div class="ci-sub">Einfach</div></div>
+            <div class="card-info-item"><div class="ci-label">Portionen</div><div class="ci-val">1</div><div class="ci-sub">Person</div></div>
+          </div>
+        </div>
+        <div class="card-cta" style="background:#4a8a10;">Rezept öffnen →</div>
+      </div>
+
+      <!-- 9 MOUSSAKA -->
+      <div class="card" onclick="openR('moussaka')">
+        <div class="card-stripe" style="background:#c0752a;"></div>
+        <div class="card-img">
+          <img src="Fleisch&Fisch_moussaka.png" alt="Moussaka" onerror="this.style.display='none'">
+          <div class="card-img-placeholder">🫙</div>
+          <div class="card-img-grad"></div>
+          <div class="card-chip"><span class="chip-stars">★★★★★</span> 8,5/10</div>
+        </div>
+        <div class="card-body">
+          <span class="card-cat" style="background:#fdf0e4;color:#a0601a;"><span class="card-cat-dot" style="background:#c0752a;"></span>Griechisch · Auflauf</span>
+          <div class="card-name">Moussaka nach griechischer Art</div>
+          <div class="card-script">auberginen · hackfleisch · béchamel</div>
+          <div class="card-desc">Geschichtete Auberginen, würzige Hackfleischsauce und cremige Béchamel — überbacken bis goldbraun. Eins der leckersten Gerichte überhaupt.</div>
+          <div class="card-info">
+            <div class="card-info-item"><div class="ci-label">Zeit</div><div class="ci-val">120</div><div class="ci-sub">Minuten</div></div>
+            <div class="card-info-item"><div class="ci-label">Schwierigkeit</div><div class="ci-val">6/10</div><div class="ci-sub">Mittel</div></div>
+            <div class="card-info-item"><div class="ci-label">Portionen</div><div class="ci-val">4</div><div class="ci-sub">Personen</div></div>
+          </div>
+        </div>
+        <div class="card-cta" style="background:#c0752a;">Rezept öffnen →</div>
+      </div>
+
+      <!-- 10 BUTTER CHICKEN -->
+      <div class="card" onclick="openR('butterchicken')">
+        <div class="card-stripe" style="background:#c05a08;"></div>
+        <div class="card-img">
+          <img src="Fleisch&Fisch_butterchicken.png" alt="Butter Chicken" onerror="this.style.display='none'">
+          <div class="card-img-placeholder">🍗🫙</div>
+          <div class="card-img-grad"></div>
+          <div class="card-chip"><span class="chip-stars">★★★★★</span> 9,5/10</div>
+        </div>
+        <div class="card-body">
+          <span class="card-cat" style="background:#fdf0e4;color:#a04a06;"><span class="card-cat-dot" style="background:#c05a08;"></span>Indisch · Curry</span>
+          <div class="card-name">Butter Chicken mit Hähnchenbrustfilet</div>
+          <div class="card-script">indisches curry — cremig · würzig · aromatisch</div>
+          <div class="card-desc">Das weltberühmte indische Curry — über Nacht mariniertes Hähnchen, cremige Tomatensauce mit Garam Masala und Kurkuma. Intensiv und unwiderstehlich.</div>
+          <div class="card-info">
+            <div class="card-info-item"><div class="ci-label">Zeit</div><div class="ci-val">90</div><div class="ci-sub">Minuten</div></div>
+            <div class="card-info-item"><div class="ci-label">Schwierigkeit</div><div class="ci-val">4/10</div><div class="ci-sub">Einfach</div></div>
+            <div class="card-info-item"><div class="ci-label">Portionen</div><div class="ci-val">4</div><div class="ci-sub">Personen</div></div>
+          </div>
+        </div>
+        <div class="card-cta" style="background:#c05a08;">Rezept öffnen →</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <p>Handgemacht mit <strong>♥ Leidenschaft</strong> &nbsp;·&nbsp; <strong>Rezepte vom Besten</strong> &nbsp;·&nbsp; vom Grill, aus der Pfanne</p>
+</footer>
+
+<!-- OVERLAY -->
+<div id="overlay">
+  <div class="ov-backdrop" onclick="closeR()"></div>
+  <div class="ov-page" id="ov-page"></div>
+</div>
+
+<script>
+/* CURSOR */
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-r');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function tick(){rx+=(mx-rx)*.13;ry+=(my-ry)*.13;cur.style.left=mx+'px';cur.style.top=my+'px';ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(tick);})();
+function hov(els){els.forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));});}
+hov(document.querySelectorAll('a,.card,button,.ing-item,.nav-back,.reset-btn,#scroll-top'));
+
+/* PROGRESS + SCROLL TOP */
+const scrollBtn=document.getElementById('scroll-top');
+window.addEventListener('scroll',()=>{
+  const s=window.scrollY,h=document.documentElement.scrollHeight-window.innerHeight;
+  document.getElementById('prog').style.width=(s/h*100)+'%';
+  scrollBtn.classList.toggle('show',s>400);
+});
+
+/* CARD REVEAL */
+const obs=new IntersectionObserver(e=>{e.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});},{threshold:.08});
+document.querySelectorAll('.card').forEach(c=>obs.observe(c));
+
+/* PARTICLES */
+const pc=document.getElementById('pts');
+for(let i=0;i<20;i++){const p=document.createElement('div');p.className='pt';p.style.cssText=`left:${Math.random()*100}%;bottom:0;--dx:${(Math.random()-.5)*80}px;animation-duration:${14+Math.random()*18}s;animation-delay:${-Math.random()*26}s;`;pc.appendChild(p);}
+
+/* RECIPE DATA */
+const R={
+  smash:{
+    name:'Smash Burger',
+    script:'double smash · cheddar · karamellisierte Zwiebeln',
+    time:'30 Min',diff:'4/10 — Einfach',portions:'4 Burger',rating:'★★★★★ 10/10',
+    img:'Fleisch&Fisch_smashburger.png',accent:'#c0392b',
+    hbg:'linear-gradient(135deg,#3d0a0a,#1a0505 50%,#2a0808)',
+    ings:[
+      ['600 g','Rinderhack'],['4','Brioche Buns'],['8 Scheiben','Cheddar'],
+      ['optional','Bacon'],['nach Bedarf','Salat'],['nach Bedarf','Tomaten'],
+      ['nach Bedarf','Essiggurken'],['2','Zwiebeln'],['Salz & Pfeffer','nach Geschmack'],
+      ['— Soße —',''],['2 EL','Mayo'],['1 EL','Senf'],['2 EL','Ketchup'],
+      ['2 EL','BBQ-Soße'],['2 TL','Gurkenwasser'],['wenig','Zitronensaft'],
+      ['1 TL','Honig'],['Salz & Pfeffer','nach Geschmack']
+    ],
+    steps:[
+      ['Alles vorbereiten','Salat, Tomaten und Essiggurken schneiden. Käse bereitlegen. Bacon bereitlegen. Buns halbieren.'],
+      ['Soße verrühren','Mayo, Senf, Ketchup, BBQ-Soße, Gurkenwasser, Zitronensaft, Honig, Salz und Pfeffer gut verrühren. Kühl stellen.'],
+      ['Zwiebeln karamellisieren','Zwiebeln in Ringe schneiden und bei niedriger Hitze mit Butter und etwas Salz 10–15 Minuten langsam karamellisieren. Nicht hetzen — die Zeit macht es.'],
+      ['Bacon braten','Bacon in einer Pfanne knusprig braten. Beiseitestellen.'],
+      ['Buns toasten','Buns auf der Innenseite in der Pfanne goldbraun toasten.'],
+      ['Fleisch formen','Rinderhack in 8 gleichmäßige Kugeln formen (à ca. 75 g). Nicht würzen — erst auf der Pfanne!'],
+      ['Smashen & braten','Pfanne sehr heiß erhitzen. Fleischkugel drauflegen, sofort mit einem Pfannenwender flach smashen. Salzen und pfeffern. 1–2 Minuten scharf braten. Wenden. Sofort Cheddar drauflegen und schmelzen lassen.'],
+      ['Burger bauen','Unten: Bun → Soße → Salat → Patty → Zwiebeln → Bacon → Patty → Tomaten → Gurken → Soße → oberes Bun. Sofort essen!']
+    ],
+    notes:['Die Pfanne muss SEHR heiß sein — das ist das Geheimnis der Kruste.','Nicht zu früh würzen: erst auf der Pfanne, damit das Fleisch schön Farbe bekommt.','Doppelter Patty = doppelter Geschmack. Nicht sparen.','Gurkenwasser in der Soße ist der Geheimtipp — macht sie runder und frischer.']
+  },
+
+  lachs:{
+    name:'Zitronen-Lachs mit Petersilienkartoffeln',
+    script:'lachs im ofen · honig-olivenöl-marinade',
+    time:'40 Min',diff:'2/10 — Sehr leicht',portions:'4 Personen',rating:'★★★★★ 9/10',
+    img:'Fleisch&Fisch_zitronenlachs.png',accent:'#d4ac0d',
+    hbg:'linear-gradient(135deg,#2a2000,#191200 50%,#221a00)',
+    ings:[
+      ['5–6','Kartoffeln'],['20 g','Butter'],['grobes','Meersalz'],
+      ['nach Bedarf','Petersilie, gehackt'],['Salz & Pfeffer','nach Geschmack'],
+      ['1','Zitrone'],['4','Lachsfilets'],['60 ml','Olivenöl'],
+      ['2–3','Knoblauchzehen'],['1 EL','Honig'],['5 Stiele','Thymianzweige']
+    ],
+    steps:[
+      ['Kartoffeln kochen','Geschälte Kartoffeln in gesalzenem Wasser ca. 20–30 Minuten weichkochen.'],
+      ['Backofen vorheizen','Den Backofen auf 200 °C Ober-/Unterhitze vorheizen. Eine Auflaufform mit etwas Olivenöl einfetten.'],
+      ['Lachs vorbereiten','Lachsfilets von der Haut entfernen, trocken tupfen und salzen. In die Auflaufform legen.'],
+      ['Zitrone & Marinade','Zitrone in grobe Scheiben schneiden. Zitronenscheiben und Thymianzweige um die Lachsfilets legen. Knoblauchzehen (geschält) dazugeben. 60 ml Olivenöl, 1 EL Honig und Salz & Pfeffer verrühren und über den Lachs geben.'],
+      ['Lachs backen','Lachs im Ofen für ca. 20 Minuten backen bis er durch und leicht goldbraun ist.'],
+      ['Kartoffeln abschließen','Die Kartoffeln mit zerlassener Butter, gehackter Petersilie, Salz und Pfeffer abschmecken.'],
+      ['Anrichten','Lachs mit den Kartoffeln servieren und mit frischen Thymianzweigen garnieren.']
+    ],
+    notes:['Alternative: Statt Petersilie kann auch Rosmarin verwendet werden.','Extra-Tipp: Die Kartoffeln mit etwas Zitronenschale verfeinern für mehr Frische.','Den Lachs nicht überbacken — er soll innen noch leicht glasig und saftig bleiben.']
+  },
+
+  kalorien:{
+    name:'650 Kalorien All-in-All',
+    script:'rinderhack · avocado · kartoffeln · fitness',
+    time:'30 Min',diff:'4/10 — Einfach',portions:'1 Person',rating:'★★★★ 7/10',
+    img:'Fleisch&Fisch_650kalorien.jpg',accent:'#4a8a10',
+    hbg:'linear-gradient(135deg,#1a2200,#0d1200 50%,#162000)',
+    ings:[
+      ['— Gemüse & Beilagen —',''],
+      ['300 g','Kartoffeln'],['1','Zwiebel'],['1','Avocado'],
+      ['1 Zehe','Knoblauch'],['100 g','Tomaten'],['30 g','Joghurt'],
+      ['— Fleisch —',''],
+      ['150 g','Rinderhack'],['½','Zitrone'],['nach Bedarf','Petersilie (frisch)'],
+      ['Salz, Pfeffer','Paprikapulver'],['nach Wahl','light Mozzarella oder Protein Käse']
+    ],
+    steps:[
+      ['Kartoffeln backen','Kartoffeln in mundgerechte Würfel schneiden. Mit Olivenöl, Salz und Paprikapulver vermengen. Auf ein Backblech legen und bei 200 °C Umluft ca. 20 Minuten backen.'],
+      ['Avocado-Dip','Avocado in einer Schüssel zerdrücken. Knoblauch pressen und hinzufügen. Mit Zitronensaft, Salz und Pfeffer abschmecken.'],
+      ['Tomatensalat','Tomaten klein schneiden. Zwiebel fein hacken und dazugeben. Mit Salz, Pfeffer und Zitronensaft würzen. Alles gut vermengen.'],
+      ['Rinderhack','Hackfleisch mit Salz, Pfeffer und Paprikapulver würzen. Petersilie hacken und untermischen. In einer Pfanne mit etwas Öl krümelig braten. Kurz vor Ende Käse untermischen und schmelzen lassen.'],
+      ['Anrichten','Kartoffeln auf dem Teller verteilen. Hackfleisch daraufgeben. Avocado-Dip und Tomatensalat dazu anrichten. Mit einem Klecks Joghurt abrunden.']
+    ],
+    notes:['Komplett ausgewogen in ca. 650 Kalorien — perfektes Fitness-Meal.','Über die Tomaten Salsa etwas zucker darunter mischen, hilft beim Geschmack und ist leistbar.','SKYR statt Joghurt gibt Proteine ohne Geschmacksverlust.']
+  },
+
+  chickenparm:{
+    name:'Chickenparm-Sandwich',
+    script:'paniertes hähnchen · tomatensauce · mozzarella',
+    time:'60 Min',diff:'4/10 — Einfach',portions:'2 Sandwiches',rating:'★★★ 6/10',
+    img:'Fleisch&Fisch_chickenparm.png',accent:'#c0392b',
+    hbg:'linear-gradient(135deg,#2e0808,#1a0505 50%,#260606)',
+    ings:[
+      ['— Sauce —',''],['500 ml','Tomatensauce'],['1','kleine Zwiebel'],
+      ['1-2','Knoblauchzehen'],['Salz & Pfeffer','nach Geschmack'],['nach Bedarf','Olivenöl'],
+      ['— Hähnchen —',''],['2','Hähnchenbrüste'],['1','Brot (Baguette oder Ciabatta)'],
+      ['300 g','Mozzarella'],['nach Bedarf','Parmesan oder Bergkäse'],
+      ['frisch','Basilikum'],['Ei, Mehl','und Paniermehl']
+    ],
+    steps:[
+      ['Zwiebeln & Knoblauch','Zwiebel und Knoblauch schälen, klein hacken und in Olivenöl anbraten.'],
+      ['Tomatensauce','Tomatensauce mit Zwiebeln und Knoblauch vermengen. Mit Salz, Pfeffer und gehacktem Basilikum würzen. Beiseitestellen.'],
+      ['Hähnchen panieren','Hähnchenbrüste halbieren und dünn klopfen. In Mehl, Ei und Paniermehl wenden.'],
+      ['Hähnchen braten','Paniertes Hähnchen in Olivenöl goldbraun braten. Beiseitestellen.'],
+      ['Sandwich vorbereiten','Brot halbieren und leicht anrösten. Tomatensauce auf die Brothälften geben.'],
+      ['Belegen','Gebratenes Hähnchen auf die Brote legen. Mit Mozzarella und Parmesan bestreuen.'],
+      ['Backen','Im Backofen bei 180 °C (Oberhitze) ca. 10 Minuten backen bis der Käse geschmolzen ist.'],
+      ['Servieren','Mit frischem Basilikum garnieren. Optional mit Salat oder Pommes servieren.']
+    ],
+    notes:['Variante: Putenschnitzel als Alternative zu Hähnchen verwenden.','Tipp: Auch Cornflakes sorgen für eine besonders knusprige Panade.','Das Brot gut anrösten — sonst wird es durch die Sauce weich.']
+  },
+
+  pesto:{
+    name:'Pesto-Brot mit Hähnchen',
+    script:'hausgemachtes brot · pesto · mariniertes hähnchen',
+    time:'2 Std 15 Min',diff:'3/10 — Leicht',portions:'6 Stück',rating:'★★★★ 7,5/10',
+    img:'Fleisch&Fisch_pestobrot.png',accent:'#27ae60',
+    hbg:'linear-gradient(135deg,#052e16,#021a0d 50%,#042212)',
+    ings:[
+      ['— Teig —',''],['500 g','Mehl'],['40 g','Parmesan'],['40 ml','Olivenöl'],
+      ['10 g','Trockenhefe'],['12 g','Honig'],['8 g','Salz'],['280 ml','Wasser'],
+      ['— Hähnchen-Marinade —',''],['4 g','Salz'],['3 g','Zwiebelpulver'],
+      ['3 g','Knoblauchpulver'],['3 g','Paprikapulver'],['2 g','Cayennepfeffer'],
+      ['2 g','getrocknete Petersilie'],['25 ml','Olivenöl'],
+      ['— Füllung —',''],['nach Bedarf','Mozzarella in Scheiben'],
+      ['nach Bedarf','Pesto'],['nach Bedarf','Tomaten in Scheiben'],['nach Bedarf','Rucola']
+    ],
+    steps:[
+      ['Teig kneten','Alle Teigzutaten vermengen und zu einem glatten Teig kneten. Den Teig 1 Stunde an einem warmen Ort ruhen lassen.'],
+      ['Teig portionieren','Teig in 6 Portionen teilen, flach ausrollen, einmal aufeinander klappen und auf ein Backblech legen. Leicht mit Pesto bestreichen und mit Parmesan bestreuen. Weitere 30 Minuten ruhen lassen.'],
+      ['Brot backen','Teigstücke im vorgeheizten Backofen bei 190 °C (Ober- und Unterhitze) ca. 15 Minuten backen bis sie goldbraun sind.'],
+      ['Hähnchen marinieren','Hähnchen mit Salz, Zwiebelpulver, Knoblauchpulver, Paprikapulver, Cayennepfeffer und Petersilie einreiben. Mit Olivenöl vermengen und mindestens 30 Minuten marinieren.'],
+      ['Hähnchen backen','Mariniertes Hähnchen bei 190 °C ca. 20 Minuten garen. Mit geriebenem Käse bestreuen und weitere 5 Minuten überbacken. In den letzten 5 Minuten Tomatenscheiben auf das Hähnchen legen und mitbacken.'],
+      ['Füllen & Servieren','Das gebackene Brot aufschneiden. Mit dem gebackenen Hähnchen, Mozzarella-Scheiben, Rucola und nach Bedarf Pesto oder Soße belegen. Sofort servieren.']
+    ],
+    notes:['Das Hähnchen kann nach Geschmack mit anderen Gewürzen variiert werden.','Vegetarische Alternative: Hähnchen durch gegrillte Zucchini oder Aubergine ersetzen.','Das Brot frisch essen — es schmeckt direkt aus dem Ofen am besten.']
+  },
+
+  honeychicken:{
+    name:'Crispy Honey Chicken Burger',
+    script:'frittiert · honey-glaze · joghurt-sour-cream',
+    time:'60 Min + Marinierzeit',diff:'6/10 — Mittel',portions:'2 Burger',rating:'★★★★ 9/10',
+    img:'Fleisch&Fisch_honeychicken.png',accent:'#d4890a',
+    hbg:'linear-gradient(135deg,#2a1400,#1a0a00 50%,#241000)',
+    ings:[
+      ['— Chicken —',''],['2','Hähnchenbrustfilets'],['200 ml','Buttermilch'],
+      ['1 TL','Paprikapulver'],['½ TL','Knoblauchpulver'],['Salz & Pfeffer','nach Geschmack'],
+      ['— Panade —',''],['120 g','Weizenmehl 450'],['2 EL','Speisestärke'],
+      ['1 TL','Paprikapulver'],['½ TL','Salz'],['Pfeffer','nach Geschmack'],
+      ['— Frittieren —',''],['nach Bedarf','Biskin Pflanzenöl (oder neutrales Öl)'],
+      ['— Honey-Glaze —',''],['2 EL','Honig'],['1 TL','Butter'],
+      ['½ TL','Sojasauce'],['Prise','Chili oder Paprika'],
+      ['— Joghurt-Sour-Cream Sauce —',''],['2 EL','griechischer Joghurt'],
+      ['2 EL','Saure Sahne'],['1 EL','Mayonnaise'],['½ TL','Zitronensaft'],
+      ['3–4 EL','Gurke (sehr fein gehackt, gut ausgedrückt)'],['nach Bedarf','Petersilie oder Dill'],
+      ['optional','½ Schalotte (sehr fein gerieben)'],['Salz & Pfeffer','nach Geschmack'],
+      ['— Burger —',''],['2','Burger Buns'],['nach Bedarf','Rucola'],
+      ['nach Bedarf','Vogerlsalat (Feldsalat)'],['2–4 Scheiben','Tomaten (dünn)'],
+      ['1 Scheibe','Gouda oder Emmentaler'],['1 Scheibe','Cheddar'],['Butter','für die Buns']
+    ],
+    steps:[
+      ['Chicken marinieren','Hähnchen leicht flach klopfen. In Buttermilch mit Paprikapulver, Knoblauchpulver, Salz und Pfeffer einlegen. Mindestens 30 Minuten, besser 2 Stunden ziehen lassen.'],
+      ['Sauce vorbereiten','Gurke fein reiben oder hacken, salzen, 5 Minuten ziehen lassen und komplett ausdrücken. Joghurt, Saure Sahne, Mayo, Zitronensaft, Gurke, Petersilie oder Dill und optional Schalotte gut verrühren. Mit Salz & Pfeffer abschmecken. Kalt stellen.'],
+      ['Panade mischen & panieren','Mehl, Speisestärke, Paprikapulver und Salz vermengen. Chicken aus der Buttermilch heben, ins Mehl drücken, kurz zurück in die Buttermilch, nochmal ins Mehl. Panade ruhig uneben lassen — das gibt extra Crunch!'],
+      ['Frittieren','Öl auf ca. 170–180 °C erhitzen (Stufe 6–7). Chicken vorsichtig einlegen und 5–7 Minuten frittieren bis es goldbraun und knusprig ist. Auf Küchenpapier + Gitter ablegen, 1 Minute ruhen lassen.'],
+      ['Käse schmelzen','Auf das heiße Chicken zuerst Gouda/Emmentaler, dann Cheddar legen. Kurz schmelzen lassen oder 1 Minute in den warmen Ofen stellen.'],
+      ['Honey-Glaze erhitzen','Honig, Butter, Sojasauce und Chili/Paprika kurz erhitzen und sirupartig machen. Großzügig über das Chicken träufeln.'],
+      ['Buns vorbereiten','Buns mit Butter in der Pfanne auf der Innenseite goldbraun anrösten.'],
+      ['Burger bauen','Reihenfolge: Bun unten → Joghurt-Sour-Cream Sauce → Rucola + Vogerlsalat → Tomate → Crispy Chicken mit Käse und Honey-Glaze → etwas extra Sauce → Bun oben. Sofort genießen!']
+    ],
+    notes:['Doppelt panieren ist das Geheimnis der unebenen, ultra-knusprigen Kruste.','Gurke im Dip wirklich komplett ausdrücken — sonst wird die Sauce wässrig.','Frittiertemperatur kontrollieren: zu heiß = außen dunkel, innen roh. 170–180 °C ist perfekt.','Ergebnis: ultra knusprig · cremig frisch · süß-salzig · echter Restaurant-Level 🍔🔥']
+  },
+
+  taco:{
+    name:'Taco-Buffet für 2 Personen',
+    script:'hack + chicken · 3 dips · pico de gallo',
+    time:'45 Min',diff:'6/10 — Mittel',portions:'2 Personen',rating:'★★★★★ 9,5/10',
+    img:'Fleisch&Fisch_taco.png',accent:'#2e86c1',
+    hbg:'linear-gradient(135deg,#001830,#000f20 50%,#001428)',
+    ings:[
+      ['— Dips —',''],['100 g','Sour Cream'],['1','kleine Avocado'],
+      ['1 EL','Joghurt/Schmand'],['1,5 EL','Mayo'],['½ EL','Sour Cream (Chipotle)'],
+      ['½ TL','geräuchertes Paprikapulver oder Chipotle'],['2 TL','Limettensaft'],
+      ['1 Knoblauchzehe','(halb)'],['Salz & Schnittlauch','nach Geschmack'],
+      ['— Salat & Salsa —',''],['1 Hand','Eisbergsalat, fein geschnitten'],
+      ['1 TL','Limettensaft'],['1','Tomate, gewürfelt'],['¼','Zwiebel, fein'],
+      ['optional','Koriander'],
+      ['— Taco-Schiffchen —',''],['6–8 kleine','Tortillas'],['etwas','Wasser'],
+      ['etwas','Öl'],['Salz','nach Geschmack'],
+      ['— Hackfleisch-Tacos —',''],['200 g','Rinderhack'],['1 kleine','rote Zwiebel, fein'],
+      ['1','Knoblauchzehe'],['½ EL','Tomatenmark'],['½ TL','Paprika edelsüß'],
+      ['½ TL','geräuchertes Paprikapulver'],['½ TL','Kreuzkümmel'],
+      ['Prise','Chili'],['Salz & Pfeffer','nach Geschmack'],['20–30 ml','Wasser'],
+      ['— Chicken-Tacos —',''],['200–250 g','Hähnchenbrust'],['½ TL','Paprika'],
+      ['½ TL','Knoblauchpulver'],['½ TL','Kreuzkümmel'],['½ EL','Zitronen- oder Limettensaft'],
+      ['½ EL','Öl'],['Salz & Pfeffer','nach Geschmack'],
+      ['½','Paprika'],['¼','rote Zwiebel'],['etwas','Petersilie oder Koriander']
+    ],
+    steps:[
+      ['Sour Cream Dip','Sour Cream mit Limettensaft, halber Knoblauchzehe und Schnittlauch verrühren. Mit Salz abschmecken.'],
+      ['Avocado Cream','Avocado zerdrücken, mit Joghurt oder Schmand, Limettensaft, Salz und Pfeffer cremig rühren.'],
+      ['Smoky Chipotle Dip','Mayo, Sour Cream, geräuchertes Paprikapulver oder Chipotle, Limettensaft und Salz verrühren.'],
+      ['Beilagen vorbereiten','Eisbergsalat fein schneiden, mit Limettensaft und Prise Salz mischen. Pico de Gallo: Tomate würfeln, Zwiebel fein hacken, mit Limettensaft und Salz mischen. Optional Koriander dazu.'],
+      ['Taco-Schiffchen backen','Ofen auf 180–190 °C vorheizen. Tortillas leicht mit Wasser bepinseln, über das Ofengitter hängen (Schiffchenform). Mit wenig Öl bestreichen und salzen. 8–12 Minuten backen bis sie leicht knusprig sind. Kurz abkühlen lassen — werden dann stabil.'],
+      ['Hackfleisch-Tacos','Hack scharf anbraten. Zwiebel und Knoblauch dazugeben. Tomatenmark kurz mitrösten. Alle Gewürze und Wasser einrühren. 3–5 Minuten köcheln lassen.'],
+      ['Chicken-Tacos','Hähnchen würzen und 10 Minuten marinieren. Anbraten. Paprika und rote Zwiebel kurz mitbraten. Abschmecken und mit Petersilie oder Koriander bestreuen.'],
+      ['Buffet aufbauen & genießen','Alle Komponenten in Schälchen anrichten. Taco-Schiffchen, Hack und Chicken getrennt servieren. Jeder befüllt seinen Taco selbst — Buffet-Style! 🌮✨']
+    ],
+    notes:['Tortillas über das Ofengitter hängen gibt die perfekte Schiffchenform.','Alle Dips können 30 Minuten vorher gemacht werden — schmecken dann noch besser.','Das Buffet macht am meisten Spaß wenn jeder selbst belegen kann.','Chipotle-Dip ist der Geheimtipp — gibt eine wunderbare rauchige Note.']
+  },
+
+  rostbraten:{
+    name:'Zwiebelrostbraten mit Rotwein-Zwiebelsauce',
+    script:'röstzwiebeln · rotwein · spätzle · rotkohl',
+    time:'70 Min',diff:'8/10 — Anspruchsvoll',portions:'3 Personen',rating:'★★★★★ 9,5/10',
+    img:'Fleisch&Fisch_zwiebelrostbraten.png',accent:'#7b0000',
+    hbg:'linear-gradient(135deg,#2a0000,#150000 50%,#200000)',
+    ings:[
+      ['— Fleisch —',''],['2–3','Rindersteaks (Rostbraten / Hüfte / Entrecôte)'],
+      ['Salz & Pfeffer','nach Geschmack'],['Öl oder Butterschmalz','zum Braten'],
+      ['1 Butterflocke','+ Rosmarinzweig (zum Warmhalten)'],
+      ['— Soße —',''],['2 - 3 große','Zwiebeln (grob geschnitten)'],['1 EL','Tomatenmark'],
+      ['1 EL','Mehl'],['200–300 ml','Rotwein (trocken)'],['500 ml','Rinderbrühe'],
+      ['Salz & Pfeffer','nach Geschmack'],['1 kleines Stück','Butter (Finish)'],
+      ['— Röstzwiebeln —',''],['2 große','Zwiebeln'],['nach Bedarf','Mehl'],
+      ['Salz','nach Geschmack'],['Öl','zum Frittieren'],
+      ['— Beilagen —',''],['nach Bedarf','Rotkraut'],
+      ['Spätzle','→ Rezept in Sonstiges & Beilagen']
+    ],
+    steps:[
+      ['Fleisch braten & warmhalten','Steaks salzen und pfeffern. In heißem Öl oder Butterschmalz scharf anbraten (2–3 Min. pro Seite). Herausnehmen. In Alufolie wickeln mit Butterflocke und Rosmarinzweig. Bei 70–80 °C im Ofen warmhalten.'],
+      ['Röstzwiebeln (parallel)','Zwiebeln in feine Ringe schneiden. Leicht salzen und in Mehl wenden. In heißem Öl (170–180 °C) goldbraun frittieren. Auf Küchenpapier abtropfen.'],
+      ['Soße aufbauen','Im Bratensatz die 2 groben Zwiebeln kräftig anrösten. Tomatenmark dazugeben und dunkel mitrösten. Mehl darüberstreuen und kurz anschwitzen.'],
+      ['Ablöschen & reduzieren','Mit Rotwein ablöschen, gut rühren. Kurz stark einkochen lassen. Mit Rinderbrühe auffüllen.'],
+      ['Soße köcheln lassen','15–25 Minuten leicht köcheln lassen. Die Zwiebeln dürfen zerfallen — das sorgt für natürliche Bindung und Tiefe.'],
+      ['Soße vollenden','Mit Salz und Pfeffer abschmecken. Eine kleine Butterflocke einrühren für Glanz und Rundung.'],
+      ['Anrichten','Spätzle als Basis auf den Teller geben. Steak darauf oder daneben legen. Rotkraut separat anrichten. Soße großzügig über alles geben. Röstzwiebeln ganz oben als Crunch-Topping. Sofort servieren!']
+    ],
+    notes:['Fleisch nicht zu lange kochen — Steak nur kurz in die Soße legen oder nappieren, nie mehr erhitzen.','Den Bratensatz nicht vergessen — das ist der Geschmack der Soße!','Rotwein wirklich gut einkochen lassen bevor die Brühe kommt — das gibt Tiefe.','<a href="sonstiges.html" style="color:#8b0000;font-weight:700;text-decoration:underline;">→ Spätzle-Rezept findest du unter Sonstiges &amp; Beilagen</a>']
+  },
+
+  moussaka:{name:'Moussaka nach griechischer Art',script:'auberginen · hackfleisch · béchamel',time:'120 Min',diff:'6/10 — Mittel',portions:'4 Personen',rating:'★★★★★ 8,5',img:'Fleisch&Fisch_moussaka.png',accent:'#c0752a',hbg:'linear-gradient(135deg,#2a1400,#160a00 50%,#221000)',
+    ings:[
+      ['— Gemüse —',''],
+      ['4','Auberginen'],['Salz','nach Geschmack'],['4','mittelgroße Kartoffeln'],['etwas','Olivenöl zum Bestreichen'],['etwas','Parmesan, gerieben'],
+      ['— Hackfleischsauce —',''],
+      ['etwas','Öl zum Braten'],['350 g','Rinderhackfleisch'],['1','Zwiebel'],['1','Knoblauchzehe'],['1 EL','Tomatenmark'],['Salz & Pfeffer','nach Geschmack'],['300 ml','passierte Tomaten'],['1','getrocknetes Lorbeerblatt'],
+      ['— Béchamelsauce —',''],
+      ['400 ml','Milch'],['75 g','Butter'],['75 g','Mehl'],['2','Eigelb'],['50 g','Parmesan, gerieben'],['Salz, Pfeffer','Muskatnuss, frisch gerieben']
+    ],
+    steps:[
+      ['Auberginen vorbereiten','Auberginen in daumendicke Scheiben schneiden und in eine Schüssel geben. Gut salzen und ca. 30 Minuten ziehen lassen — das entzieht die Bitterstoffe.'],
+      ['Kartoffeln backen','Kartoffeln waschen, schälen und in Scheiben schneiden. Auf ein mit Backpapier belegtes Backblech legen, leicht mit Öl bestreichen und bei 220 °C Umluft ca. 15 Minuten backen bis sie weich sind. Einmal wenden.'],
+      ['Auberginen backen','Auberginen aus der Schüssel nehmen und trocken tupfen. Auf ein weiteres Backblech legen, mit Olivenöl bestreichen und im Backofen garen bis sie leicht braun und weich sind.'],
+      ['Hackfleischsauce','Pfanne mit etwas Öl auf höchster Stufe erhitzen. Hackfleisch verteilen und anbraten. Zwiebel fein würfeln und nach ca. 2 Minuten dazugeben. Weiterbraten bis alles schön angebräunt. Knoblauch pressen, mit Tomatenmark und Gewürzen hinzufügen, kurz mitrösten. Passierte Tomaten und Lorbeerblatt dazugeben und auf niedriger Hitze köcheln bis die Sauce dickflüssig ist.'],
+      ['Schichten','In eine Auflaufform schichten: etwas Hackfleischsauce auf den Boden → Kartoffeln → Teil der Auberginen → Hackfleischsauce → restliche Auberginen → gesamte restliche Hackfleischsauce.'],
+      ['Béchamelsauce','Milch ca. 1 Stunde vor der Zubereitung aus dem Kühlschrank nehmen. Butter auf kleiner Flamme schmelzen bis sie Blasen wirft. Mehl hinzufügen und unter ständigem Rühren anschwitzen. Warme Milch nach und nach einrühren und kurz aufkochen lassen bis eine dickflüssige Sauce entsteht. Eigelb, Parmesan, Salz, Pfeffer und Muskatnuss dazugeben und glatt rühren.'],
+      ['Backen & Ruhen','Béchamel warm über die Zutaten verteilen, etwas Parmesan darüberstreuen. Bei 220 °C Ober-/Unterhitze ca. 40 Minuten backen. Danach ca. 30 Minuten ziehen lassen bevor schneiden.']
+    ],
+    notes:['Die 30 Minuten Ruhezeit nach dem Backen sind wichtig — sonst fällt die Moussaka beim Schneiden auseinander.','Moussaka ist eines der leckersten Gerichte überhaupt — der Aufwand lohnt sich zu 100%.','Perfekt zum Vorkochen — schmeckt am nächsten Tag aufgewärmt noch besser.']
+  },
+
+  butterchicken:{name:'Butter Chicken mit Hähnchenbrustfilet',script:'indisches curry — cremig · würzig · aromatisch',time:'90 Min',diff:'4/10 — Einfach',portions:'4 Personen',rating:'★★★★★ 9,5/10',img:'Fleisch&Fisch_butterchicken.png',accent:'#c05a08',hbg:'linear-gradient(135deg,#2e1200,#1a0900 50%,#251000)',
+    ings:[
+      ['500 g','Hähnchen­brustfilet'],
+      ['— Marinade —',''],
+      ['2 TL','Salz'],['2 TL','Paprikapulver'],['1 TL','Garam Masala'],['1 TL','Kurkuma'],
+      ['250 g','Joghurt'],['2 EL','Olivenöl und etwas zum Braten'],['1 EL','Tomatenmark'],['Saft von ½','Bio-Zitrone'],
+      ['— Sauce —',''],
+      ['1','Zwiebel'],['2 EL','Butter'],['1 EL','Ingwer'],['1 TL','Salz'],
+      ['1 TL','Kurkuma'],['1 TL','Garam Masala'],['½ TL','Kardamom'],['½ TL','Koriander'],
+      ['400 g','passierte Tomaten (1 Dose)'],['3 EL','Naturjoghurt'],
+      ['optional','2 Lorbeerblätter, einige Nelken, 1 Zimtstange']
+    ],
+    steps:[
+      ['Hähnchen marinieren','Hähnchenbrustfilet in mundgerechte Würfel schneiden. Mit allen Marinade-Zutaten (Gewürze, Joghurt, Olivenöl, Tomatenmark, Zitronensaft) in einer Pfanne vermengen bis alle Stücke bedeckt sind. Mit Frischhaltefolie abdecken und mindestens 1 Stunde oder über Nacht im Kühlschrank marinieren.'],
+      ['Sauce vorbereiten','Zwiebel in grobe Würfel schneiden und in einem Topf mit etwas Wasser bei mittlerer Hitze dünsten. Butter hinzugeben und alle Sauce-Gewürze hinzufügen. Kurz rösten bis es aromatisch duftet.'],
+      ['Tomaten & pürieren','Passierte Tomaten dazugeben und alles ca. 5 Minuten köcheln lassen. Topf kurz vom Herd nehmen, Naturjoghurt hinzugeben und alles zu einer cremigen Flüssigkeit pürieren. Zurück in den Topf geben und langsam aufkochen lassen.'],
+      ['Hähnchen anbraten','In einer Pfanne Öl erhitzen und das marinierte Hähnchen von allen Seiten anbraten. Die Flüssigkeit der Marinade verdampft, der Geschmack bleibt — es entsteht eine braune Kruste.'],
+      ['Fertigstellen','Hähnchen in die Sauce geben und weitere 10 Minuten leise köcheln lassen. Optional: Lorbeerblätter, Nelken und Zimtstange dazugeben für noch mehr Geschmack. Mit Basmatireis servieren.']
+    ],
+    notes:['Je länger das Hähnchen mariniert desto besser — über Nacht ist optimal.','Lorbeerblätter, Nelken und Zimtstange in der Sauce geben nochmal extra Tiefe.','Dazu passt am besten Basmatireis — der nimmt die Sauce perfekt auf.']
+  }
+};
+
+let ck={};
+let isFullscreen=false;
+
+function buildOverlay(id){
+  const r=R[id];
+  ck[id]=ck[id]||{};
+  const cnt=Object.values(ck[id]).filter(Boolean).length;
+  const skipLabels=['— Sauce —','— Hähnchen —','— Gemüse & Beilagen —','— Fleisch —','— Teig —','— Hähnchen-Marinade —','— Füllung —','— Soße —','— Chicken —','— Panade —','— Frittieren —','— Honey-Glaze —','— Joghurt-Sour-Cream Sauce —','— Burger —','— Taco-Schiffchen —','— Hackfleisch-Tacos —','— Chicken-Tacos —','— Salat & Salsa —','— Dips —','— Soße —','— Röstzwiebeln —','— Beilagen —'];
+  const total=r.ings.filter(g=>!skipLabels.includes(g[0])&&g[1]!=='').length;
+  const pct=total?Math.round(cnt/total*100):0;
+
+  const ings=r.ings.map((g,i)=>{
+    if(skipLabels.includes(g[0])||g[1]===''){
+      return `<li style="padding:8px 0 4px;font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid #eae6de;font-weight:700;">${g[0].replace(/^—\s*|—\s*$/g,'').trim()}</li>`;
+    }
+    const cls=ck[id][i]?'done':'';
+    return `<li class="ing-item ${cls}" onclick="togIng('${id}',${i},this)">
+      <div class="ing-cb">✓</div>
+      <span class="ing-t"><span class="ing-a">${g[0]}</span> ${g[1]}</span>
+    </li>`;
+  }).join('');
+
+  const steps=r.steps.map((s,i)=>`
+    <li class="step-item">
+      <div class="step-n">${String(i+1).padStart(2,'0')}</div>
+      <div><div class="step-t">${s[0]}</div><div class="step-p">${s[1]}</div></div>
+    </li>`).join('');
+
+  const notes=r.notes.map(n=>`<div class="note">${n}</div>`).join('');
+
+  return `
+    <div class="rh">
+      <div class="rh-bg" style="background:${r.hbg};"></div>
+      <div class="rh-inner">
+        <div class="rh-btns">
+          <button class="rh-btn rh-btn-fs" onclick="toggleFS()" title="Vollbild">⛶</button>
+          <button class="rh-btn rh-btn-close" onclick="closeR()" title="Schließen">✕</button>
+        </div>
+        <span class="rh-script" style="color:${r.accent};">${r.script}</span>
+        <h1 class="rh-title">${r.name}</h1>
+        <div class="rh-stats">
+          <div class="rh-stat"><div class="rh-stat-l">Zeit</div><div class="rh-stat-v">${r.time}</div></div>
+          <div class="rh-stat"><div class="rh-stat-l">Schwierigkeit</div><div class="rh-stat-v">${r.diff}</div></div>
+          <div class="rh-stat"><div class="rh-stat-l">Portionen</div><div class="rh-stat-v">${r.portions}</div></div>
+          <div class="rh-stat"><div class="rh-stat-l">Bewertung</div><div class="rh-stat-v" style="color:${r.accent};">${r.rating}</div></div>
+        </div>
+      </div>
+      <div class="rh-bigword">${r.name.split(' ')[0]}</div>
+    </div>
+
+    <div class="ri">
+      <img src="${r.img}" alt="${r.name}"
+           onerror="this.parentElement.style.background='${r.hbg}';this.parentElement.style.height='140px';this.style.display='none';">
+      <div class="ri-grad"></div>
+      <div class="ri-cap">${r.script}</div>
+    </div>
+
+    <div class="rb" style="border-top:4px solid ${r.accent};">
+      <div class="rb-ing">
+        <div class="rb-col-h">Zutaten</div>
+        <span class="rb-col-s">die Zutaten</span>
+        <ul class="ing-list" id="il-${id}">${ings}</ul>
+        <div class="ing-prog">
+          <div class="ing-prog-lbl"><span>Fortschritt</span><span id="pc-${id}">${cnt} / ${total}</span></div>
+          <div class="ing-track"><div class="ing-fill" id="if-${id}" style="background:${r.accent};width:${pct}%;"></div></div>
+        </div>
+        <button class="reset-btn" onclick="resetIng('${id}','${total}')">
+          <svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.95"/></svg>
+          Zutaten zurücksetzen
+        </button>
+      </div>
+      <div class="rb-steps">
+        <div class="rb-col-h">Zubereitung</div>
+        <span class="rb-col-s">die Zubereitung</span>
+        <ul class="step-list">${steps}</ul>
+      </div>
+      <div class="rb-notes">
+        <div class="rb-notes-h">✦ Tipps & Notizen</div>
+        <div class="notes-grid">${notes}</div>
+      </div>
+    </div>
+  `;
+}
+
+function openR(id){
+  const ov=document.getElementById('overlay');
+  const pg=document.getElementById('ov-page');
+  isFullscreen=false;
+  pg.innerHTML=buildOverlay(id);
+  ov.classList.remove('fullscreen');
+  ov.style.display='block';ov.scrollTop=0;
+  document.body.style.overflow='hidden';
+  requestAnimationFrame(()=>{
+    ov.classList.add('vis');
+    setTimeout(()=>{
+      pg.querySelectorAll('.step-item').forEach((s,i)=>setTimeout(()=>s.classList.add('vis'),i*75));
+      // gleichmäßig padding auf Schritte verteilen damit sie bis zu den Tipps reichen
+      setTimeout(()=>equalizeSteps(pg), 400);
+    },320);
+  });
+  hov(pg.querySelectorAll('button,.ing-item,.rh-btn,.reset-btn'));
+}
+
+function equalizeSteps(pg){
+  const ing = pg.querySelector('.rb-ing');
+  const steps = pg.querySelector('.rb-steps');
+  if(!ing || !steps) return;
+  const items = steps.querySelectorAll('.step-item');
+  if(!items.length) return;
+  // reset padding first
+  items.forEach(s => s.style.paddingTop = s.style.paddingBottom = '');
+  const ingH = ing.offsetHeight;
+  const stepsH = steps.offsetHeight;
+  const diff = ingH - stepsH;
+  if(diff > 10){
+    const extra = Math.floor(diff / items.length / 2);
+    items.forEach(s => {
+      s.style.paddingTop = (28 + extra) + 'px';
+      s.style.paddingBottom = (28 + extra) + 'px';
+    });
+  }
+}
+
+function closeR(){
+  const ov=document.getElementById('overlay');
+  ov.classList.remove('vis','fullscreen');
+  isFullscreen=false;
+  setTimeout(()=>{ov.style.display='none';document.body.style.overflow='';},420);
+}
+
+function toggleFS(){
+  const ov=document.getElementById('overlay');
+  isFullscreen=!isFullscreen;
+  ov.classList.toggle('fullscreen',isFullscreen);
+  ov.scrollTop=0;
+  const btn=ov.querySelector('.rh-btn-fs');
+  if(btn)btn.textContent=isFullscreen?'⊡':'⛶';
+}
+
+function togIng(rid,idx,el){
+  if(el.tagName==='LI'&&!el.classList.contains('ing-item'))return;
+  el.classList.toggle('done');
+  ck[rid]=ck[rid]||{};
+  ck[rid][idx]=el.classList.contains('done');
+  updateProg(rid);
+}
+
+function updateProg(rid){
+  const r=R[rid];
+  const total=r.ings.filter(g=>g[1]!=='').length;
+  const cnt=Object.values(ck[rid]||{}).filter(Boolean).length;
+  const pct=Math.round(cnt/total*100);
+  const f=document.getElementById('if-'+rid);
+  const p=document.getElementById('pc-'+rid);
+  if(f)f.style.width=pct+'%';
+  if(p)p.textContent=cnt+' / '+total;
+}
+
+function resetIng(rid,total){
+  ck[rid]={};
+  document.querySelectorAll(`#il-${rid} .ing-item`).forEach(el=>el.classList.remove('done'));
+  const f=document.getElementById('if-'+rid);
+  const p=document.getElementById('pc-'+rid);
+  if(f)f.style.width='0%';
+  if(p)p.textContent='0 / '+total;
+}
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){if(isFullscreen)toggleFS();else closeR();}
+});
+</script>
+</body>
+</html>
