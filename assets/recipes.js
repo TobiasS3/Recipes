@@ -22,11 +22,12 @@ window.CHAPTERS=[
   "short": "Suppen",
   "color": "#c0572a",
   "epigraph": "warm, cremig, wärmend",
-  "intro": "Drei Suppen für große Töpfe: französische Zwiebelsuppe, Kürbis mit Kokosmilch und geröstete Tomate mit Paprika.",
+  "intro": "Vier Suppen für große Töpfe: französische Zwiebelsuppe, Kürbis mit Kokosmilch, geröstete Tomate mit Paprika und Kartoffelcreme mit knusprigem Speck.",
   "recipes": [
    "zwiebel",
    "kuerbis",
-   "tomate"
+   "tomate",
+   "kartoffel"
   ]
  },
  {
@@ -796,6 +797,149 @@ window.RECIPES=[
    "Light Creme, Sahne oder Kokosmilch — alle drei funktionieren, jede gibt einen anderen Charakter.",
    "Je länger das Gemüse röstet desto intensiver der Röstgeschmack — aber nicht verbrennen lassen.",
    "Super einfach und trotzdem unglaublich cremig und aromatisch."
+  ]
+ },
+ {
+  "id": "kartoffel",
+  "ch": "suppen",
+  "name": "Cremige Kartoffelcremesuppe mit knusprigem Speck",
+  "script": "kartoffeln · lauch · knuspriger speck",
+  "label": "Herzhaft · Cremig",
+  "desc": "Samtige Kartoffelsuppe mit Lauch, Karotten und Majoran, obendrauf knuspriger Speck. In 40 Minuten fertig und richtig wärmend.",
+  "time": "40 Min",
+  "min": 40,
+  "diff": 3,
+  "diffLabel": "Leicht",
+  "portions": "2–3 Personen",
+  "rating": 8,
+  "img": "",
+  "thumb": "",
+  "ings": [
+   [
+    "500 g",
+    "mehligkochende Kartoffeln"
+   ],
+   [
+    "2",
+    "Karotten"
+   ],
+   [
+    "1",
+    "mittelgroße Zwiebel"
+   ],
+   [
+    "100 g",
+    "Lauch (Porree)"
+   ],
+   [
+    "1",
+    "kleine Knoblauchzehe"
+   ],
+   [
+    "75–100 g",
+    "Speckwürfel"
+   ],
+   [
+    "600 ml",
+    "Geflügelbrühe"
+   ],
+   [
+    "100–150 ml",
+    "Sahne"
+   ],
+   [
+    "100–200 ml",
+    "Wasser, nach Bedarf"
+   ],
+   [
+    "1 EL",
+    "Olivenöl"
+   ],
+   [
+    "1 EL",
+    "Butter"
+   ],
+   [
+    "½ TL",
+    "getrockneter Majoran"
+   ],
+   [
+    "1",
+    "Lorbeerblatt"
+   ],
+   [
+    "¼ TL",
+    "edelsüßes Paprikapulver"
+   ],
+   [
+    "1 Prise",
+    "Muskatnuss"
+   ],
+   [
+    "nach Geschmack",
+    "schwarzer Pfeffer"
+   ],
+   [
+    "nach Bedarf",
+    "Salz"
+   ],
+   [
+    "optional",
+    "frische Petersilie zum Garnieren"
+   ]
+  ],
+  "steps": [
+   [
+    "Speck knusprig braten",
+    "Die Speckwürfel in einem großen Topf ohne zusätzliches Fett knusprig braten. Herausnehmen und beiseitestellen. Falls viel Fett im Topf zurückbleibt, einen Teil davon entfernen."
+   ],
+   [
+    "Zwiebeln in Olivenöl anbraten",
+    "Etwas Olivenöl zum Speckfett geben. Die fein gewürfelte Zwiebel darin bei mittlerer Hitze glasig dünsten und leicht goldgelb werden lassen."
+   ],
+   [
+    "Knoblauch und Lauch hinzufügen",
+    "Die fein gehackte Knoblauchzehe dazugeben und etwa 30 Sekunden mitdünsten. Anschließend den in feine Ringe geschnittenen Lauch hinzufügen und 2–3 Minuten mitdünsten."
+   ],
+   [
+    "Butter und Gewürze hinzufügen",
+    "Die Butter dazugeben und schmelzen lassen. Majoran und Paprikapulver kurz mitdünsten. Mit etwas schwarzem Pfeffer und einer Prise Muskatnuss würzen."
+   ],
+   [
+    "Kartoffeln und Karotten mitdünsten",
+    "Kartoffeln und Karotten schälen, klein würfeln und in den Topf geben. Alles 2–3 Minuten mitdünsten, damit sich die Aromen verbinden."
+   ],
+   [
+    "Mit Geflügelbrühe aufgießen",
+    "Die Geflügelbrühe und das Lorbeerblatt hinzufügen. Die Suppe etwa 20 Minuten bei mittlerer bis niedriger Hitze köcheln lassen, bis Kartoffeln und Karotten weich sind."
+   ],
+   [
+    "Lorbeerblatt entfernen und pürieren",
+    "Das Lorbeerblatt herausnehmen. Die Suppe mit einem Stabmixer fein pürieren."
+   ],
+   [
+    "Sahne und Wasser hinzufügen",
+    "Zunächst 100 ml Sahne einrühren. Falls die Suppe zu dickflüssig ist, nach und nach 100–200 ml Wasser hinzufügen, bis die gewünschte Konsistenz erreicht ist. Bei niedriger Hitze kurz erwärmen, aber nicht stark kochen lassen."
+   ],
+   [
+    "Abschmecken",
+    "Mit Pfeffer, Muskatnuss und bei Bedarf etwas Salz abschmecken. Vorsichtig salzen, da Geflügelbrühe und Speck bereits Salz enthalten."
+   ],
+   [
+    "Anrichten und garnieren",
+    "Die Suppe in Schüsseln füllen. Den knusprigen Speck erst direkt vor dem Servieren darüberstreuen. Nach Wunsch mit frisch gehackter Petersilie garnieren."
+   ]
+  ],
+  "notes": [
+   "Mehr Aroma: Die Zwiebeln im Olivenöl und etwas Speckfett goldgelb dünsten, aber nicht dunkel werden lassen.",
+   "Knoblauch: Erst kurz vor dem Lauch dazugeben, damit er nicht verbrennt.",
+   "Majoran: Passt hervorragend zu Kartoffeln und Speck und gibt der Suppe eine herzhafte, klassische Würze.",
+   "Lorbeerblatt: Während des Kochens mitziehen lassen und vor dem Pürieren unbedingt entfernen.",
+   "Konsistenz: Die pürierte Suppe wird durch die Kartoffeln oft sehr dick. Wasser deshalb schluckweise hinzufügen.",
+   "Cremigkeit: Sahne erst nach dem Pürieren einrühren.",
+   "Knuspriger Speck: Immer erst beim Servieren auf die Suppe geben.",
+   "Salz: Erst ganz am Ende abschmecken.",
+   "Extra-Tipp: Ein kleines Stück kalte Butter zum Schluss einrühren, wenn du die Suppe besonders samtig möchtest."
   ]
  },
  {
