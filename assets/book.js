@@ -640,6 +640,15 @@ else if (here) {
   addEventListener('popstate', fromHash);
   fromHash();
 }
+/* Nach oben */
+const up = document.createElement('button');
+up.className = 'to-top'; up.type = 'button'; up.setAttribute('aria-label', 'Nach oben');
+up.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg>';
+up.addEventListener('click', () => scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' }));
+document.body.append(up);
+const upOn = () => up.classList.toggle('show', scrollY > innerHeight * .9);
+addEventListener('scroll', upOn, { passive: true }); upOn();
+
 document.body.classList.add('ready');
 { const tb = $('.tabs'), act = $('.tabs a[aria-current]'); if (tb && act) tb.scrollLeft = act.offsetLeft - tb.clientWidth / 2 + act.offsetWidth / 2; }
 drawList(); drawTimers();

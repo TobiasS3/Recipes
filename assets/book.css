@@ -699,3 +699,13 @@ html{scroll-behavior:smooth}
 .rc.feat .rc-b{align-self:center}
 @media (max-width:720px){.rc.feat .ph{aspect-ratio:4/3;height:auto;min-height:0}}
 @media (max-width:720px){.rc.feat .plate{height:auto}.sort{flex-wrap:nowrap}}
+
+/* Nach oben: klein und dezent */
+.to-top{position:fixed;right:20px;bottom:20px;z-index:50;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
+  color:var(--foil);background:rgba(16,20,18,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(198,163,90,.35);
+  box-shadow:0 6px 18px rgba(0,0,0,.25);opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .3s,transform .35s var(--ease),visibility 0s .35s,background .2s}
+.to-top.show{opacity:.85;visibility:visible;transform:none;transition:opacity .3s,transform .35s var(--ease),background .2s}
+.to-top:hover{opacity:1;background:rgba(16,20,18,.92)}
+.to-top svg{width:17px;height:17px;transition:transform .3s var(--ease)}
+.to-top:hover svg{transform:translateY(-2px)}
+@media (max-width:720px){.to-top{right:14px;bottom:14px;width:44px;height:44px}}
