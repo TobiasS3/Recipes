@@ -931,14 +931,8 @@ window.RECIPES=[
    ]
   ],
   "notes": [
-   "Mehr Aroma: Die Zwiebeln im Olivenöl und etwas Speckfett goldgelb dünsten, aber nicht dunkel werden lassen.",
-   "Knoblauch: Erst kurz vor dem Lauch dazugeben, damit er nicht verbrennt.",
-   "Majoran: Passt hervorragend zu Kartoffeln und Speck und gibt der Suppe eine herzhafte, klassische Würze.",
-   "Lorbeerblatt: Während des Kochens mitziehen lassen und vor dem Pürieren unbedingt entfernen.",
    "Konsistenz: Die pürierte Suppe wird durch die Kartoffeln oft sehr dick. Wasser deshalb schluckweise hinzufügen.",
-   "Cremigkeit: Sahne erst nach dem Pürieren einrühren.",
    "Knuspriger Speck: Immer erst beim Servieren auf die Suppe geben.",
-   "Salz: Erst ganz am Ende abschmecken.",
    "Extra-Tipp: Ein kleines Stück kalte Butter zum Schluss einrühren, wenn du die Suppe besonders samtig möchtest."
   ]
  },
