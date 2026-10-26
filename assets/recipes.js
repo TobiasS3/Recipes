@@ -37,8 +37,8 @@ window.CHAPTERS=[
   "epigraph": "la mia cucina preferita",
   "intro": "Elf Rezepte, von der echten Carbonara ohne Sahne bis zum Ragù, das drei Stunden schmort.",
   "recipes": [
-   "carbonara",
    "vodka",
+   "carbonara",
    "toscana",
    "alfredo",
    "lachs",

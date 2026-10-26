@@ -96,6 +96,22 @@ function card(r, i = 0, cls = '') {
 
 const norm = s => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 const hay = r => r._h || (r._h = norm([r.name, r.script, r.label, CH[r.ch].title, ...r.ings.map(i => i[1])].join(' ')));
+/* Treffer-Punkte: ein Wort im Namen fängt mit dem Gesuchten an (am besten),
+   ab 3 Buchstaben zählen auch Teile des Namens und Zutaten/Kapitel. 0 = kein Treffer. */
+const wordsOf = s => norm(s).split(/[^a-z0-9ß]+/).filter(Boolean);
+function score(r, q) {
+  const toks = wordsOf(q); if (!toks.length) return 1;
+  const nw = r._nw || (r._nw = wordsOf(r.name)), nn = norm(r.name);
+  const ow = r._ow || (r._ow = wordsOf([r.script, r.label, CH[r.ch].title, ...r.ings.map(i => i[1])].join(' ')));
+  let sum = 0;
+  for (const t of toks) {
+    if (nw.some(w => w.startsWith(t))) sum += 3;
+    else if (t.length >= 3 && nn.includes(t)) sum += 2;
+    else if (t.length >= 3 && ow.some(w => w.startsWith(t))) sum += 1;
+    else return 0;
+  }
+  return sum;
+}
 
 /* ───────── Erscheinen beim Scrollen ───────── */
 const io = 'IntersectionObserver' in window && !reduced ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' }) : null;
@@ -175,10 +191,10 @@ function chapterPage() {
   function draw(anim) {
     $$('.sort button', main).forEach(b => b.setAttribute('aria-pressed', b.dataset.s === mode));
     const q = norm(qIn.value.trim());
-    const list = [...rs].filter(r => !q || hay(r).includes(q)).sort(sorters[mode] || sorters.book);
+    const list = [...rs].filter(r => !q || score(r, q)).sort(q ? (a, b) => score(b, q) - score(a, q) || (sorters[mode] || sorters.book)(a, b) : sorters[mode] || sorters.book);
     grid.innerHTML = list.length ? list.map((r, i) => card(r, i, i === 0 && list.length > 1 ? 'feat' : '')).join('') : `<p class="reg-empty">In ${esc(c.title)} gibt es nichts mit „${esc(qIn.value.trim())}“.</p>`;
     $('#cnt', main).textContent = q ? `${list.length} von ${rs.length} Rezepten` : `${rs.length} Rezepte`;
-    const more = q ? RECIPES.filter(r => r.ch !== c.id && hay(r).includes(q)) : [];
+    const more = q ? RECIPES.filter(r => r.ch !== c.id && score(r, q)).sort((a, b) => score(b, q) - score(a, q)) : [];
     other.hidden = !more.length;
     other.innerHTML = more.length ? `<h3>Auch in anderen Kapiteln</h3><div class="reg">${more.map(r => `<a href="${r.href}" style="--c:${CH[r.ch].color}"><span class="nm">${esc(r.name)}</span><span class="lead"></span><small>${esc(CH[r.ch].short || CH[r.ch].title)}</small></a>`).join('')}</div>` : '';
     grid.classList.toggle('sorted', !!anim);
@@ -540,7 +556,7 @@ function indexPage() {
   function drawHits() {
     const q = norm(hq.value.trim());
     if (!q) { hres.hidden = true; return; }
-    const hits = RECIPES.filter(r => hay(r).includes(q)).sort((a, b) => (norm(b.name).includes(q) - norm(a.name).includes(q)) || (b.rating ?? 0) - (a.rating ?? 0)).slice(0, 7);
+    const hits = RECIPES.filter(r => score(r, q)).sort((a, b) => score(b, q) - score(a, q) || (b.rating ?? 0) - (a.rating ?? 0)).slice(0, 7);
     hres.innerHTML = hits.length ? hits.map(r => `<a href="${r.href}" style="--c:${CH[r.ch].color}">${r.thumb ? `<img src="${encodeURI(r.thumb)}" alt="">` : '<span class="ni"></span>'}<span><b>${esc(r.name)}</b><small><i></i>${esc(CH[r.ch].title)}, ${esc(r.time)}</small></span></a>`).join('')
       : `<p>Nichts gefunden zu „${esc(hq.value.trim())}“. Versuch eine Zutat wie Lachs, Kürbis oder Mascarpone.</p>`;
     hres.hidden = false;
@@ -569,10 +585,10 @@ function indexPage() {
 
   /* Register */
   const sorted = [...RECIPES].sort((a, b) => a.name.localeCompare(b.name, 'de'));
-  const mark = (s, q) => { if (!q) return esc(s); const i = norm(s).indexOf(q); return i < 0 ? esc(s) : esc(s.slice(0, i)) + '<mark>' + esc(s.slice(i, i + q.length)) + '</mark>' + esc(s.slice(i + q.length)); };
+  const mark = (s, q) => { if (!q) return esc(s); const ns = norm(s), m = ns.match(new RegExp('(^|[^a-z0-9ß])' + q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))); const i = m ? m.index + m[1].length : ns.indexOf(q); return i < 0 ? esc(s) : esc(s.slice(0, i)) + '<mark>' + esc(s.slice(i, i + q.length)) + '</mark>' + esc(s.slice(i + q.length)); };
   function drawReg() {
     const q = norm($('#find').value.trim());
-    const hits = sorted.filter(r => !q || hay(r).includes(q));
+    const hits = sorted.filter(r => !q || score(r, q));
     const groups = {};
     hits.forEach(r => { const L = norm(r.name)[0].toUpperCase(); (groups[L] = groups[L] || []).push(r); });
     $('#reg').innerHTML = hits.length ? Object.entries(groups).map(([L, rs]) => `<section><h3>${L}</h3>${rs.map(r => `<a href="${r.href}" style="--c:${CH[r.ch].color}"><span class="nm">${mark(r.name, q)}</span><span class="lead"></span><small>${esc(CH[r.ch].short || CH[r.ch].title)}</small></a>`).join('')}</section>`).join('')
