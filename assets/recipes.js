@@ -142,8 +142,8 @@ window.RECIPES=[
   "diffLabel": "Leicht",
   "portions": "1-2 Personen",
   "rating": 7,
-  "img": "Fruehstueck_menemen.png",
-  "thumb": "thumbs/Fruehstueck_menemen.jpg",
+  "img": "bilder/Fruehstueck_menemen.png",
+  "thumb": "bilder/klein/Fruehstueck_menemen.jpg",
   "ings": [
    [
     "2-3",
@@ -219,8 +219,8 @@ window.RECIPES=[
   "diffLabel": "fast Einfach",
   "portions": "1 Person",
   "rating": 7,
-  "img": "Fruehstueck_cilbir.png",
-  "thumb": "thumbs/Fruehstueck_cilbir.jpg",
+  "img": "bilder/Fruehstueck_cilbir.png",
+  "thumb": "bilder/klein/Fruehstueck_cilbir.jpg",
   "ings": [
    [
     "1",
@@ -297,8 +297,8 @@ window.RECIPES=[
   "diffLabel": "Sehr leicht",
   "portions": "1 Person",
   "rating": 8,
-  "img": "Fruehstueck_pancakes.png",
-  "thumb": "thumbs/Fruehstueck_pancakes.jpg",
+  "img": "bilder/Fruehstueck_pancakes.png",
+  "thumb": "bilder/klein/Fruehstueck_pancakes.jpg",
   "ings": [
    [
     "2 EL",
@@ -358,8 +358,8 @@ window.RECIPES=[
   "diffLabel": "Leicht",
   "portions": "1 Person",
   "rating": 10,
-  "img": "Fruehstueck_ruehrei.png",
-  "thumb": "thumbs/Fruehstueck_ruehrei.jpg",
+  "img": "bilder/Fruehstueck_ruehrei.png",
+  "thumb": "bilder/klein/Fruehstueck_ruehrei.jpg",
   "ings": [
    [
     "3",
@@ -444,8 +444,8 @@ window.RECIPES=[
   "diffLabel": "Leicht",
   "portions": "1 Person",
   "rating": 8,
-  "img": "Fruehstueck_omlett.png",
-  "thumb": "thumbs/Fruehstueck_omlett.jpg",
+  "img": "bilder/Fruehstueck_omlett.png",
+  "thumb": "bilder/klein/Fruehstueck_omlett.jpg",
   "ings": [
    [
     "3",
@@ -534,8 +534,8 @@ window.RECIPES=[
   "diffLabel": "Leicht",
   "portions": "6 Personen",
   "rating": 9,
-  "img": "Suppen_zwiebelsuppe.png",
-  "thumb": "thumbs/Suppen_zwiebelsuppe.jpg",
+  "img": "bilder/Suppen_zwiebelsuppe.png",
+  "thumb": "bilder/klein/Suppen_zwiebelsuppe.jpg",
   "ings": [
    [
     "800 g",
@@ -632,8 +632,8 @@ window.RECIPES=[
   "diffLabel": "Sehr leicht",
   "portions": "6 Personen",
   "rating": 8,
-  "img": "Suppen_kuerbissuppe.png",
-  "thumb": "thumbs/Suppen_kuerbissuppe.jpg",
+  "img": "bilder/Suppen_kuerbissuppe.png",
+  "thumb": "bilder/klein/Suppen_kuerbissuppe.jpg",
   "ings": [
    [
     "etwas",
@@ -733,8 +733,8 @@ window.RECIPES=[
   "diffLabel": "Sehr leicht",
   "portions": "6 Personen",
   "rating": 8,
-  "img": "Suppen_tomatosuppe.png",
-  "thumb": "thumbs/Suppen_tomatosuppe.jpg",
+  "img": "bilder/Suppen_tomatosuppe.png",
+  "thumb": "bilder/klein/Suppen_tomatosuppe.jpg",
   "ings": [
    [
     "1 kg",
@@ -811,8 +811,8 @@ window.RECIPES=[
   "diffLabel": "Einfach",
   "portions": "4 Personen",
   "rating": 9,
-  "img": "Pasta_carbonara.png",
-  "thumb": "thumbs/Pasta_carbonara.jpg",
+  "img": "bilder/Pasta_carbonara.png",
+  "thumb": "bilder/klein/Pasta_carbonara.jpg",
   "ings": [
    [
     "400 g",
@@ -888,8 +888,8 @@ window.RECIPES=[
   "diffLabel": "Leicht",
   "portions": "4 Personen",
   "rating": 10,
-  "img": "Pasta_vodka.jpg",
-  "thumb": "thumbs/Pasta_vodka.jpg",
+  "img": "bilder/Pasta_vodka.jpg",
+  "thumb": "bilder/klein/Pasta_vodka.jpg",
   "ings": [
    [
     "400 g",
@@ -989,8 +989,8 @@ window.RECIPES=[
   "diffLabel": "Einfach",
   "portions": "3–4 Personen",
   "rating": 8,
-  "img": "Pasta_toscana.png",
-  "thumb": "thumbs/Pasta_toscana.jpg",
+  "img": "bilder/Pasta_toscana.png",
+  "thumb": "bilder/klein/Pasta_toscana.jpg",
   "ings": [
    [
     "250 g",
@@ -1115,8 +1115,8 @@ window.RECIPES=[
   "diffLabel": "fast Einfach",
   "portions": "4 Personen",
   "rating": 7.5,
-  "img": "Pasta_alfredo.png",
-  "thumb": "thumbs/Pasta_alfredo.jpg",
+  "img": "bilder/Pasta_alfredo.png",
+  "thumb": "bilder/klein/Pasta_alfredo.jpg",
   "ings": [
    [
     "2",
@@ -1233,8 +1233,8 @@ window.RECIPES=[
   "diffLabel": "Einfach",
   "portions": "2-3 Personen",
   "rating": 9,
-  "img": "Pasta_lachs.jpg",
-  "thumb": "thumbs/Pasta_lachs.jpg",
+  "img": "bilder/Pasta_lachs.jpg",
+  "thumb": "bilder/klein/Pasta_lachs.jpg",
   "ings": [
    [
     "250 g",
@@ -1383,8 +1383,8 @@ window.RECIPES=[
   "diffLabel": "Einfach",
   "portions": "3 Personen",
   "rating": 8,
-  "img": "Pasta_limone.png",
-  "thumb": "thumbs/Pasta_limone.jpg",
+  "img": "bilder/Pasta_limone.png",
+  "thumb": "bilder/klein/Pasta_limone.jpg",
   "ings": [
    [
     "300 g",
@@ -1468,8 +1468,8 @@ window.RECIPES=[
   "diffLabel": "Mittel-Einfach",
   "portions": "3-4 Personen",
   "rating": 8,
-  "img": "Pasta_garnelen.png",
-  "thumb": "thumbs/Pasta_garnelen.jpg",
+  "img": "bilder/Pasta_garnelen.png",
+  "thumb": "bilder/klein/Pasta_garnelen.jpg",
   "ings": [
    [
     "200 g",
@@ -1552,8 +1552,8 @@ window.RECIPES=[
   "diffLabel": "Leicht",
   "portions": "4 Personen",
   "rating": 7,
-  "img": "Pasta_kuerbis.png",
-  "thumb": "thumbs/Pasta_kuerbis.jpg",
+  "img": "bilder/Pasta_kuerbis.png",
+  "thumb": "bilder/klein/Pasta_kuerbis.jpg",
   "ings": [
    [
     "1 kleiner",
@@ -1621,8 +1621,8 @@ window.RECIPES=[
   "diffLabel": "Leicht",
   "portions": "4 Personen",
   "rating": 8,
-  "img": "Pasta_rotebete.jpg",
-  "thumb": "thumbs/Pasta_rotebete.jpg",
+  "img": "bilder/Pasta_rotebete.jpg",
+  "thumb": "bilder/klein/Pasta_rotebete.jpg",
   "ings": [
    [
     "2–3",
@@ -1702,8 +1702,8 @@ window.RECIPES=[
   "diffLabel": "Mittel",
   "portions": "6 Personen",
   "rating": 10,
-  "img": "Pasta_bolognese.png",
-  "thumb": "thumbs/Pasta_bolognese.jpg",
+  "img": "bilder/Pasta_bolognese.png",
+  "thumb": "bilder/klein/Pasta_bolognese.jpg",
   "ings": [
    [
     "2",
@@ -1933,8 +1933,8 @@ window.RECIPES=[
   "diffLabel": "Einfach",
   "portions": "4 Burger",
   "rating": 10,
-  "img": "Fleisch&Fisch_smashburger.png",
-  "thumb": "thumbs/Fleisch&Fisch_smashburger.jpg",
+  "img": "bilder/Fleisch&Fisch_smashburger.png",
+  "thumb": "bilder/klein/Fleisch&Fisch_smashburger.jpg",
   "ings": [
    [
     "600 g",
@@ -2063,8 +2063,8 @@ window.RECIPES=[
   "diffLabel": "Mittel",
   "portions": "2 Burger",
   "rating": 9,
-  "img": "Fleisch&Fisch_honeychicken.png",
-  "thumb": "thumbs/Fleisch&Fisch_honeychicken.jpg",
+  "img": "bilder/Fleisch&Fisch_honeychicken.png",
+  "thumb": "bilder/klein/Fleisch&Fisch_honeychicken.jpg",
   "ings": [
    [
     "— Chicken —",
@@ -2265,8 +2265,8 @@ window.RECIPES=[
   "diffLabel": "Mittel",
   "portions": "2 Personen",
   "rating": 9.5,
-  "img": "Fleisch&Fisch_taco.png",
-  "thumb": "thumbs/Fleisch&Fisch_taco.jpg",
+  "img": "bilder/Fleisch&Fisch_taco.png",
+  "thumb": "bilder/klein/Fleisch&Fisch_taco.jpg",
   "ings": [
    [
     "— Dips —",
@@ -2495,8 +2495,8 @@ window.RECIPES=[
   "diffLabel": "Leicht",
   "portions": "6 Stück",
   "rating": 7.5,
-  "img": "Fleisch&Fisch_pestobrot.png",
-  "thumb": "thumbs/Fleisch&Fisch_pestobrot.jpg",
+  "img": "bilder/Fleisch&Fisch_pestobrot.png",
+  "thumb": "bilder/klein/Fleisch&Fisch_pestobrot.jpg",
   "ings": [
    [
     "— Teig —",
@@ -2628,8 +2628,8 @@ window.RECIPES=[
   "diffLabel": "Einfach",
   "portions": "2 Sandwiches",
   "rating": 6,
-  "img": "Fleisch&Fisch_chickenparm.png",
-  "thumb": "thumbs/Fleisch&Fisch_chickenparm.jpg",
+  "img": "bilder/Fleisch&Fisch_chickenparm.png",
+  "thumb": "bilder/klein/Fleisch&Fisch_chickenparm.jpg",
   "ings": [
    [
     "— Sauce —",
@@ -2737,8 +2737,8 @@ window.RECIPES=[
   "diffLabel": "Anspruchsvoll",
   "portions": "3 Personen",
   "rating": 9.5,
-  "img": "Fleisch&Fisch_zwiebelrostbraten.png",
-  "thumb": "thumbs/Fleisch&Fisch_zwiebelrostbraten.jpg",
+  "img": "bilder/Fleisch&Fisch_zwiebelrostbraten.png",
+  "thumb": "bilder/klein/Fleisch&Fisch_zwiebelrostbraten.jpg",
   "ings": [
    [
     "— Fleisch —",
@@ -2875,8 +2875,8 @@ window.RECIPES=[
   "diffLabel": "Sehr leicht",
   "portions": "4 Personen",
   "rating": 9,
-  "img": "Fleisch&Fisch_zitronenlachs.png",
-  "thumb": "thumbs/Fleisch&Fisch_zitronenlachs.jpg",
+  "img": "bilder/Fleisch&Fisch_zitronenlachs.png",
+  "thumb": "bilder/klein/Fleisch&Fisch_zitronenlachs.jpg",
   "ings": [
    [
     "5–6",
@@ -2972,8 +2972,8 @@ window.RECIPES=[
   "diffLabel": "Einfach",
   "portions": "1 Person",
   "rating": 7,
-  "img": "Fleisch&Fisch_650kalorien.jpg",
-  "thumb": "thumbs/Fleisch&Fisch_650kalorien.jpg",
+  "img": "bilder/Fleisch&Fisch_650kalorien.jpg",
+  "thumb": "bilder/klein/Fleisch&Fisch_650kalorien.jpg",
   "ings": [
    [
     "— Gemüse & Beilagen —",
@@ -3069,8 +3069,8 @@ window.RECIPES=[
   "diffLabel": "Mittel",
   "portions": "4 Personen",
   "rating": 8.5,
-  "img": "Fleisch&Fisch_Moussaka.png",
-  "thumb": "thumbs/Fleisch&Fisch_Moussaka.jpg",
+  "img": "bilder/Fleisch&Fisch_Moussaka.png",
+  "thumb": "bilder/klein/Fleisch&Fisch_Moussaka.jpg",
   "ings": [
    [
     "— Gemüse —",
@@ -3210,8 +3210,8 @@ window.RECIPES=[
   "diffLabel": "Einfach",
   "portions": "4 Personen",
   "rating": 9.5,
-  "img": "Fleisch&Fisch_butterchicken.png",
-  "thumb": "thumbs/Fleisch&Fisch_butterchicken.jpg",
+  "img": "bilder/Fleisch&Fisch_butterchicken.png",
+  "thumb": "bilder/klein/Fleisch&Fisch_butterchicken.jpg",
   "ings": [
    [
     "500 g",
@@ -3343,8 +3343,8 @@ window.RECIPES=[
   "diffLabel": "Leicht",
   "portions": "skalierbar",
   "rating": 9,
-  "img": "Sonstiges_spaetzle.png",
-  "thumb": "thumbs/Sonstiges_spaetzle.jpg",
+  "img": "bilder/Sonstiges_spaetzle.png",
+  "thumb": "bilder/klein/Sonstiges_spaetzle.jpg",
   "ings": [
    [
     "— Pro Person —",
@@ -3421,8 +3421,8 @@ window.RECIPES=[
   "diffLabel": "Sehr leicht",
   "portions": "2 Personen",
   "rating": 9,
-  "img": "Sonstiges_smashedpotatoes.png",
-  "thumb": "thumbs/Sonstiges_smashedpotatoes.jpg",
+  "img": "bilder/Sonstiges_smashedpotatoes.png",
+  "thumb": "bilder/klein/Sonstiges_smashedpotatoes.jpg",
   "ings": [
    [
     "500 g",
@@ -3491,8 +3491,8 @@ window.RECIPES=[
   "diffLabel": "Leicht",
   "portions": "2 Personen",
   "rating": 10,
-  "img": "Sonstiges_ofenpommes.png",
-  "thumb": "thumbs/Sonstiges_ofenpommes.jpg",
+  "img": "bilder/Sonstiges_ofenpommes.png",
+  "thumb": "bilder/klein/Sonstiges_ofenpommes.jpg",
   "ings": [
    [
     "3",
@@ -3581,8 +3581,8 @@ window.RECIPES=[
   "diffLabel": "Sehr leicht",
   "portions": "2-3 Personen",
   "rating": 9,
-  "img": "Sonstiges_gurkensalat.png",
-  "thumb": "thumbs/Sonstiges_gurkensalat.jpg",
+  "img": "bilder/Sonstiges_gurkensalat.png",
+  "thumb": "bilder/klein/Sonstiges_gurkensalat.jpg",
   "ings": [
    [
     "1 große",
@@ -3756,8 +3756,8 @@ window.RECIPES=[
   "diffLabel": "Mittel",
   "portions": "2–3 Pizzen",
   "rating": 8,
-  "img": "Gebaeck_pizzaschnell.png",
-  "thumb": "thumbs/Gebaeck_pizzaschnell.jpg",
+  "img": "bilder/Gebaeck_pizzaschnell.png",
+  "thumb": "bilder/klein/Gebaeck_pizzaschnell.jpg",
   "ings": [
    [
     "325 g",
@@ -3822,8 +3822,8 @@ window.RECIPES=[
   "diffLabel": "Aufwändig",
   "portions": "3–4 Pizzen (à 280 g)",
   "rating": 10,
-  "img": "Gebaeck_pizza24h.jpg",
-  "thumb": "thumbs/Gebaeck_pizza24h.jpg",
+  "img": "bilder/Gebaeck_pizza24h.jpg",
+  "thumb": "bilder/klein/Gebaeck_pizza24h.jpg",
   "ings": [
    [
     "400 ml",
@@ -3892,8 +3892,8 @@ window.RECIPES=[
   "diffLabel": "Einfach",
   "portions": "9 Brote",
   "rating": 9,
-  "img": "Gebaeck_pfannenbrot.png",
-  "thumb": "thumbs/Gebaeck_pfannenbrot.jpg",
+  "img": "bilder/Gebaeck_pfannenbrot.png",
+  "thumb": "bilder/klein/Gebaeck_pfannenbrot.jpg",
   "ings": [
    [
     "320 g",
@@ -3965,8 +3965,8 @@ window.RECIPES=[
   "diffLabel": "Leicht",
   "portions": "16 Brötchen",
   "rating": 9,
-  "img": "Gebaeck_nutellabrotchen.png",
-  "thumb": "thumbs/Gebaeck_nutellabrotchen.jpg",
+  "img": "bilder/Gebaeck_nutellabrotchen.png",
+  "thumb": "bilder/klein/Gebaeck_nutellabrotchen.jpg",
   "ings": [
    [
     "270 ml",
@@ -4062,8 +4062,8 @@ window.RECIPES=[
   "diffLabel": "Einfach",
   "portions": "ca. 10-12 Stück",
   "rating": 9,
-  "img": "Kuchen&Torten_cookies.png",
-  "thumb": "thumbs/Kuchen&Torten_cookies.jpg",
+  "img": "bilder/Kuchen&Torten_cookies.png",
+  "thumb": "bilder/klein/Kuchen&Torten_cookies.jpg",
   "ings": [
    [
     "220 g",
@@ -4148,8 +4148,8 @@ window.RECIPES=[
   "diffLabel": "Einfach",
   "portions": "10–12 Muffins",
   "rating": 10,
-  "img": "Kuchen&Torten_blaubeermuffins.png",
-  "thumb": "thumbs/Kuchen&Torten_blaubeermuffins.jpg",
+  "img": "bilder/Kuchen&Torten_blaubeermuffins.png",
+  "thumb": "bilder/klein/Kuchen&Torten_blaubeermuffins.jpg",
   "ings": [
    [
     "— Streusel —",
@@ -4270,8 +4270,8 @@ window.RECIPES=[
   "diffLabel": "Leicht",
   "portions": "20×30 cm Form",
   "rating": 8.5,
-  "img": "Kuchen&Torten_brownies.png",
-  "thumb": "thumbs/Kuchen&Torten_brownies.jpg",
+  "img": "bilder/Kuchen&Torten_brownies.png",
+  "thumb": "bilder/klein/Kuchen&Torten_brownies.jpg",
   "ings": [
    [
     "300 g",
@@ -4359,8 +4359,8 @@ window.RECIPES=[
   "diffLabel": "Sehr leicht",
   "portions": "∅ 18 cm",
   "rating": 8,
-  "img": "Kuchen&Torten_oreocheesecake.png",
-  "thumb": "thumbs/Kuchen&Torten_oreocheesecake.jpg",
+  "img": "bilder/Kuchen&Torten_oreocheesecake.png",
+  "thumb": "bilder/klein/Kuchen&Torten_oreocheesecake.jpg",
   "ings": [
    [
     "— Keksboden —",
@@ -4448,8 +4448,8 @@ window.RECIPES=[
   "diffLabel": "Einfach",
   "portions": "6 Gläser à 125 ml",
   "rating": 9,
-  "img": "Dessert_bratapfel.png",
-  "thumb": "thumbs/Dessert_bratapfel.jpg",
+  "img": "bilder/Dessert_bratapfel.png",
+  "thumb": "bilder/klein/Dessert_bratapfel.jpg",
   "ings": [
    [
     "— Apfelschicht —",
@@ -4558,8 +4558,8 @@ window.RECIPES=[
   "diffLabel": "Leicht",
   "portions": "6 Gläser",
   "rating": 9,
-  "img": "Dessert_himbeertiramisu.png",
-  "thumb": "thumbs/Dessert_himbeertiramisu.jpg",
+  "img": "bilder/Dessert_himbeertiramisu.png",
+  "thumb": "bilder/klein/Dessert_himbeertiramisu.jpg",
   "ings": [
    [
     "— Himbeerschicht —",
