@@ -812,8 +812,8 @@ window.RECIPES=[
   "diffLabel": "Leicht",
   "portions": "2–3 Personen",
   "rating": 8,
-  "img": "",
-  "thumb": "",
+  "img": "bilder/Suppen_kartoffelsuppe.jpg",
+  "thumb": "bilder/klein/Suppen_kartoffelsuppe.jpg",
   "ings": [
    [
     "500 g",
