@@ -88,13 +88,31 @@ function card(r, i = 0) {
     <div><dt>Schwierigkeit</dt><dd>${r.diff ?? '–'} von 10</dd></div><div><dt>Ergibt</dt><dd>${esc(r.portions)}</dd></div></dl></a>`;
 }
 
+const norm = s => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+const hay = r => r._h || (r._h = norm([r.name, r.script, r.label, CH[r.ch].title, ...r.ings.map(i => i[1])].join(' ')));
+
+/* ───────── Erscheinen beim Scrollen ───────── */
+const io = 'IntersectionObserver' in window && !reduced ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' }) : null;
+function reveal(root) {
+  $$('[data-rv], .rc', root).forEach((el, i) => {
+    if (!io) { el.classList.add('in'); return; }
+    el.classList.add('rv'); el.style.setProperty('--d', (i % 3) * 90 + 'ms'); io.observe(el);
+  });
+}
+
 /* ───────── Leiste ───────── */
 function bar() {
   const el = document.createElement('header');
-  el.className = 'bar linen';
-  el.innerHTML = `<div class="wrap"><a class="brand" href="index.html"><b>Rezepte</b> vom Besten</a>
-    <nav class="chapters" aria-label="Kapitel">${CHAPTERS.map(c => `<a href="${c.file}"${c.id === page ? ' aria-current="page"' : ''}>${esc(c.short || c.title)}</a>`).join('')}</nav>
-    <button class="list-btn" type="button" data-open-list>${I.list}<span class="lt">Einkaufsliste</span><span class="count"></span></button></div>`;
+  el.className = 'bar linen' + (page === 'index' ? ' over' : '');
+  el.innerHTML = `<div class="wrap">
+    ${page === 'index' ? '' : `<a class="back" href="index.html#inhalt" aria-label="Zurück zur Startseite"><span class="back-i">←</span><span class="back-t">Startseite</span></a>`}
+    ${page === 'index' ? '<a class="brand" href="index.html"><b>Rezepte</b> vom Besten</a>' : ''}
+    <nav class="tabs" aria-label="Kapitel">${CHAPTERS.map(c => `<a href="${c.file}" style="--c:${c.color}"${c.id === page ? ' aria-current="page"' : ''}><i></i>${esc(c.short || c.title)}</a>`).join('')}</nav>
+    <button class="list-btn" type="button" data-open-list aria-label="Einkaufsliste">${I.list}<span class="lt">Einkaufsliste</span><span class="count"></span></button></div>`;
+  if (page === 'index') {
+    const on = () => el.classList.toggle('over', scrollY < innerHeight * .6);
+    addEventListener('scroll', on, { passive: true }); on();
+  }
   return el;
 }
 
@@ -113,18 +131,20 @@ function chapterPage() {
         <h1>${esc(c.title)}</h1>
         <p class="epigraph">${esc(c.epigraph)}</p>
         <p class="intro">${esc(c.intro)}</p>
-        <nav class="minitoc" aria-label="Rezepte in diesem Kapitel">${rs.map(r => `<a href="#${r.id}"><span>${esc(r.name)}</span><span class="lead"></span><span class="r">${r.rating == null ? 'neu' : String(r.rating).replace('.', ',') + '/10'}</span></a>`).join('')}</nav>
+        <nav class="minitoc" aria-label="Rezepte in diesem Kapitel">${rs.map((r, j) => `<a href="#${r.id}" style="--j:${j}"><span>${esc(r.name)}</span><span class="lead"></span><span class="r">${r.rating == null ? 'neu' : String(r.rating).replace('.', ',') + '/10'}</span></a>`).join('')}</nav>
       </div>
       <div class="tipped" aria-hidden="true">${best.map(r => `<figure><img src="${encodeURI(r.thumb)}" alt=""><figcaption>${esc(r.name)}</figcaption></figure>`).join('')}</div>
     </div>
   </section>
   <section class="pages grain">
     <div class="wrap">
-      <div class="toolbar"><h2>${rs.length} Rezepte</h2>
+      <div class="toolbar"><h2 id="cnt">${rs.length} Rezepte</h2>
+        <label class="find small"><span class="sr">In ${esc(c.title)} suchen</span><input id="q" type="search" placeholder="Rezept oder Zutat suchen" autocomplete="off">${I.search}</label>
         <div class="sort" role="group" aria-label="Sortieren"><span>Sortieren:</span>
           <button type="button" data-s="book">Wie im Buch</button><button type="button" data-s="rating">Beste zuerst</button>
           <button type="button" data-s="time">Schnellste zuerst</button><button type="button" data-s="diff">Einfachste zuerst</button></div></div>
       <div class="grid" id="grid"></div>
+      <div class="elsewhere" id="elsewhere" hidden></div>
     </div>
   </section>
   <footer class="colophon linen dark"><div class="wrap">
@@ -137,11 +157,20 @@ function chapterPage() {
   const grid = $('#grid', main);
   const sorters = { book: () => 0, rating: (a, b) => (b.rating ?? 8.9) - (a.rating ?? 8.9), time: (a, b) => (a.min ?? 999) - (b.min ?? 999), diff: (a, b) => (a.diff ?? 9) - (b.diff ?? 9) };
   let mode = store.get('sort', 'book');
+  const qIn = $('#q', main), other = $('#elsewhere', main);
   function draw(anim) {
     $$('.sort button', main).forEach(b => b.setAttribute('aria-pressed', b.dataset.s === mode));
-    grid.innerHTML = [...rs].sort(sorters[mode] || sorters.book).map(card).join('');
+    const q = norm(qIn.value.trim());
+    const list = [...rs].filter(r => !q || hay(r).includes(q)).sort(sorters[mode] || sorters.book);
+    grid.innerHTML = list.length ? list.map(card).join('') : `<p class="reg-empty">In ${esc(c.title)} gibt es nichts mit „${esc(qIn.value.trim())}“.</p>`;
+    $('#cnt', main).textContent = q ? `${list.length} von ${rs.length} Rezepten` : `${rs.length} Rezepte`;
+    const more = q ? RECIPES.filter(r => r.ch !== c.id && hay(r).includes(q)) : [];
+    other.hidden = !more.length;
+    other.innerHTML = more.length ? `<h3>Auch in anderen Kapiteln</h3><div class="reg">${more.map(r => `<a href="${r.href}" style="--c:${CH[r.ch].color}"><span class="nm">${esc(r.name)}</span><span class="lead"></span><small>${esc(CH[r.ch].short || CH[r.ch].title)}</small></a>`).join('')}</div>` : '';
     grid.classList.toggle('sorted', !!anim);
+    reveal(grid);
   }
+  qIn.addEventListener('input', () => draw(true));
   $('.sort', main).addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; mode = b.dataset.s; store.set('sort', mode); draw(true); });
   draw(false);
 
@@ -184,7 +213,7 @@ function renderSheet(r) {
       <h2>${esc(r.name)}</h2><div class="script">${esc(r.script)}</div>
       <div class="s-row">
         <dl class="s-facts"><div><dt>Zeit</dt><dd>${esc(r.time)}</dd></div><div><dt>Schwierigkeit</dt><dd>${r.diff ?? '–'} von 10${r.diffLabel ? ', ' + esc(r.diffLabel.toLowerCase()) : ''}</dd></div><div><dt>Bewertung</dt><dd>${r.rating == null ? 'neu, noch offen' : String(r.rating).replace('.', ',') + ' von 10'}</dd></div></dl>
-        <div class="s-actions"><button class="btn solid" type="button" data-cook>${I.pot}Kochmodus</button><button class="btn" type="button" data-add>${I.cart}Auf die Einkaufsliste</button></div>
+        <div class="s-actions"><button class="btn solid" type="button" data-add>${I.cart}Auf die Einkaufsliste</button></div>
       </div>
     </header>
     ${r.img ? `<figure class="s-photo"><img src="${encodeURI(r.img)}" alt="${esc(r.name)}"></figure>` : ''}
@@ -197,7 +226,7 @@ function renderSheet(r) {
           <button type="button" class="reset-s" data-srv="0"${n === b.n ? ' hidden' : ''}>Original</button></div>
         <ul class="ing-list">${ingRows(r)}</ul>
         <div class="progress"><span class="pg-t"></span><span>Tippen zum Abhaken</span></div><div class="track"><i></i></div>
-        <div class="ing-actions"><button class="btn" type="button" data-add>${I.cart}<span class="add-t">Auf die Einkaufsliste</span></button><button class="linkish" type="button" data-reset>Alles zurücksetzen</button></div>
+        <div class="ing-actions"><button class="btn" type="button" data-add>${I.cart}Auf die Einkaufsliste</button><button class="linkish" type="button" data-reset>Alles zurücksetzen</button></div>
       </aside>
       <section>
         <h3>Zubereitung</h3>
@@ -216,8 +245,6 @@ function updateProgress(r) {
   const t = $('.pg-t', sheetWrap); if (!t) return;
   t.textContent = `${done} von ${all} bereit`;
   $('.track i', sheetWrap).style.width = (all ? done / all * 100 : 0) + '%';
-  const missing = all - done;
-  $$('.add-t', sheetWrap).forEach(el => el.textContent = done && missing ? `${missing} fehlende auf die Liste` : 'Auf die Einkaufsliste');
 }
 function openSheet(r) {
   ensureSheet();
@@ -260,7 +287,6 @@ function setServings(r, d) {
   else n = Math.max(1, Math.min(60, n + d));
   store.set('srv:' + r.key, n);
   const y = sheetWrap.scrollTop; renderSheet(r); sheetWrap.scrollTop = y;
-  if (cook.open) cook.drawIngs();
 }
 
 /* ───────── Timer ───────── */
@@ -328,10 +354,47 @@ addEventListener('storage', e => { if (e.key === 'rvb:timers') { timers = store.
 /* ───────── Einkaufsliste ───────── */
 let drawer, dBg;
 const getList = () => store.get('list', []);
-function addToList(r) {
-  const done = new Set(store.get('ck:' + r.key, [])), f = factorOf(r);
-  const items = r.ings.map(([a, n], i) => ({ a: scaleAmt(a, f), n, i })).filter(x => !/^—/.test(x.a) && !done.has(x.i)).map(x => ({ a: x.a, n: x.n, done: false }));
-  if (!items.length) { toast('Alle Zutaten sind schon abgehakt.'); return; }
+let picker;
+function pickForList(r) {
+  if (!picker) {
+    picker = document.createElement('div'); picker.className = 'picker-wrap';
+    picker.innerHTML = `<div class="picker grain" role="dialog" aria-modal="true" aria-labelledby="pk-h"><div class="drawer-h"><div><h2 id="pk-h">Was hast du schon zuhause?</h2><p class="pk-sub"></p></div><button class="x" type="button" aria-label="Abbrechen" data-pk="x">✕</button></div>
+      <div class="pk-tools"><button class="linkish" type="button" data-pk="all">Alles brauche ich</button><button class="linkish" type="button" data-pk="none">Alles schon da</button></div>
+      <ul class="ing-list pk-list"></ul><div class="drawer-f"><button class="btn solid" type="button" data-pk="ok"></button><button class="linkish" type="button" data-pk="x">Abbrechen</button></div></div>`;
+    document.body.append(picker);
+    picker.addEventListener('click', e => {
+      if (e.target === picker) return closePicker();
+      const li = e.target.closest('.ing');
+      if (li) { li.classList.toggle('done'); li.setAttribute('aria-checked', li.classList.contains('done')); return pkCount(); }
+      const b = e.target.closest('[data-pk]'); if (!b) return;
+      const k = b.dataset.pk;
+      if (k === 'x') return closePicker();
+      if (k === 'all' || k === 'none') { $$('.pk-list .ing', picker).forEach(li => { li.classList.toggle('done', k === 'none'); li.setAttribute('aria-checked', k === 'none'); }); return pkCount(); }
+      if (k === 'ok') { const have = new Set($$('.pk-list .ing.done', picker).map(li => +li.dataset.i)); closePicker(); addToList(picker._r, have); }
+    });
+    picker.addEventListener('keydown', e => { if ((e.key === ' ' || e.key === 'Enter') && e.target.classList.contains('ing')) { e.preventDefault(); e.target.click(); } });
+  }
+  picker._r = r;
+  const f = factorOf(r), had = new Set(store.get('ck:' + r.key, []));
+  $('.pk-sub', picker).textContent = `${r.name}${servLabel(r) ? ', ' + servLabel(r) : ''}. Tippe an, was du schon hast. Der Rest kommt auf die Liste.`;
+  $('.pk-list', picker).innerHTML = r.ings.map(([a, n], i) => /^—/.test(a)
+    ? `<li class="ing-group">${esc(a.replace(/—/g, '').trim())}</li>`
+    : `<li class="ing${had.has(i) ? ' done' : ''}" data-i="${i}" role="checkbox" aria-checked="${had.has(i)}" tabindex="0"><span class="box">${I.tick}</span><span class="ing-t"><span class="ing-a">${esc(scaleAmt(a, f))}</span>${esc(n)}</span><span class="have">habe ich</span></li>`).join('');
+  pkCount();
+  picker.classList.add('open');
+  $('.pk-list', picker).scrollTop = 0;
+}
+function pkCount() {
+  const n = $$('.pk-list .ing:not(.done)', picker).length;
+  const b = $('[data-pk="ok"]', picker);
+  b.textContent = n ? `${n} ${n === 1 ? 'Zutat' : 'Zutaten'} auf die Liste` : 'Nichts zu kaufen';
+  b.disabled = !n;
+}
+function closePicker() { picker?.classList.remove('open'); }
+function addToList(r, have) {
+  const f = factorOf(r);
+  const items = r.ings.map(([a, n], i) => ({ a: scaleAmt(a, f), n, i })).filter(x => !/^—/.test(x.a) && !have.has(x.i)).map(x => ({ a: x.a, n: x.n, done: false }));
+  if (!items.length) return;
   const list = getList().filter(g => g.key !== r.key);
   list.push({ key: r.key, href: r.href, name: r.name, serv: servLabel(r), items });
   store.set('list', list); drawList();
@@ -362,7 +425,7 @@ function drawList() {
   if (!drawer) return;
   $('.drawer-b', drawer).innerHTML = list.length ? list.map((g, gi) => `<div class="lg"><div class="lg-h"><div><a href="${g.href}">${esc(g.name)}</a><small>${esc(g.serv || 'Originalmenge')}</small></div><button type="button" data-rm="${gi}">Entfernen</button></div>
       <ul class="ing-list">${g.items.map((it, ii) => `<li class="ing${it.done ? ' done' : ''}" data-g="${gi}" data-i="${ii}" role="checkbox" aria-checked="${it.done}" tabindex="0"><span class="box">${I.tick}</span><span class="ing-t"><span class="ing-a">${esc(it.a)}</span>${esc(it.n)}</span></li>`).join('')}</ul></div>`).join('')
-    : `<p class="empty">Die Liste ist noch leer. Öffne ein Rezept und tippe auf „Auf die Einkaufsliste“.<em>Abgehakte Zutaten hast du schon, die kommen nicht mit drauf.</em></p>`;
+    : `<p class="empty">Die Liste ist noch leer. Öffne ein Rezept und tippe auf „Auf die Einkaufsliste“.<em>Dort wählst du aus, was du schon zuhause hast.</em></p>`;
   $('.drawer-f', drawer).hidden = !list.length;
 }
 async function shareList() {
@@ -383,83 +446,17 @@ function toast(msg, action, fn) {
   toastEl.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => toastEl.classList.remove('show'), 3600);
 }
 
-/* ───────── Kochmodus ───────── */
-const cook = {
-  el: null, r: null, i: 0, open: false, lock: null,
-  build() {
-    const el = this.el = document.createElement('div'); el.className = 'cook linen'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true'); el.setAttribute('aria-label', 'Kochmodus');
-    el.innerHTML = `<div class="cook-top"><span class="t"></span><button class="cbtn" type="button" data-ci aria-pressed="false">${I.list}<span class="lt">Zutaten</span></button><button class="cbtn" type="button" data-cx aria-label="Kochmodus beenden">${I.x}<span class="lt">Beenden</span></button></div>
-      <div class="ticks"></div><div class="cook-main"><div class="cook-step"></div><aside class="cook-ings" hidden><h3>Zutaten</h3><div class="servings" style="color:var(--cover-mute)"></div><ul class="ing-list"></ul></aside></div>
-      <div class="cook-nav"><button class="big prev" type="button">← Zurück</button><span class="pos"></span><button class="big next" type="button">Weiter →</button></div>`;
-    document.body.append(el);
-    $('[data-cx]', el).onclick = () => this.close();
-    $('[data-ci]', el).onclick = e => { const a = $('.cook-ings', el), on = a.hidden; a.hidden = !on; e.currentTarget.setAttribute('aria-pressed', on); $('.cook-main', el).classList.toggle('with-ings', on); };
-    $('.prev', el).onclick = () => this.go(this.i - 1);
-    $('.next', el).onclick = () => this.go(this.i + 1);
-    $('.ticks', el).addEventListener('click', e => { const b = e.target.closest('button'); if (b) this.go(+b.dataset.i); });
-    $('.cook-ings', el).addEventListener('click', e => { const li = e.target.closest('.ing'); if (li) toggleIng(this.r, li); });
-    let x0 = null, y0 = 0;
-    $('.cook-main', el).addEventListener('touchstart', e => { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, { passive: true });
-    $('.cook-main', el).addEventListener('touchend', e => { if (x0 == null) return; const dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0; if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.4 && $('.cook-ings', el).hidden) this.go(this.i + (dx < 0 ? 1 : -1)); x0 = null; }, { passive: true });
-  },
-  start(r) {
-    if (!this.el) this.build();
-    this.r = r; this.open = true;
-    const sd = store.get('st:' + r.key, []);
-    this.i = Math.min(r.steps.length - 1, sd.length ? Math.max(...sd) + 1 : 0);
-    if (sd.length === r.steps.length) this.i = 0;
-    $('.t', this.el).textContent = r.name;
-    $('.ticks', this.el).innerHTML = r.steps.map((s, i) => `<button type="button" data-i="${i}" aria-label="Schritt ${i + 1}: ${esc(s[0])}"></button>`).join('');
-    this.drawIngs(); this.draw(0);
-    this.el.classList.add('open');
-    this.wake();
-    if (matchMedia('(hover:hover)').matches) setTimeout(() => $('.next', this.el).focus(), 50);
-  },
-  drawIngs() { if (!this.r) return; $('.cook-ings .ing-list', this.el).innerHTML = ingRows(this.r); const l = servLabel(this.r); $('.cook-ings .servings', this.el).textContent = l || 'Originalmenge'; },
-  draw(dir) {
-    const r = this.r, n = r.steps.length, st = $('.cook-step', this.el);
-    st.className = 'cook-step' + (dir > 0 ? ' in-next' : dir < 0 ? ' in-prev' : '');
-    if (this.i >= n) {
-      st.classList.add('cook-done');
-      st.innerHTML = `<span class="k">Alle ${n} Schritte erledigt</span><h2>Guten Appetit!</h2><p>${r.notes[0] ? notesHtml(r.notes[0]) : 'Lass es dir schmecken.'}</p>`;
-      $('.next', this.el).textContent = 'Zum Rezept'; $('.pos', this.el).textContent = '';
-    } else {
-      const [t, p] = r.steps[this.i];
-      st.innerHTML = `<span class="k">Schritt ${this.i + 1} von ${n}</span><h2>${esc(t)}</h2><p>${withTimers(p, t)}</p>`;
-      $('.next', this.el).textContent = this.i === n - 1 ? 'Fertig ✓' : 'Weiter →';
-      $('.pos', this.el).textContent = `${this.i + 1} / ${n}`;
-    }
-    $('.prev', this.el).disabled = this.i === 0;
-    $$('.ticks button', this.el).forEach((b, i) => { b.className = i < this.i ? 'past' : i === this.i ? 'now' : ''; });
-  },
-  go(i) {
-    const n = this.r.steps.length;
-    if (this.i >= n && i > this.i) return this.close();
-    i = Math.max(0, Math.min(n, i));
-    if (i === this.i) return;
-    if (i > this.i) { const s = new Set(store.get('st:' + this.r.key, [])); for (let k = this.i; k < i; k++) s.add(k); store.set('st:' + this.r.key, [...s]); }
-    const d = i > this.i ? 1 : -1; this.i = i; this.draw(d);
-  },
-  close() {
-    if (!this.open) return;
-    this.open = false; this.el.classList.remove('open');
-    this.lock?.release?.(); this.lock = null;
-    if (cur === this.r && sheetWrap) { const y = sheetWrap.scrollTop; renderSheet(this.r); sheetWrap.scrollTop = y; }
-  },
-  async wake() { try { this.lock = await navigator.wakeLock?.request('screen'); } catch {} }
-};
-document.addEventListener('visibilitychange', () => { if (!document.hidden && cook.open) cook.wake(); if (!document.hidden) tickTimers(); });
+document.addEventListener('visibilitychange', () => { if (!document.hidden) tickTimers(); });
 
 /* ───────── Klicks & Tasten (für alle Seiten) ───────── */
 document.addEventListener('click', e => {
   const t = e.target;
   const chip = t.closest('.timer-chip');
-  if (chip) { e.stopPropagation(); startTimer(+chip.dataset.sec, chip.dataset.label, (cook.open ? cook.r : cur)?.name); chip.classList.add('running'); setTimeout(() => chip.classList.remove('running'), 1200); return; }
+  if (chip) { e.stopPropagation(); startTimer(+chip.dataset.sec, chip.dataset.label, cur?.name); chip.classList.add('running'); setTimeout(() => chip.classList.remove('running'), 1200); return; }
   if (t.closest('[data-open-list]')) return openList();
   if (!sheetWrap || !sheetWrap.contains(t) || !cur) return;
   if (t.closest('[data-close]')) return closeSheet();
-  if (t.closest('[data-cook]')) return cook.start(cur);
-  if (t.closest('[data-add]')) return addToList(cur);
+  if (t.closest('[data-add]')) return pickForList(cur);
   if (t.closest('[data-reset]')) { store.set('ck:' + cur.key, []); store.set('st:' + cur.key, []); const y = sheetWrap.scrollTop; renderSheet(cur); sheetWrap.scrollTop = y; return; }
   const sv = t.closest('[data-srv]'); if (sv) return setServings(cur, +sv.dataset.srv);
   const li = t.closest('.ing'); if (li) return toggleIng(cur, li);
@@ -468,64 +465,52 @@ document.addEventListener('click', e => {
 });
 document.addEventListener('keydown', e => {
   if ((e.key === ' ' || e.key === 'Enter') && e.target.classList?.contains('ing') && !e.target.closest('.drawer')) { e.preventDefault(); e.target.click(); return; }
-  if (cook.open) {
-    if (e.key === 'ArrowRight') cook.go(cook.i + 1);
-    else if (e.key === 'ArrowLeft') cook.go(cook.i - 1);
-    else if (e.key === 'Escape') cook.close();
-    return;
-  }
-  if (e.key === 'Escape') { if (drawer?.classList.contains('open')) closeList(); else closeSheet(); }
+  if (e.key === 'Escape') { if (picker?.classList.contains('open')) closePicker(); else if (drawer?.classList.contains('open')) closeList(); else closeSheet(); }
 });
 
 /* ───────── Startseite ───────── */
 function indexPage() {
   const total = RECIPES.length;
   const best = RECIPES.filter(r => r.rating >= 10 && r.thumb);
-  const stage = document.createElement('div');
-  stage.className = 'stage';
-  stage.innerHTML = `<div class="stage-in">
-    <div class="endpaper grain"><div class="dedi"><p>Für alle, die bei mir am Tisch sitzen, und für alle, die es nachkochen wollen.</p><span>Weiter scrollen zum Inhalt</span></div></div>
-    <div class="cover linen" id="cover"><div class="frame"></div>
-      <div class="cover-t"><div class="over">Ein Kochbuch aus meiner Küche</div>
-        <h1 class="foil">Rezepte<i>vom Besten</i></h1>
-        <div class="orn">${I.orn}</div>
-        <p class="sub">${total} Rezepte in ${CHAPTERS.length} Kapiteln, alle selbst gekocht und ehrlich bewertet</p></div>
-      <div class="scroll-cue"><span>Scrollen zum Aufschlagen</span><i></i></div>
-    </div></div>`;
-  document.body.prepend(stage);
+  const fan = [...best].slice(0, 5);
+  const hero = document.createElement('section');
+  hero.className = 'cover linen'; hero.id = 'cover';
+  hero.innerHTML = `<div class="frame"><i class="ft"></i><i class="fr"></i><i class="fb"></i><i class="fl"></i></div>
+    <div class="cover-t">
+      <div class="over">Ein Kochbuch aus meiner Küche</div>
+      <h1 class="foil" aria-label="Rezepte vom Besten"><span class="w1">Rezepte</span><i>vom Besten</i></h1>
+      <div class="orn">${I.orn}</div>
+      <p class="sub">${total} Rezepte in ${CHAPTERS.length} Kapiteln, alle selbst gekocht und ehrlich bewertet</p>
+      <a class="open-btn" href="#inhalt">Buch aufschlagen <span aria-hidden="true">↓</span></a>
+    </div>
+    <div class="fan" aria-label="Lieblingsgerichte">${fan.map((r, i) => `<a href="${r.href}" style="--k:${i - (fan.length - 1) / 2};--a:${Math.abs(i - (fan.length - 1) / 2)}" aria-label="${esc(r.name)}"><img src="${encodeURI(r.thumb)}" alt=""><span>${esc(r.name)}</span></a>`).join('')}</div>`;
   const main = document.createElement('main');
   main.innerHTML = `
   <section class="toc-page grain" id="inhalt"><div class="wrap">
-    <div><h2 class="page-h">Inhalt</h2>
-      <ol class="toc">${CHAPTERS.map(c => `<li><a href="${c.file}" data-c="${c.id}" style="--c:${c.color}"><span class="n">${c.n}</span><span class="tt"><b>${esc(c.title)}</b><span class="lead"></span><span class="cnt">${c.recipes.length} ${c.recipes.length === 1 ? 'Rezept' : 'Rezepte'}</span></span><span class="ep">${esc(c.epigraph)}</span></a></li>`).join('')}</ol></div>
+    <div><div class="toc-h" data-rv><h2 class="page-h">Inhalt</h2><p class="dedi">Für alle, die bei mir am Tisch sitzen, und für alle, die es nachkochen wollen.</p></div>
+      <ol class="toc">${CHAPTERS.map(c => `<li data-rv><a href="${c.file}" data-c="${c.id}" style="--c:${c.color}"><span class="n">${c.n}</span><span class="tt"><b>${esc(c.title)}</b><span class="lead"></span><span class="cnt">${c.recipes.length} ${c.recipes.length === 1 ? 'Rezept' : 'Rezepte'}</span></span><span class="ep">${esc(c.epigraph)}</span></a></li>`).join('')}</ol></div>
     <figure class="preview" aria-hidden="true"><div class="plate"><div class="ph"><img alt="" id="pv-img"></div></div><figcaption id="pv-cap"></figcaption></figure>
   </div></section>
   <section class="register grain"><div class="wrap">
-    <div class="reg-top"><h2 class="page-h">Register</h2>
+    <div class="reg-top" data-rv><h2 class="page-h">Register</h2>
       <label class="find"><span class="sr">Rezept oder Zutat suchen</span><input id="find" type="search" placeholder="Rezept oder Zutat suchen" autocomplete="off">${I.search}</label></div>
     <div class="reg" id="reg"></div>
   </div></section>
   <section class="best linen dark"><div class="wrap">
-    <div class="best-h"><h2>Volle Punktzahl</h2><p>${best.length} Gerichte mit 10 von 10</p></div>
+    <div class="best-h" data-rv><h2>Volle Punktzahl</h2><p>${best.length} Gerichte mit 10 von 10</p></div>
     <div class="shelf">${best.map(r => `<a class="rc" href="${r.href}" style="--ch:${CH[r.ch].color}"><div class="plate"><div class="ph">${photo(r)}</div>${stamp(r)}</div><h3>${esc(r.name)}</h3><span class="rc-label">${esc(CH[r.ch].title)}</span></a>`).join('')}</div>
   </div></section>
   <footer class="colophon linen dark"><div class="wrap"><em>Handgemacht in meiner Küche</em><span>Rezepte vom Besten</span></div></footer>`;
+  document.body.prepend(bar(), hero);
   document.body.append(main);
-  stage.after(bar());
+  reveal(main);
 
-  /* Einband aufschlagen */
-  const cover = $('#cover'), ep = $('.endpaper');
-  const onScroll = () => {
-    const max = stage.offsetHeight - innerHeight;
-    const p = reduced ? 0 : Math.min(1, Math.max(0, scrollY / max));
-    cover.style.setProperty('--open', p.toFixed(4));
-    ep.style.setProperty('--sh', (1 - p).toFixed(3));
-    if (!hover) cover.style.setProperty('--fx', (30 + p * 60) + '%');
-  };
+  /* Goldprägung folgt der Maus, Fotos weichen leicht aus */
   const hover = matchMedia('(hover:hover)').matches;
-  if (hover) cover.addEventListener('mousemove', e => cover.style.setProperty('--fx', (e.clientX / innerWidth * 100).toFixed(1) + '%'));
-  addEventListener('scroll', onScroll, { passive: true }); addEventListener('resize', onScroll); onScroll();
-  $('.scroll-cue').addEventListener('click', () => scrollTo({ top: stage.offsetHeight - innerHeight * .2, behavior: reduced ? 'auto' : 'smooth' }));
+  if (hover && !reduced) hero.addEventListener('mousemove', e => {
+    hero.style.setProperty('--fx', (e.clientX / innerWidth * 100).toFixed(1) + '%');
+    hero.style.setProperty('--tx', ((e.clientX / innerWidth - .5) * 14).toFixed(1) + 'px');
+  });
 
   /* Vorschau im Inhalt */
   const pv = $('#pv-img'), cap = $('#pv-cap');
@@ -539,19 +524,17 @@ function indexPage() {
     pv.classList.add('swap');
     setTimeout(() => { pv.src = encodeURI(r.thumb); pv.onload = () => pv.classList.remove('swap'); cap.textContent = r.name; }, 180);
   }
-  $$('.toc a').forEach(a => { a.addEventListener('mouseenter', () => show(a.dataset.c)); a.addEventListener('focus', () => show(a.dataset.c)); });
-  if ($('.preview').offsetParent) show(CHAPTERS[2].id);
-  else $$('.toc a').forEach(a => a.replaceWith(a.cloneNode(true)));
+  if ($('.preview').offsetParent) {
+    $$('.toc a').forEach(a => { a.addEventListener('mouseenter', () => show(a.dataset.c)); a.addEventListener('focus', () => show(a.dataset.c)); });
+    show(CHAPTERS[2].id);
+  }
 
   /* Register mit Suche */
-  const norm = s => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
   const sorted = [...RECIPES].sort((a, b) => a.name.localeCompare(b.name, 'de'));
-  const hay = r => norm([r.name, r.script, r.label, CH[r.ch].title, ...r.ings.map(i => i[1])].join(' '));
-  sorted.forEach(r => r._h = hay(r));
   const mark = (s, q) => { if (!q) return esc(s); const i = norm(s).indexOf(q); return i < 0 ? esc(s) : esc(s.slice(0, i)) + '<mark>' + esc(s.slice(i, i + q.length)) + '</mark>' + esc(s.slice(i + q.length)); };
   function drawReg() {
     const q = norm($('#find').value.trim());
-    const hits = sorted.filter(r => !q || r._h.includes(q));
+    const hits = sorted.filter(r => !q || hay(r).includes(q));
     const groups = {};
     hits.forEach(r => { const L = norm(r.name)[0].toUpperCase(); (groups[L] = groups[L] || []).push(r); });
     $('#reg').innerHTML = hits.length ? Object.entries(groups).map(([L, rs]) => `<section><h3>${L}</h3>${rs.map(r => `<a href="${r.href}" style="--c:${CH[r.ch].color}"><span class="nm">${mark(r.name, q)}</span><span class="lead"></span><small>${esc(CH[r.ch].short || CH[r.ch].title)}</small></a>`).join('')}</section>`).join('')
@@ -561,15 +544,49 @@ function indexPage() {
   $('#find').addEventListener('input', drawReg); drawReg();
 }
 
+/* ───────── Seitenwechsel wie Umblättern ───────── */
+const turn = document.createElement('div');
+turn.className = 'turn linen'; turn.setAttribute('aria-hidden', 'true');
+turn.innerHTML = '<div class="turn-in"><span class="turn-k"></span><span class="turn-t foil"></span></div><i class="turn-rb"></i>';
+document.body.append(turn);
+function label(file) {
+  const c = CHAPTERS.find(x => x.file === file);
+  return c ? { k: 'Kapitel ' + c.n, t: c.title, c: c.color } : { k: 'Ein Kochbuch', t: 'Rezepte vom Besten', c: 'var(--foil)' };
+}
+function paint(l) { $('.turn-k', turn).textContent = l.k; $('.turn-t', turn).textContent = l.t; turn.style.setProperty('--c', l.c); }
+let incoming = null;
+try { incoming = JSON.parse(sessionStorage.getItem('rvb:turn')); sessionStorage.removeItem('rvb:turn'); } catch {}
+if (incoming && !reduced) {
+  paint(incoming); turn.classList.add('cover-now');
+  requestAnimationFrame(() => requestAnimationFrame(() => { turn.classList.remove('cover-now'); turn.classList.add('leave'); document.body.classList.add('arrive'); }));
+  setTimeout(() => { turn.classList.remove('leave'); }, 900);
+} else document.body.classList.add('arrive');
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[href]');
+  if (!a || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || a.target === '_blank') return;
+  const url = new URL(a.href, location.href);
+  if (url.origin !== location.origin || !/\.html$/.test(url.pathname) || url.pathname === location.pathname) return;
+  if (reduced) return;
+  e.preventDefault();
+  const file = decodeURIComponent(url.pathname.split('/').pop());
+  const l = label(file);
+  try { sessionStorage.setItem('rvb:turn', JSON.stringify(l)); } catch {}
+  paint(l); turn.classList.remove('leave'); turn.classList.add('enter');
+  setTimeout(() => { location.href = url.href; }, 520);
+});
+addEventListener('pageshow', e => { if (e.persisted) { turn.classList.remove('enter', 'leave', 'cover-now'); } });
+
 /* ───────── Start ───────── */
 if (page === 'index') indexPage();
 else if (here) {
   document.body.prepend(bar());
   chapterPage();
+  reveal($('.opener'));
   addEventListener('hashchange', fromHash);
   addEventListener('popstate', fromHash);
   fromHash();
 }
 document.body.classList.add('ready');
+{ const tb = $('.tabs'), act = $('.tabs a[aria-current]'); if (tb && act) tb.scrollLeft = act.offsetLeft - tb.clientWidth / 2 + act.offsetWidth / 2; }
 drawList(); drawTimers();
 })();
