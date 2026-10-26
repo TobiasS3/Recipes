@@ -26,6 +26,8 @@ const I = {
   pot: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h16v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z"/><path d="M2 10h20M9 6c0-1 1-1 1-2M14 6c0-1 1-1 1-2"/></svg>',
   cart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.4 11h10.2L20 8H6.2"/><circle cx="9" cy="19.5" r="1.4"/><circle cx="17" cy="19.5" r="1.4"/></svg>',
   search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>',
+  people: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M16 4.6a3.2 3.2 0 0 1 0 6.4M18 14.4c1.9.8 3 2.9 3 5.6"/></svg>',
+  star: '<svg viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.8 6.4.9-4.6 4.5 1.1 6.3L12 17.3l-5.7 3 1.1-6.3-4.6-4.5 6.4-.9z"/></svg>',
   tick: '<svg viewBox="0 0 28 26"><path d="M4 14.5 10.5 21 25 4"/></svg>',
   stepTick: '<svg viewBox="0 0 58 52"><path d="M8 28c6 5 10 10 14 16C30 28 40 15 52 6"/></svg>',
   orn: '<svg viewBox="0 0 120 20" fill="none" stroke="currentColor" stroke-width="1"><path d="M0 10h44M76 10h44"/><path d="M60 3c4 4 4 10 0 14-4-4-4-10 0-14z"/><circle cx="50" cy="10" r="1.6" fill="currentColor"/><circle cx="70" cy="10" r="1.6" fill="currentColor"/></svg>'
@@ -77,15 +79,19 @@ function withTimers(text, label) {
     return `<button type="button" class="timer-chip" data-sec="${sec}" data-label="${esc(label)}" aria-label="Timer ${m} starten">${I.clock}${m}</button>`;
   });
 }
-function card(r, i = 0) {
+const shortTime = r => r.min != null && r.min < 600 ? (r.min >= 60 ? (Math.floor(r.min / 60) + ' Std' + (r.min % 60 ? ' ' + r.min % 60 + ' Min' : '')) : r.min + ' Min') : r.time;
+const dots = d => `<span class="dots" title="Schwierigkeit ${d ?? '–'} von 10">${Array.from({ length: 10 }, (_, k) => `<i${k < (d || 0) ? ' class="on"' : ''}></i>`).join('')}</span>`;
+const stars = v => `<span class="stars" aria-hidden="true">${Array.from({ length: 5 }, (_, k) => `<i style="--f:${Math.max(0, Math.min(1, v / 2 - k)) * 100}%">${I.star}</i>`).join('')}</span>`;
+function card(r, i = 0, cls = '') {
   const c = CH[r.ch];
-  return `<a class="rc" href="${here && r.ch === page ? '#' + r.id : r.href}" style="--i:${i};--ch:${c.color}">
-    <div class="plate"><div class="ph">${photo(r)}</div>${stamp(r)}</div>
+  return `<a class="rc ${cls}" href="${here && r.ch === page ? '#' + r.id : r.href}" style="--i:${i};--ch:${c.color}">
+    <div class="plate"><div class="ph">${photo(r)}<span class="peek">Rezept öffnen <b>→</b></span></div>${stamp(r)}</div>
+    <div class="rc-b">
     ${r.label ? `<span class="rc-label">${esc(r.label.replace(/\s*·\s*$/, ''))}</span>` : '<span class="rc-label">&nbsp;</span>'}
     <h3><span>${esc(r.name)}</span></h3><span class="script">${esc(r.script)}</span>
     ${r.desc ? `<p>${esc(r.desc)}</p>` : ''}
-    <dl class="facts"><div><dt>Zeit</dt><dd>${esc(r.min != null && r.min < 600 ? (r.min >= 60 ? (Math.floor(r.min / 60) + ' Std' + (r.min % 60 ? ' ' + r.min % 60 + ' Min' : '')) : r.min + ' Min') : r.time)}</dd></div>
-    <div><dt>Schwierigkeit</dt><dd>${r.diff ?? '–'} von 10</dd></div><div><dt>Ergibt</dt><dd>${esc(r.portions)}</dd></div></dl></a>`;
+    <div class="facts2"><span>${I.clock}${esc(shortTime(r))}</span><span class="df">${dots(r.diff)}<small>${r.diff ?? '–'}/10</small></span><span>${I.people}${esc(r.portions)}</span></div>
+    </div></a>`;
 }
 
 const norm = s => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
@@ -131,7 +137,7 @@ function chapterPage() {
   const mini = `<nav class="minitoc${rs.length > 6 ? ' two' : ''}" aria-label="Rezepte in diesem Kapitel">${rs.map((r, j) => `<a href="#${r.id}" style="--j:${j}"><span>${esc(r.name)}</span><span class="lead"></span><span class="r">${r.rating == null ? 'neu' : String(r.rating).replace('.', ',') + '/10'}</span></a>`).join('')}</nav>`;
   const main = document.createElement('main');
   main.innerHTML = `
-  <section class="opener linen dark">
+  <section class="opener linen dark${rs.length > 6 ? ' long' : ''}">
     <div class="ribbon" aria-hidden="true"></div>
     <div class="wrap">
       <div>
@@ -139,17 +145,16 @@ function chapterPage() {
         <h1>${esc(c.title)}</h1>
         <p class="epigraph">${esc(c.epigraph)}</p>
         <p class="intro">${esc(c.intro)}</p>
-        ${rs.length <= 6 ? mini : ''}
+        ${mini}
       </div>
       <div class="tipped" aria-hidden="true">${best.map(r => `<figure><img src="${encodeURI(r.thumb)}" alt=""><figcaption>${esc(r.name)}</figcaption></figure>`).join('')}</div>
-      ${rs.length > 6 ? mini : ''}
     </div>
   </section>
   <section class="pages grain">
     <div class="wrap">
-      <div class="toolbar"><h2 id="cnt">${rs.length} Rezepte</h2>
-        <label class="find small"><span class="sr">In ${esc(c.title)} suchen</span><input id="q" type="search" placeholder="Rezept oder Zutat suchen" autocomplete="off">${I.search}</label>
-        <div class="sort" role="group" aria-label="Sortieren"><span>Sortieren:</span>
+      <div class="toolbar"><div class="tb-l"><span class="tb-k">Kapitel ${c.n} · ${esc(c.title)}</span><h2 id="cnt">${rs.length} Rezepte</h2></div>
+        <label class="pfind"><span class="sr">In ${esc(c.title)} suchen</span>${I.search}<input id="q" type="search" placeholder="In ${esc(c.short || c.title)} suchen" autocomplete="off"></label>
+        <div class="sort" role="group" aria-label="Sortieren">
           <button type="button" data-s="book">Wie im Buch</button><button type="button" data-s="rating">Beste zuerst</button>
           <button type="button" data-s="time">Schnellste zuerst</button><button type="button" data-s="diff">Einfachste zuerst</button></div></div>
       <div class="grid" id="grid"></div>
@@ -171,7 +176,7 @@ function chapterPage() {
     $$('.sort button', main).forEach(b => b.setAttribute('aria-pressed', b.dataset.s === mode));
     const q = norm(qIn.value.trim());
     const list = [...rs].filter(r => !q || hay(r).includes(q)).sort(sorters[mode] || sorters.book);
-    grid.innerHTML = list.length ? list.map(card).join('') : `<p class="reg-empty">In ${esc(c.title)} gibt es nichts mit „${esc(qIn.value.trim())}“.</p>`;
+    grid.innerHTML = list.length ? list.map((r, i) => card(r, i, i === 0 && list.length > 1 ? 'feat' : '')).join('') : `<p class="reg-empty">In ${esc(c.title)} gibt es nichts mit „${esc(qIn.value.trim())}“.</p>`;
     $('#cnt', main).textContent = q ? `${list.length} von ${rs.length} Rezepten` : `${rs.length} Rezepte`;
     const more = q ? RECIPES.filter(r => r.ch !== c.id && hay(r).includes(q)) : [];
     other.hidden = !more.length;
@@ -216,16 +221,20 @@ function renderSheet(r) {
   sheetWrap.setAttribute('aria-label', r.name);
   sheetWrap.innerHTML = `<article class="sheet">
     <div class="shade"></div>
+    <i class="s-ribbon" aria-hidden="true"></i>
     <button class="sheet-close" type="button" aria-label="Rezept schließen" data-close>✕</button>
     <header class="s-head">
       <div class="s-kap">Kapitel ${c.n} · ${esc(c.title)}</div>
       <h2>${esc(r.name)}</h2><div class="script">${esc(r.script)}</div>
       <div class="s-row">
-        <dl class="s-facts"><div><dt>Zeit</dt><dd>${esc(r.time)}</dd></div><div><dt>Schwierigkeit</dt><dd>${r.diff ?? '–'} von 10${r.diffLabel ? ', ' + esc(r.diffLabel.toLowerCase()) : ''}</dd></div><div><dt>Bewertung</dt><dd>${r.rating == null ? 'neu, noch offen' : String(r.rating).replace('.', ',') + ' von 10'}</dd></div></dl>
+        <dl class="s-facts">
+          <div><dt>${I.clock}Zeit</dt><dd>${esc(r.time)}</dd></div>
+          <div><dt>Schwierigkeit</dt><dd>${dots(r.diff)}<small>${r.diff ?? '–'} von 10${r.diffLabel ? ', ' + esc(r.diffLabel.toLowerCase()) : ''}</small></dd></div>
+          <div><dt>Bewertung</dt><dd>${r.rating == null ? 'neu, noch offen' : stars(r.rating) + '<small>' + String(r.rating).replace('.', ',') + ' von 10</small>'}</dd></div></dl>
         <div class="s-actions"><button class="btn solid" type="button" data-add>${I.cart}Auf die Einkaufsliste</button></div>
       </div>
     </header>
-    ${r.img ? `<figure class="s-photo"><img src="${encodeURI(r.img)}" alt="${esc(r.name)}"></figure>` : ''}
+    ${r.img ? `<figure class="s-photo"><img src="${encodeURI(r.img)}" alt="${esc(r.name)}">${stamp(r)}<figcaption>${esc(r.script)}</figcaption></figure>` : ''}
     <div class="s-body">
       <aside class="ings">
         <h3>Zutaten</h3>
@@ -238,7 +247,7 @@ function renderSheet(r) {
         <div class="ing-actions"><button class="btn" type="button" data-add>${I.cart}Auf die Einkaufsliste</button><button class="linkish" type="button" data-reset>Alles zurücksetzen</button></div>
       </aside>
       <section>
-        <h3>Zubereitung</h3>
+        <h3>Zubereitung <small class="st-c">${r.steps.length} Schritte</small></h3>
         <ol class="steps">${r.steps.map(([t, p], i) => `<li class="step${sDone.has(i) ? ' done' : ''}" data-i="${i}"><div class="step-n">${i + 1}${I.stepTick}</div><div><h4>${esc(t)}</h4><p>${withTimers(p, t)}</p></div></li>`).join('')}</ol>
         <p class="hint">Tipp auf einen Schritt, um ihn abzuhaken. Zeitangaben starten einen Timer.</p>
       </section>
