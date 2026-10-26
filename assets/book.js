@@ -90,7 +90,7 @@ function card(r, i = 0, cls = '') {
     ${r.label ? `<span class="rc-label">${esc(r.label.replace(/\s*·\s*$/, ''))}</span>` : '<span class="rc-label">&nbsp;</span>'}
     <h3><span>${esc(r.name)}</span></h3><span class="script">${esc(r.script)}</span>
     ${r.desc ? `<p>${esc(r.desc)}</p>` : ''}
-    <div class="facts2"><span>${I.clock}${esc(shortTime(r))}</span><span class="df">${dots(r.diff)}<small>${r.diff ?? '–'}/10</small></span><span>${I.people}${esc(r.portions)}</span></div>
+    <div class="facts2"><span>${I.clock}${esc(shortTime(r))}</span><span class="df"><em>Schwierigkeit</em>${dots(r.diff)}<small>${r.diff ?? '–'}/10${r.diffLabel ? ' · ' + esc(r.diffLabel.toLowerCase()) : ''}</small></span><span>${I.people}${esc(r.portions)}</span></div>
     </div></a>`;
 }
 
