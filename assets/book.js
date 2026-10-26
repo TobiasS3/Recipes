@@ -101,18 +101,25 @@ function reveal(root) {
 }
 
 /* ───────── Leiste ───────── */
-function bar() {
+function indexNav() {
   const el = document.createElement('header');
-  el.className = 'bar linen' + (page === 'index' ? ' over' : '');
+  el.className = 'inav';
+  el.innerHTML = `<div class="wrap"><a class="wordmark" href="index.html"><span class="seal">R</span><span><b>Rezepte</b> <i>vom Besten</i></span></a>
+    <nav class="ilinks" aria-label="Bereiche"><a href="#kapitel">Kapitel</a><a href="#best">Bestnoten</a><a href="#register">Register</a></nav>
+    <button class="list-btn" type="button" data-open-list aria-label="Einkaufsliste">${I.list}<span class="lt">Einkaufsliste</span><span class="count"></span></button></div>`;
+  const on = () => el.classList.toggle('solid', scrollY > 30);
+  addEventListener('scroll', on, { passive: true }); on();
+  return el;
+}
+function bar() {
+  if (page === 'index') return indexNav();
+  const el = document.createElement('header');
+  el.className = 'bar linen';
   el.innerHTML = `<div class="wrap">
     ${page === 'index' ? '' : `<a class="back" href="index.html#inhalt" aria-label="Zurück zur Startseite"><span class="back-i">←</span><span class="back-t">Startseite</span></a>`}
     ${page === 'index' ? '<a class="brand" href="index.html"><b>Rezepte</b> vom Besten</a>' : ''}
     <nav class="tabs" aria-label="Kapitel">${CHAPTERS.map(c => `<a href="${c.file}" style="--c:${c.color}"${c.id === page ? ' aria-current="page"' : ''}><i></i>${esc(c.short || c.title)}</a>`).join('')}</nav>
     <button class="list-btn" type="button" data-open-list aria-label="Einkaufsliste">${I.list}<span class="lt">Einkaufsliste</span><span class="count"></span></button></div>`;
-  if (page === 'index') {
-    const on = () => el.classList.toggle('over', scrollY < innerHeight * .6);
-    addEventListener('scroll', on, { passive: true }); on();
-  }
   return el;
 }
 
@@ -121,6 +128,7 @@ function chapterPage() {
   const c = here, rs = byChapter(c.id);
   const best = rs.filter(r => r.thumb).sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0)).slice(0, 3);
   const prev = CHAPTERS[c.n - 2], next = CHAPTERS[c.n];
+  const mini = `<nav class="minitoc${rs.length > 6 ? ' two' : ''}" aria-label="Rezepte in diesem Kapitel">${rs.map((r, j) => `<a href="#${r.id}" style="--j:${j}"><span>${esc(r.name)}</span><span class="lead"></span><span class="r">${r.rating == null ? 'neu' : String(r.rating).replace('.', ',') + '/10'}</span></a>`).join('')}</nav>`;
   const main = document.createElement('main');
   main.innerHTML = `
   <section class="opener linen dark">
@@ -131,9 +139,10 @@ function chapterPage() {
         <h1>${esc(c.title)}</h1>
         <p class="epigraph">${esc(c.epigraph)}</p>
         <p class="intro">${esc(c.intro)}</p>
-        <nav class="minitoc" aria-label="Rezepte in diesem Kapitel">${rs.map((r, j) => `<a href="#${r.id}" style="--j:${j}"><span>${esc(r.name)}</span><span class="lead"></span><span class="r">${r.rating == null ? 'neu' : String(r.rating).replace('.', ',') + '/10'}</span></a>`).join('')}</nav>
+        ${rs.length <= 6 ? mini : ''}
       </div>
       <div class="tipped" aria-hidden="true">${best.map(r => `<figure><img src="${encodeURI(r.thumb)}" alt=""><figcaption>${esc(r.name)}</figcaption></figure>`).join('')}</div>
+      ${rs.length > 6 ? mini : ''}
     </div>
   </section>
   <section class="pages grain">
@@ -471,65 +480,85 @@ document.addEventListener('keydown', e => {
 /* ───────── Startseite ───────── */
 function indexPage() {
   const total = RECIPES.length;
+  const withImg = RECIPES.filter(r => r.thumb);
   const best = RECIPES.filter(r => r.rating >= 10 && r.thumb);
-  const fan = [...best].slice(0, 5);
-  const hero = document.createElement('section');
-  hero.className = 'cover linen'; hero.id = 'cover';
-  hero.innerHTML = `<div class="frame"><i class="ft"></i><i class="fr"></i><i class="fb"></i><i class="fl"></i></div>
-    <div class="cover-t">
-      <div class="over">Ein Kochbuch aus meiner Küche</div>
-      <h1 class="foil" aria-label="Rezepte vom Besten"><span class="w1">Rezepte</span><i>vom Besten</i></h1>
-      <div class="orn">${I.orn}</div>
-      <p class="sub">${total} Rezepte in ${CHAPTERS.length} Kapiteln, alle selbst gekocht und ehrlich bewertet</p>
-      <a class="open-btn" href="#inhalt">Buch aufschlagen <span aria-hidden="true">↓</span></a>
-    </div>
-    <div class="fan" aria-label="Lieblingsgerichte">${fan.map((r, i) => `<a href="${r.href}" style="--k:${i - (fan.length - 1) / 2};--a:${Math.abs(i - (fan.length - 1) / 2)}" aria-label="${esc(r.name)}"><img src="${encodeURI(r.thumb)}" alt=""><span>${esc(r.name)}</span></a>`).join('')}</div>`;
+  const shuffled = [...withImg].sort((a, b) => (a.name.length * 7 + a.id.length * 13) % 11 - (b.name.length * 7 + b.id.length * 13) % 11);
+  const cols = [0, 1, 2].map(k => shuffled.filter((_, i) => i % 3 === k));
+  const tileImg = c => (byChapter(c.id).filter(r => r.thumb).sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))[0] || {}).thumb;
+  const order = ['pasta', 'fleisch', 'fruehstueck', 'gebaeck', 'suppen', 'kuchen', 'dessert', 'beilagen'].map(id => CH[id]);
+  const reelItem = r => `<a href="${r.href}" tabindex="-1"><img src="${encodeURI(r.thumb)}" alt="" loading="lazy"><span>${esc(r.name)}</span></a>`;
+
   const main = document.createElement('main');
   main.innerHTML = `
-  <section class="toc-page grain" id="inhalt"><div class="wrap">
-    <div><div class="toc-h" data-rv><h2 class="page-h">Inhalt</h2><p class="dedi">Für alle, die bei mir am Tisch sitzen, und für alle, die es nachkochen wollen.</p></div>
-      <ol class="toc">${CHAPTERS.map(c => `<li data-rv><a href="${c.file}" data-c="${c.id}" style="--c:${c.color}"><span class="n">${c.n}</span><span class="tt"><b>${esc(c.title)}</b><span class="lead"></span><span class="cnt">${c.recipes.length} ${c.recipes.length === 1 ? 'Rezept' : 'Rezepte'}</span></span><span class="ep">${esc(c.epigraph)}</span></a></li>`).join('')}</ol></div>
-    <figure class="preview" aria-hidden="true"><div class="plate"><div class="ph"><img alt="" id="pv-img"></div></div><figcaption id="pv-cap"></figcaption></figure>
+  <section class="hero linen dark" id="top"><div class="wrap">
+    <div class="hero-l">
+      <span class="eyebrow"><i></i>Ein Kochbuch aus meiner Küche</span>
+      <h1><span class="l"><span>Rezepte</span></span><span class="l"><span><em class="foil">vom Besten</em></span></span></h1>
+      <p class="lede">${total} Gerichte, alle selbst gekocht und ehrlich bewertet. Von der echten Carbonara bis zum 24-Stunden-Pizzateig.</p>
+      <div class="hsearch" role="search">
+        <label>${I.search}<span class="sr">Rezept oder Zutat suchen</span><input id="hq" type="search" placeholder="Gericht oder Zutat suchen …" autocomplete="off" aria-controls="hres"><kbd>/</kbd></label>
+        <div class="hres" id="hres" hidden></div>
+      </div>
+      <nav class="qchips" aria-label="Kapitel">${CHAPTERS.map((c, j) => `<a href="${c.file}" style="--c:${c.color};--j:${j}"><i></i>${esc(c.short || c.title)}</a>`).join('')}</nav>
+    </div>
+    <div class="reel" aria-hidden="true">${cols.map(col => `<div class="col">${col.map(reelItem).join('')}${col.map(reelItem).join('')}</div>`).join('')}</div>
   </div></section>
-  <section class="register grain"><div class="wrap">
-    <div class="reg-top" data-rv><h2 class="page-h">Register</h2>
-      <label class="find"><span class="sr">Rezept oder Zutat suchen</span><input id="find" type="search" placeholder="Rezept oder Zutat suchen" autocomplete="off">${I.search}</label></div>
-    <div class="reg" id="reg"></div>
+
+  <section class="kapitel grain" id="kapitel"><div class="wrap">
+    <div class="sec-h" data-rv><h2>Kapitel</h2><p>Acht Kapitel vom Frühstück bis zum Dessert. Jedes mit eigenem Lesebändchen.</p></div>
+    <div class="bento">${order.map(c => `<a class="tile" href="${c.file}" style="--c:${c.color}" data-rv>${tileImg(c) ? `<img src="${encodeURI(tileImg(c))}" alt="" loading="lazy">` : ''}
+      <span class="n">${c.recipes.length} ${c.recipes.length === 1 ? 'Rezept' : 'Rezepte'}</span>
+      <span class="k">Kapitel ${c.n}</span><h3>${esc(c.title)}</h3><span class="ep">${esc(c.epigraph)}</span><span class="go" aria-hidden="true">→</span></a>`).join('')}</div>
   </div></section>
-  <section class="best linen dark"><div class="wrap">
-    <div class="best-h" data-rv><h2>Volle Punktzahl</h2><p>${best.length} Gerichte mit 10 von 10</p></div>
+
+  <section class="best linen dark" id="best"><div class="wrap">
+    <div class="sec-h" data-rv><h2>Volle Punktzahl</h2><p>${best.length} Gerichte mit 10 von 10. Wenn du nicht weißt, was du kochen sollst, fang hier an.</p></div>
     <div class="shelf">${best.map(r => `<a class="rc" href="${r.href}" style="--ch:${CH[r.ch].color}"><div class="plate"><div class="ph">${photo(r)}</div>${stamp(r)}</div><h3>${esc(r.name)}</h3><span class="rc-label">${esc(CH[r.ch].title)}</span></a>`).join('')}</div>
   </div></section>
-  <footer class="colophon linen dark"><div class="wrap"><em>Handgemacht in meiner Küche</em><span>Rezepte vom Besten</span></div></footer>`;
-  document.body.prepend(bar(), hero);
+
+  <section class="register grain" id="register"><div class="wrap">
+    <div class="reg-top" data-rv><h2 class="page-h">Register</h2>
+      <label class="find"><span class="sr">Im Register suchen</span><input id="find" type="search" placeholder="Im Register suchen" autocomplete="off">${I.search}</label></div>
+    <div class="reg" id="reg"></div>
+  </div></section>
+  <footer class="colophon linen dark"><div class="wrap"><em>Handgemacht in meiner Küche</em><a href="#top">Nach oben ↑</a></div></footer>`;
+  document.body.prepend(indexNav());
   document.body.append(main);
   reveal(main);
 
-  /* Goldprägung folgt der Maus, Fotos weichen leicht aus */
-  const hover = matchMedia('(hover:hover)').matches;
-  if (hover && !reduced) hero.addEventListener('mousemove', e => {
-    hero.style.setProperty('--fx', (e.clientX / innerWidth * 100).toFixed(1) + '%');
-    hero.style.setProperty('--tx', ((e.clientX / innerWidth - .5) * 14).toFixed(1) + 'px');
+  /* Suche im Kopf */
+  const hq = $('#hq'), hres = $('#hres');
+  function drawHits() {
+    const q = norm(hq.value.trim());
+    if (!q) { hres.hidden = true; return; }
+    const hits = RECIPES.filter(r => hay(r).includes(q)).sort((a, b) => (norm(b.name).includes(q) - norm(a.name).includes(q)) || (b.rating ?? 0) - (a.rating ?? 0)).slice(0, 7);
+    hres.innerHTML = hits.length ? hits.map(r => `<a href="${r.href}" style="--c:${CH[r.ch].color}">${r.thumb ? `<img src="${encodeURI(r.thumb)}" alt="">` : '<span class="ni"></span>'}<span><b>${esc(r.name)}</b><small><i></i>${esc(CH[r.ch].title)}, ${esc(r.time)}</small></span></a>`).join('')
+      : `<p>Nichts gefunden zu „${esc(hq.value.trim())}“. Versuch eine Zutat wie Lachs, Kürbis oder Mascarpone.</p>`;
+    hres.hidden = false;
+  }
+  hq.addEventListener('input', drawHits);
+  hq.addEventListener('focus', drawHits);
+  hq.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { hq.value = ''; hres.hidden = true; }
+    if (e.key === 'ArrowDown') { const a = $('a', hres); if (a) { e.preventDefault(); a.focus(); } }
+    if (e.key === 'Enter') { const a = $('a', hres); if (a) { e.preventDefault(); a.click(); } }
+  });
+  hres.addEventListener('keydown', e => {
+    const a = document.activeElement;
+    if (e.key === 'ArrowDown' && a.nextElementSibling) { e.preventDefault(); a.nextElementSibling.focus(); }
+    if (e.key === 'ArrowUp') { e.preventDefault(); (a.previousElementSibling || hq).focus(); }
+    if (e.key === 'Escape') { hres.hidden = true; hq.focus(); }
+  });
+  document.addEventListener('click', e => { if (!e.target.closest('.hsearch')) hres.hidden = true; });
+  document.addEventListener('keydown', e => { if (e.key === '/' && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) { e.preventDefault(); hq.focus(); } });
+
+  /* Kacheln folgen leicht der Maus */
+  if (!reduced && matchMedia('(hover:hover)').matches) $$('.tile').forEach(t => {
+    t.addEventListener('mousemove', e => { const b = t.getBoundingClientRect(), x = (e.clientX - b.left) / b.width - .5, y = (e.clientY - b.top) / b.height - .5; $('img', t)?.style.setProperty('transform', `scale(1.08) translate(${-x * 14}px,${-y * 14}px)`); });
+    t.addEventListener('mouseleave', () => $('img', t)?.style.removeProperty('transform'));
   });
 
-  /* Vorschau im Inhalt */
-  const pv = $('#pv-img'), cap = $('#pv-cap');
-  const pick = id => byChapter(id).filter(r => r.thumb);
-  const pos = {};
-  function show(id) {
-    const list = pick(id); if (!list.length) return;
-    pos[id] = ((pos[id] ?? -1) + 1) % list.length;
-    const r = list[pos[id]];
-    $$('.toc a').forEach(a => a.classList.toggle('on', a.dataset.c === id));
-    pv.classList.add('swap');
-    setTimeout(() => { pv.src = encodeURI(r.thumb); pv.onload = () => pv.classList.remove('swap'); cap.textContent = r.name; }, 180);
-  }
-  if ($('.preview').offsetParent) {
-    $$('.toc a').forEach(a => { a.addEventListener('mouseenter', () => show(a.dataset.c)); a.addEventListener('focus', () => show(a.dataset.c)); });
-    show(CHAPTERS[2].id);
-  }
-
-  /* Register mit Suche */
+  /* Register */
   const sorted = [...RECIPES].sort((a, b) => a.name.localeCompare(b.name, 'de'));
   const mark = (s, q) => { if (!q) return esc(s); const i = norm(s).indexOf(q); return i < 0 ? esc(s) : esc(s.slice(0, i)) + '<mark>' + esc(s.slice(i, i + q.length)) + '</mark>' + esc(s.slice(i + q.length)); };
   function drawReg() {
