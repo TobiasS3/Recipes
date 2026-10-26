@@ -674,8 +674,11 @@ footer.colophon em{font-family:var(--hand);font-style:normal;font-size:1.2rem;co
 
 /* Handy: dunkle Flächen ohne Leinenstruktur, damit sie sauber schwarz wirken */
 @media (max-width:1080px),(hover:none){
-  .linen{background-image:none;background-color:#111814}
-  .inav.solid{background:rgba(17,24,20,.94)}
+  :root{--cover:#0a0d0b;--cover-2:#121714;--cover-3:#1a201c}
+  html,body{background-color:var(--paper)}
+  .linen{background-image:none;background-color:#0a0d0b}
+  .inav.solid{background:rgba(10,13,11,.94)}
+  .qchips a,.ilinks a{background:rgba(255,255,255,.02)}
 }
 /* Handy: Sprung-Links auf der Startseite als Knöpfe unter dem Logo */
 @media (max-width:1080px){
