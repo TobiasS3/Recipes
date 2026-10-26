@@ -832,10 +832,6 @@ window.RECIPES=[
     "Lauch (Porree)"
    ],
    [
-    "1",
-    "kleine Knoblauchzehe"
-   ],
-   [
     "75–100 g",
     "Speckwürfel"
    ],
@@ -898,8 +894,8 @@ window.RECIPES=[
     "Etwas Olivenöl zum Speckfett geben. Die fein gewürfelte Zwiebel darin bei mittlerer Hitze glasig dünsten und leicht goldgelb werden lassen."
    ],
    [
-    "Knoblauch und Lauch hinzufügen",
-    "Die fein gehackte Knoblauchzehe dazugeben und etwa 30 Sekunden mitdünsten. Anschließend den in feine Ringe geschnittenen Lauch hinzufügen und 2–3 Minuten mitdünsten."
+    "Lauch hinzufügen",
+    "Den in feine Ringe geschnittenen Lauch hinzufügen und 2–3 Minuten mitdünsten."
    ],
    [
     "Butter und Gewürze hinzufügen",
