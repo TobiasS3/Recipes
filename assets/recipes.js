@@ -810,7 +810,7 @@ window.RECIPES=[
   "min": 40,
   "diff": 3,
   "diffLabel": "Leicht",
-  "portions": "2–3 Personen",
+  "portions": "4 Personen",
   "rating": 8,
   "img": "bilder/Suppen_kartoffelsuppe.jpg",
   "thumb": "bilder/klein/Suppen_kartoffelsuppe.jpg",
