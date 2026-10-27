@@ -77,13 +77,14 @@ window.CHAPTERS=[
   "title": "Beilagen",
   "color": "#587064",
   "epigraph": "das Drumherum",
-  "intro": "Spätzle, Kartoffeln auf zwei Arten und zwei Sommersalate. Alles, was den Teller voll macht.",
+  "intro": "Spätzle, Kartoffeln auf zwei Arten, zwei Sommersalate und ein knuspriger Kartoffel-Lachs-Salat. Alles, was den Teller voll macht.",
   "recipes": [
    "spaetzle",
    "smashed",
    "pommes",
    "gurkensalat",
-   "avocadosalat"
+   "avocadosalat",
+   "lachssalat"
   ]
  },
  {
@@ -4796,6 +4797,130 @@ window.RECIPES=[
    "Über Nacht kühlen lassen — dann ist es noch viel besser als nach 2 Stunden.",
    "Extra-Tipp: etwas Limettenabrieb in die Creme gibt eine tolle Frische.",
    "Noch mehr Geschmack: weiße Schokolade fein gehackt zwischen die Schichten legen."
+  ]
+ },
+ {
+  "id": "lachssalat",
+  "ch": "beilagen",
+  "name": "Knuspriger Kartoffel-Lachs-Salat mit Gurke & Dill",
+  "script": "quetschkartoffeln · lachs · gurke · dill",
+  "label": "Crispy · Fresh",
+  "desc": "Knusprige Quetschkartoffeln und zarter Ofenlachs mit Gurke, roter Zwiebel und viel Dill in einem cremigen Joghurt-Senf-Dressing.",
+  "time": "45 Min",
+  "min": 45,
+  "diff": 2,
+  "diffLabel": "Leicht",
+  "portions": "ca. 2–3 Personen",
+  "rating": null,
+  "img": "",
+  "thumb": "",
+  "ings": [
+   [
+    "— Salat —",
+    ""
+   ],
+   [
+    "500–700 g",
+    "Kartoffel-Drillinge"
+   ],
+   [
+    "etwas",
+    "Olivenöl"
+   ],
+   [
+    "nach Geschmack",
+    "Salz und Pfeffer"
+   ],
+   [
+    "nach Belieben",
+    "Kartoffelgewürz"
+   ],
+   [
+    "ca. 250 g",
+    "Lachs"
+   ],
+   [
+    "1",
+    "rote Zwiebel"
+   ],
+   [
+    "½",
+    "Salatgurke"
+   ],
+   [
+    "nach Geschmack",
+    "Gewürzgurken"
+   ],
+   [
+    "nach Geschmack",
+    "frischer Dill"
+   ],
+   [
+    "— Dressing —",
+    ""
+   ],
+   [
+    "50–100 g",
+    "Mayonnaise"
+   ],
+   [
+    "200 g",
+    "Joghurt oder Skyr"
+   ],
+   [
+    "etwas",
+    "Gewürzgurkenwasser"
+   ],
+   [
+    "1 TL",
+    "Senf"
+   ],
+   [
+    "nach Geschmack",
+    "Salz und Pfeffer"
+   ]
+  ],
+  "steps": [
+   [
+    "Kartoffeln kochen",
+    "Die Kartoffeln in Wasser gar kochen und anschließend abgießen."
+   ],
+   [
+    "Kartoffeln zerdrücken",
+    "Die gekochten Kartoffeln auf ein mit Backpapier belegtes Backblech geben und mit einem Glas oder Kartoffelstampfer leicht zerquetschen."
+   ],
+   [
+    "Lachs und Kartoffeln würzen",
+    "Den Lachs neben die Kartoffeln auf das Blech legen. Kartoffeln und Lachs mit Salz, Pfeffer und optional Kartoffelgewürz würzen. Etwas Olivenöl darüberträufeln."
+   ],
+   [
+    "Im Ofen backen",
+    "Das Backblech bei 180 °C für ca. 30 Minuten backen, bis die Kartoffeln knusprig und der Lachs vollständig gar sind."
+   ],
+   [
+    "Gemüse schneiden",
+    "Währenddessen die rote Zwiebel, die Salatgurke und die Gewürzgurken klein schneiden. Den Dill fein hacken."
+   ],
+   [
+    "Dressing anrühren",
+    "Mayonnaise, Joghurt oder Skyr, etwas Gewürzgurkenwasser und Senf miteinander verrühren. Mit Salz und Pfeffer abschmecken."
+   ],
+   [
+    "Lachs zerkleinern",
+    "Den fertigen Lachs aus dem Ofen nehmen, die Haut entfernen und das Fischfleisch mit einer Gabel zerkleinern. In eine große Salatschüssel geben."
+   ],
+   [
+    "Salat vermengen",
+    "Das geschnittene Gemüse, den Dill und das Dressing zum Lachs geben und vorsichtig vermischen."
+   ],
+   [
+    "Kartoffeln hinzufügen",
+    "Die knusprigen Quetschkartoffeln dazugeben und alles gut vermengen."
+   ]
+  ],
+  "notes": [
+   "Für eine besonders cremige und proteinreiche Variante Skyr verwenden.",
+   "Die Kartoffeln am besten erst kurz vor dem Servieren unterheben, damit sie möglichst lange knusprig bleiben."
   ]
  }
 ];
