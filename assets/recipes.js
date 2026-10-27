@@ -1915,34 +1915,38 @@ window.RECIPES=[
  {
   "id": "zitronenlachs",
   "ch": "pasta",
-  "name": "Cremige Zitronen-Knoblauch-Lachs-Pasta",
+  "name": "Cremige Zitronen-Knoblauch-Pasta mit Lachs",
   "script": "salmone al limone e aglio",
   "label": "Creamy · Limone",
   "desc": "Goldbraun gebratener Lachs auf Bandnudeln in cremiger Zitronen-Knoblauch-Sauce mit Parmesan und frischer Petersilie. Das einfache Feierabend-Gericht.",
-  "time": "30 Min",
-  "min": 30,
+  "time": "35 Min",
+  "min": 35,
   "diff": 4,
   "diffLabel": "Mittel-Einfach",
-  "portions": "2-3 Personen",
+  "portions": "ca. 2–3 Personen",
   "rating": null,
   "img": "",
   "thumb": "",
   "ings": [
    [
+    "— Lachs —",
+    ""
+   ],
+   [
     "nach Bedarf",
-    "2-3 Lachsfilets"
+    "Lachsfilets"
    ],
    [
     "2 EL",
-    "Olivenöl (Lachs)"
+    "Olivenöl"
    ],
    [
     "2 EL",
-    "Butter (Lachs)"
+    "Butter"
    ],
    [
-    "Salz & Pfeffer",
-    "nach Geschmack"
+    "nach Geschmack",
+    "Salz und schwarzer Pfeffer"
    ],
    [
     "1 TL",
@@ -1951,6 +1955,10 @@ window.RECIPES=[
    [
     "½ TL",
     "Knoblauchpulver"
+   ],
+   [
+    "½ TL",
+    "Zwiebelpulver"
    ],
    [
     "1 TL",
@@ -1966,7 +1974,11 @@ window.RECIPES=[
    ],
    [
     "½ TL",
-    "Dill"
+    "Allzweck-Gewürzmischung"
+   ],
+   [
+    "— Pasta —",
+    ""
    ],
    [
     "nach Bedarf",
@@ -1974,15 +1986,19 @@ window.RECIPES=[
    ],
    [
     "etwas",
-    "Salz fürs Nudelwasser"
+    "Salz für das Nudelwasser"
+   ],
+   [
+    "— Cremige Zitronen-Knoblauch-Sauce —",
+    ""
    ],
    [
     "1 EL",
-    "Butter (Sauce)"
+    "Butter"
    ],
    [
     "1 EL",
-    "Olivenöl (Sauce)"
+    "Olivenöl"
    ],
    [
     "4",
@@ -1993,12 +2009,8 @@ window.RECIPES=[
     "Zwiebel, fein gewürfelt"
    ],
    [
-    "nach Gefühl",
-    "Paprika, Oregano, Chiliflocken, Dill, Chilli für die Sauce"
-   ],
-   [
     "250 ml",
-    "Schlagsahne"
+    "Sahne"
    ],
    [
     "60 g",
@@ -2006,52 +2018,49 @@ window.RECIPES=[
    ],
    [
     "Abrieb von 1",
-    "Bio-Zitrone"
+    "Zitrone"
    ],
    [
     "Saft von ½–1",
-    "Zitrone (nach Geschmack)"
+    "Zitrone, nach Geschmack"
    ],
    [
     "2 EL",
     "frische Petersilie, gehackt"
+   ],
+   [
+    "nach Geschmack",
+    "Salz und frisch gemahlener schwarzer Pfeffer"
+   ],
+   [
+    "nach Geschmack",
+    "Paprikapulver, Oregano, Chiliflocken, Allzweck-Gewürzmischung, Zwiebelpulver"
    ]
   ],
   "steps": [
    [
     "Pasta kochen",
-    "Einen großen Topf mit Salzwasser zum Kochen bringen. Die Pasta nach Packungsanweisung al dente kochen. Vor dem Abgießen 120 ml Nudelwasser aufheben!"
-   ],
-   [
-    "Lachs würzen",
-    "Lachs trocken tupfen, mit etwas Öl beträufeln und mit Salz, Pfeffer, Paprika, Knoblauchpulver, Petersilie, Zitronenabrieb, Thymian und Allzweck-Gewürz würzen."
+    "Einen großen Topf mit Salzwasser zum Kochen bringen. Die Pasta nach Packungsanweisung al dente kochen. Vor dem Abgießen ca. 120 ml Nudelwasser auffangen."
    ],
    [
     "Lachs braten",
-    "Olivenöl und Butter in einer großen Pfanne bei mittlerer bis hoher Hitze erhitzen. Lachs 3–4 Minuten pro Seite braten, bis er goldbraun und gerade durch ist. Dabei immer wieder mit der Butter übergießen. Auf einen Teller legen."
+    "Die Lachsfilets mit Küchenpapier trocken tupfen. Mit Olivenöl beträufeln und mit Salz, Pfeffer, Paprikapulver, Knoblauchpulver, Zwiebelpulver, getrockneter Petersilie, Zitronenabrieb, Thymian und Allzweck-Gewürzmischung würzen. Olivenöl und Butter in einer großen Pfanne bei mittlerer bis hoher Hitze erhitzen. Den Lachs je nach Dicke ca. 3–4 Minuten pro Seite goldbraun braten, bis er gar ist. Dabei zwischendurch mit der geschmolzenen Butter aus der Pfanne beträufeln. Den Lachs aus der Pfanne nehmen und beiseitestellen."
    ],
    [
-    "Sauce ansetzen",
-    "Hitze auf mittlere Stufe reduzieren. Butter und einen Schuss Öl in derselben Pfanne schmelzen. Zwiebel und Knoblauch dazugeben und 30–60 Sekunden anschwitzen, bis es duftet, Gewürze hinzugeben und ebenfalls kurz mit anschwitzen."
+    "Cremige Zitronen-Knoblauch-Sauce zubereiten",
+    "Die Hitze auf mittlere Stufe reduzieren. Butter und etwas Olivenöl in derselben Pfanne erhitzen. Die gewürfelte Zwiebel und den gehackten Knoblauch hinzufügen und ca. 30–60 Sekunden anschwitzen, bis sie duften. Die Sahne hineingießen und 2–3 Minuten sanft köcheln lassen. Mit Salz, Pfeffer, Paprikapulver, Oregano, Chiliflocken, Allzweck-Gewürzmischung und Zwiebelpulver abschmecken. Zitronenabrieb und Zitronensaft hinzufügen. Parmesan und frische Petersilie einrühren, bis eine cremige Sauce entsteht."
    ],
    [
-    "Sauce fertigstellen",
-    "Sahne eingießen und 2–3 Minuten sanft köcheln lassen. Gewürze, Zitronenabrieb und Zitronensaft dazugeben. Parmesan und Petersilie einrühren."
+    "Pasta mit der Sauce vermengen",
+    "Die gekochte Pasta direkt in die Sauce geben und gut vermischen. Falls die Sauce zu dick ist, nach und nach etwas vom aufgefangenen Nudelwasser hinzufügen, bis die gewünschte Konsistenz erreicht ist."
    ],
    [
-    "Vermengen",
-    "Die gekochte Pasta in die Sauce geben und schwenken, bis alles gleichmäßig überzogen ist. Ist die Sauce zu dick, einen Schuss Nudelwasser einrühren, bis die Konsistenz passt."
-   ],
-   [
-    "Finish",
-    "Abschmecken und bei Bedarf nachwürzen. Für mehr Frische noch etwas Zitronensaft dazugeben. Lachs auf oder unter die Pasta geben und servieren."
+    "Anrichten und servieren",
+    "Die Pasta auf Tellern anrichten. Die gebratenen Lachsfilets darauflegen oder in Stücke teilen und unter die Pasta heben. Nach Belieben mit zusätzlichem Parmesan, Petersilie und etwas Zitronensaft garnieren."
    ]
   ],
   "notes": [
-   "Alle Gewürze nach eigenem Geschmack anpassen.",
-   "Den Lachs beim Braten immer wieder mit der Butter übergießen, so bleibt er saftig.",
-   "Nudelwasser aufheben! Damit lässt sich die Sauce perfekt einstellen.",
-   "Mehr Zitronensaft am Ende macht das Gericht frischer."
+   "Den Zitronensaft nach und nach hinzufügen und zwischendurch abschmecken. So wird die Sauce schön frisch, ohne dass die Zitrone den Geschmack von Lachs und Parmesan überdeckt."
   ]
  },
  {
