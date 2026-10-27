@@ -4928,7 +4928,7 @@ window.RECIPES=[
  {
   "id": "cowboy",
   "ch": "pasta",
-  "name": "Cowboy Butter Steak Pasta mit trockenem Weißwein",
+  "name": "Cowboy Butter Steak Pasta",
   "script": "rigatoni · steak · cowboy butter",
   "label": "Steak · Creamy",
   "desc": "Cremige Rigatoni mit saftigem Steak in Scheiben und einer würzigen Cowboy-Butter-Sauce aus Knoblauch, Schalotten, trockenem Weißwein, Parmesan und frischen Kräutern.",
