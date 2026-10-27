@@ -43,7 +43,7 @@ function baseOf(r) {
   let unit = m[3].replace(/\(.*?\)/g, '').replace(/\s+à\s+.*$/, '').trim();
   return { n: +m[1], unit, factor: false };
 }
-const unitFor = (b, n) => b.factor ? 'fache Menge' : (n === 1 ? b.unit.replace(/^Personen$/, 'Person').replace(/^Gläser$/, 'Glas').replace(/^Pizzen$/, 'Pizza').replace(/^Brote$/, 'Brot') : b.unit.replace(/^Person$/, 'Personen'));
+const unitFor = (b, n) => b.factor ? 'fache Menge' : (n === 1 ? b.unit.replace(/^Personen$/, 'Person').replace(/^Gläser$/, 'Glas').replace(/^Pizzen$/, 'Pizza').replace(/^Brote$/, 'Brot').replace(/^Sandwiches$/, 'Sandwich') : b.unit.replace(/^Person$/, 'Personen').replace(/^Sandwich$/, 'Sandwiches'));
 function fmtNum(v, metric, fine) {
   if (metric && v >= 100) return String(Math.round(v / 10) * 10);
   if (metric && v >= 20) return String(Math.round(v / 5) * 5);

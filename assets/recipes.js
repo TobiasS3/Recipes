@@ -59,7 +59,7 @@ window.CHAPTERS=[
   "title": "Fleisch & Fisch",
   "color": "#a3352a",
   "epigraph": "aus der Pfanne, aus dem Ofen",
-  "intro": "Elf Rezepte vom Smash Burger über Zwiebelrostbraten bis zur Moussaka, zum Butter Chicken und einem knusprigen Kartoffel-Lachs-Salat.",
+  "intro": "Zwölf Rezepte vom Smash Burger über Zwiebelrostbraten bis zur Moussaka, zum Butter Chicken, einem knusprigen Kartoffel-Lachs-Salat und einem Ciabatta-Sandwich mit Burrata.",
   "recipes": [
    "smash",
    "honeychicken",
@@ -71,7 +71,8 @@ window.CHAPTERS=[
    "kalorien",
    "moussaka",
    "butterchicken",
-   "lachssalat"
+   "lachssalat",
+   "ciabatta"
   ]
  },
  {
@@ -5210,5 +5211,94 @@ window.RECIPES=[
    "Eine halbe Burrata reicht völlig, eine ganze ist nicht nötig.",
    "Die Burrata erst direkt vor dem Servieren auf die warme Pasta geben, damit sie schön cremig bleibt."
   ]
+ },
+ {
+  "id": "ciabatta",
+  "ch": "fleisch",
+  "name": "Italienisches Ciabatta-Sandwich mit Burrata, Serrano-Schinken & gerösteten Tomaten",
+  "script": "ciabatta · burrata · serrano · pesto",
+  "label": "Italiano · Sandwich",
+  "desc": "Knusprig geröstetes Ciabatta mit Pesto, Serrano-Schinken, cremiger Burrata, gerösteten Cherrytomaten, Rucola und Balsamico-Creme.",
+  "time": "20 Min",
+  "min": 20,
+  "diff": 2,
+  "diffLabel": "Leicht",
+  "portions": "1 Sandwich",
+  "rating": null,
+  "img": "",
+  "thumb": "",
+  "ings": [
+   [
+    "1 mittelgroßes",
+    "Ciabatta"
+   ],
+   [
+    "nach Geschmack",
+    "Pesto"
+   ],
+   [
+    "1",
+    "Burrata"
+   ],
+   [
+    "5–6 Scheiben",
+    "Serrano-Schinken"
+   ],
+   [
+    "6–8",
+    "Cherrytomaten"
+   ],
+   [
+    "1 Handvoll",
+    "Rucola"
+   ],
+   [
+    "1–2 EL",
+    "Balsamico-Creme"
+   ],
+   [
+    "1–2 EL",
+    "Olivenöl"
+   ],
+   [
+    "1",
+    "Knoblauchzehe"
+   ],
+   [
+    "nach Geschmack",
+    "Salz und Pfeffer"
+   ]
+  ],
+  "steps": [
+   [
+    "Tomaten rösten",
+    "Den Backofen auf 200 °C Ober-/Unterhitze vorheizen. Die Cherrytomaten halbieren, mit etwas Olivenöl, Salz und Pfeffer vermischen und etwa 10–15 Minuten im Ofen rösten."
+   ],
+   [
+    "Ciabatta vorbereiten",
+    "Das Ciabatta längs aufschneiden. Beide Schnittflächen mit Olivenöl beträufeln und mit einer halbierten Knoblauchzehe einreiben."
+   ],
+   [
+    "Brot knusprig rösten",
+    "Das Ciabatta für die letzten 3–5 Minuten zu den Tomaten in den Ofen legen, bis es außen knusprig und goldbraun ist."
+   ],
+   [
+    "Pesto auftragen",
+    "Nur die untere Ciabatta-Hälfte nach Geschmack mit Pesto bestreichen."
+   ],
+   [
+    "Belegen",
+    "Die 5–6 Scheiben Serrano-Schinken auf der unteren Hälfte verteilen. Die Burrata vorsichtig aufreißen und daraufgeben. Anschließend die gerösteten Tomaten und den Rucola hinzufügen."
+   ],
+   [
+    "Verfeinern",
+    "Mit Balsamico-Creme beträufeln und nach Geschmack mit Salz und Pfeffer würzen."
+   ],
+   [
+    "Fertigstellen",
+    "Die obere Ciabatta-Hälfte als Deckel darauflegen, leicht andrücken und das Sandwich frisch genießen."
+   ]
+  ],
+  "notes": []
  }
 ];
