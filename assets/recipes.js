@@ -948,7 +948,7 @@ window.RECIPES=[
   "diffLabel": "Einfach",
   "portions": "4 Personen",
   "rating": 9,
-  "img": "bilder/Pasta_carbonara.png",
+  "img": "bilder/Pasta_carbonara.jpg",
   "thumb": "bilder/klein/Pasta_carbonara.jpg",
   "ings": [
    [
