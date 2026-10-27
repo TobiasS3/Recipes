@@ -57,7 +57,7 @@ window.CHAPTERS=[
   "title": "Fleisch & Fisch",
   "color": "#a3352a",
   "epigraph": "aus der Pfanne, aus dem Ofen",
-  "intro": "Zehn Rezepte vom Smash Burger über Zwiebelrostbraten bis zur Moussaka und zum Butter Chicken.",
+  "intro": "Elf Rezepte vom Smash Burger über Zwiebelrostbraten bis zur Moussaka, zum Butter Chicken und einem knusprigen Kartoffel-Lachs-Salat.",
   "recipes": [
    "smash",
    "honeychicken",
@@ -68,23 +68,23 @@ window.CHAPTERS=[
    "lachs",
    "kalorien",
    "moussaka",
-   "butterchicken"
+   "butterchicken",
+   "lachssalat"
   ]
  },
  {
   "id": "beilagen",
   "file": "sonstiges.html",
-  "title": "Beilagen",
+  "title": "Salat & Beilagen",
   "color": "#587064",
   "epigraph": "das Drumherum",
-  "intro": "Spätzle, Kartoffeln auf zwei Arten, zwei Sommersalate und ein knuspriger Kartoffel-Lachs-Salat. Alles, was den Teller voll macht.",
+  "intro": "Spätzle, Kartoffeln auf zwei Arten und zwei Sommersalate. Alles, was den Teller voll macht.",
   "recipes": [
    "spaetzle",
    "smashed",
    "pommes",
    "gurkensalat",
-   "avocadosalat",
-   "lachssalat"
+   "avocadosalat"
   ]
  },
  {
@@ -2970,7 +2970,7 @@ window.RECIPES=[
    ],
    [
     "Spätzle",
-    "→ Rezept in Sonstiges & Beilagen"
+    "→ Rezept in Salat & Beilagen"
    ]
   ],
   "steps": [
@@ -4801,7 +4801,7 @@ window.RECIPES=[
  },
  {
   "id": "lachssalat",
-  "ch": "beilagen",
+  "ch": "fleisch",
   "name": "Knuspriger Kartoffel-Lachs-Salat mit Gurke & Dill",
   "script": "quetschkartoffeln · lachs · gurke · dill",
   "label": "Crispy · Fresh",
