@@ -5225,8 +5225,8 @@ window.RECIPES=[
   "diffLabel": "Leicht",
   "portions": "1 Sandwich",
   "rating": 10,
-  "img": "",
-  "thumb": "",
+  "img": "bilder/Fleisch&Fisch_ciabatta.jpg",
+  "thumb": "bilder/klein/Fleisch&Fisch_ciabatta.jpg",
   "ings": [
    [
     "1 mittelgroßes",
