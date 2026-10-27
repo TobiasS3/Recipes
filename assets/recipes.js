@@ -2009,6 +2009,10 @@ window.RECIPES=[
     "Zwiebel, fein gewürfelt"
    ],
    [
+    "1 Schuss",
+    "trockener Weißwein"
+   ],
+   [
     "250 ml",
     "Sahne"
    ],
@@ -2048,7 +2052,7 @@ window.RECIPES=[
    ],
    [
     "Cremige Zitronen-Knoblauch-Sauce zubereiten",
-    "Die Hitze auf mittlere Stufe reduzieren. Butter und etwas Olivenöl in derselben Pfanne erhitzen. Die gewürfelte Zwiebel und den gehackten Knoblauch hinzufügen und ca. 30–60 Sekunden anschwitzen, bis sie duften. Die Sahne hineingießen und 2–3 Minuten sanft köcheln lassen. Mit Salz, Pfeffer, Paprikapulver, Oregano, Chiliflocken, Allzweck-Gewürzmischung und Zwiebelpulver abschmecken. Zitronenabrieb und Zitronensaft hinzufügen. Parmesan und frische Petersilie einrühren, bis eine cremige Sauce entsteht."
+    "Die Hitze auf mittlere Stufe reduzieren. Butter und etwas Olivenöl in derselben Pfanne erhitzen. Die gewürfelte Zwiebel und den gehackten Knoblauch hinzufügen und ca. 30–60 Sekunden anschwitzen, bis sie duften. Mit einem Schuss Weißwein ablöschen und fast vollständig einkochen lassen. Dann die Sahne hineingießen und 2–3 Minuten sanft köcheln lassen. Mit Salz, Pfeffer, Paprikapulver, Oregano, Chiliflocken, Allzweck-Gewürzmischung und Zwiebelpulver abschmecken. Zitronenabrieb und Zitronensaft hinzufügen. Parmesan und frische Petersilie einrühren, bis eine cremige Sauce entsteht."
    ],
    [
     "Pasta mit der Sauce vermengen",
