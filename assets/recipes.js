@@ -1928,8 +1928,8 @@ window.RECIPES=[
   "diffLabel": "Mittel-Einfach",
   "portions": "ca. 2–3 Personen",
   "rating": null,
-  "img": "",
-  "thumb": "",
+  "img": "bilder/Pasta_zitronenlachs.jpg",
+  "thumb": "bilder/klein/Pasta_zitronenlachs.jpg",
   "ings": [
    [
     "— Lachs —",
