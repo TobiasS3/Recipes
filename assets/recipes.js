@@ -36,7 +36,7 @@ window.CHAPTERS=[
   "title": "Pasta",
   "color": "#4f7a36",
   "epigraph": "la mia cucina preferita",
-  "intro": "Elf Rezepte, von der echten Carbonara ohne Sahne bis zum Ragù, das drei Stunden schmort.",
+  "intro": "Zwölf Rezepte, von der echten Carbonara ohne Sahne bis zum Ragù, das drei Stunden schmort.",
   "recipes": [
    "vodka",
    "carbonara",
@@ -48,7 +48,8 @@ window.CHAPTERS=[
    "kuerbis",
    "rotebete",
    "bolognese",
-   "zitronenlachs"
+   "zitronenlachs",
+   "cowboy"
   ]
  },
  {
@@ -4921,6 +4922,192 @@ window.RECIPES=[
   "notes": [
    "Für eine besonders cremige und proteinreiche Variante Skyr verwenden.",
    "Die Kartoffeln am besten erst kurz vor dem Servieren unterheben, damit sie möglichst lange knusprig bleiben."
+  ]
+ },
+ {
+  "id": "cowboy",
+  "ch": "pasta",
+  "name": "Cowboy Butter Steak Pasta mit trockenem Weißwein",
+  "script": "rigatoni · steak · cowboy butter",
+  "label": "Steak · Creamy",
+  "desc": "Cremige Rigatoni mit saftigem Steak in Scheiben und einer würzigen Cowboy-Butter-Sauce aus Knoblauch, Schalotten, trockenem Weißwein, Parmesan und frischen Kräutern.",
+  "time": "45 Min",
+  "min": 45,
+  "diff": 5,
+  "diffLabel": "Mittel",
+  "portions": "4 Personen",
+  "rating": null,
+  "img": "",
+  "thumb": "",
+  "ings": [
+   [
+    "— Steak —",
+    ""
+   ],
+   [
+    "2",
+    "Ribeye- oder New-York-Strip-Steaks"
+   ],
+   [
+    "nach Geschmack",
+    "Salz und schwarzer Pfeffer"
+   ],
+   [
+    "2 EL",
+    "Butter"
+   ],
+   [
+    "3",
+    "Knoblauchzehen, angedrückt"
+   ],
+   [
+    "2 Zweige",
+    "Rosmarin oder Thymian"
+   ],
+   [
+    "— Cowboy-Butter-Sauce —",
+    ""
+   ],
+   [
+    "115 g",
+    "ungesalzene Butter"
+   ],
+   [
+    "1",
+    "Schalotte, fein gewürfelt"
+   ],
+   [
+    "5",
+    "Knoblauchzehen, fein gehackt"
+   ],
+   [
+    "100 ml",
+    "trockener Weißwein"
+   ],
+   [
+    "360 ml",
+    "Sahne"
+   ],
+   [
+    "125 g",
+    "Parmesan, frisch gerieben"
+   ],
+   [
+    "Saft von ½",
+    "Zitrone"
+   ],
+   [
+    "1 EL",
+    "Dijon-Senf"
+   ],
+   [
+    "1 gehäufter EL",
+    "frische Petersilie, gehackt"
+   ],
+   [
+    "1 gehäufter EL",
+    "frischer Schnittlauch, gehackt"
+   ],
+   [
+    "1 TL",
+    "Thymian"
+   ],
+   [
+    "1 TL",
+    "Knoblauchpulver"
+   ],
+   [
+    "1 TL",
+    "Oregano"
+   ],
+   [
+    "½–1 TL",
+    "Cayennepfeffer, nach Geschmack"
+   ],
+   [
+    "½ TL",
+    "Chiliflocken"
+   ],
+   [
+    "½ TL",
+    "geräuchertes Paprikapulver"
+   ],
+   [
+    "nach Geschmack",
+    "Salz und schwarzer Pfeffer"
+   ],
+   [
+    "— Pasta —",
+    ""
+   ],
+   [
+    "450 g",
+    "Rigatoni"
+   ],
+   [
+    "etwas",
+    "Salz für das Nudelwasser"
+   ],
+   [
+    "ca. 60–120 ml",
+    "Pastawasser"
+   ],
+   [
+    "— Zum Garnieren —",
+    ""
+   ],
+   [
+    "nach Belieben",
+    "Parmesan"
+   ],
+   [
+    "nach Belieben",
+    "frische Petersilie"
+   ],
+   [
+    "nach Belieben",
+    "frischer Schnittlauch"
+   ],
+   [
+    "optional",
+    "Chiliflocken"
+   ]
+  ],
+  "steps": [
+   [
+    "Pasta kochen",
+    "Einen großen Topf mit Salzwasser zum Kochen bringen. Die Rigatoni nach Packungsanweisung al dente kochen. Vor dem Abgießen etwa 120 ml Pastawasser auffangen."
+   ],
+   [
+    "Steak braten",
+    "Die Steaks mit Küchenpapier trocken tupfen und von beiden Seiten großzügig mit Salz und schwarzem Pfeffer würzen. Eine große Pfanne bei mittlerer bis hoher Hitze erhitzen. Die Steaks je nach Dicke etwa 3–4 Minuten pro Seite scharf anbraten. In der letzten Minute 2 EL Butter, die angedrückten Knoblauchzehen und Rosmarin oder Thymian hinzufügen. Die Pfanne leicht schräg halten und die Steaks wiederholt mit der geschmolzenen Kräuterbutter übergießen. Die Steaks aus der Pfanne nehmen und 5–10 Minuten ruhen lassen. Anschließend das Fleisch quer zur Faser in dünne Scheiben schneiden."
+   ],
+   [
+    "Schalotten und Knoblauch anbraten",
+    "Die Hitze auf mittlere Stufe reduzieren. Die 115 g Butter in derselben Pfanne schmelzen. Die fein gewürfelte Schalotte hinzufügen und etwa 2–3 Minuten glasig dünsten. Den gehackten Knoblauch dazugeben und weitere 30–60 Sekunden anschwitzen, bis er duftet."
+   ],
+   [
+    "Mit Weißwein ablöschen",
+    "Die 100 ml trockenen Weißwein in die Pfanne gießen. Etwa 2–3 Minuten köcheln lassen, damit der Wein etwas reduziert und die Aromen intensiver werden. Den Bratensatz vom Pfannenboden lösen, damit er sich mit der Sauce verbindet."
+   ],
+   [
+    "Cremige Cowboy-Butter-Sauce zubereiten",
+    "Dijon-Senf, Zitronensaft, Thymian, Knoblauchpulver, Oregano, Cayennepfeffer, Chiliflocken und geräuchertes Paprikapulver einrühren. Die Sahne hinzufügen und bei niedriger bis mittlerer Hitze sanft köcheln lassen. Den Parmesan nach und nach einrühren, bis er geschmolzen ist und die Sauce cremig wird. Petersilie und Schnittlauch unterheben. Mit Salz und schwarzem Pfeffer abschmecken. Die Sauce nicht zu stark kochen lassen."
+   ],
+   [
+    "Pasta mit der Sauce vermengen",
+    "Die gekochten Rigatoni direkt in die Sauce geben und gut vermischen. Nach und nach etwas Pastawasser hinzufügen, bis die Sauce schön cremig ist und gleichmäßig an den Nudeln haftet. Noch einmal abschmecken und bei Bedarf etwas Zitronensaft hinzufügen."
+   ],
+   [
+    "Anrichten",
+    "Die cremigen Rigatoni auf vier Teller verteilen. Die Steakscheiben dekorativ auf der Pasta anrichten. Mit zusätzlichem Parmesan, frischer Petersilie, Schnittlauch und nach Wunsch Chiliflocken garnieren."
+   ]
+  ],
+  "notes": [
+   "Weißwein: Verwende einen trockenen Weißwein, beispielsweise Sauvignon Blanc oder Pinot Grigio.",
+   "Steak: Nach dem Ruhen quer zur Faser schneiden, damit die Scheiben besonders zart bleiben.",
+   "Sauce: Den Parmesan bei niedriger Hitze einrühren, damit die Sauce glatt und cremig bleibt.",
+   "Schärfe: Cayennepfeffer und Chiliflocken nach Geschmack dosieren."
   ]
  }
 ];
