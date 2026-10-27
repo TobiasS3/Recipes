@@ -4929,9 +4929,9 @@ window.RECIPES=[
   "id": "cowboy",
   "ch": "pasta",
   "name": "Cowboy Butter Steak Pasta",
-  "script": "rigatoni · steak · cowboy butter",
+  "script": "linguine · steak · cowboy butter",
   "label": "Steak · Creamy",
-  "desc": "Cremige Rigatoni mit saftigem Steak in Scheiben und einer würzigen Cowboy-Butter-Sauce aus Knoblauch, Schalotten, trockenem Weißwein, Parmesan und frischen Kräutern.",
+  "desc": "Cremige Linguine mit saftigem Steak in Scheiben und einer würzigen Cowboy-Butter-Sauce aus Knoblauch, Schalotten, trockenem Weißwein, Parmesan und frischen Kräutern.",
   "time": "45 Min",
   "min": 45,
   "diff": 5,
@@ -5043,7 +5043,7 @@ window.RECIPES=[
    ],
    [
     "450 g",
-    "Rigatoni"
+    "Linguine"
    ],
    [
     "etwas",
@@ -5077,7 +5077,7 @@ window.RECIPES=[
   "steps": [
    [
     "Pasta kochen",
-    "Einen großen Topf mit Salzwasser zum Kochen bringen. Die Rigatoni nach Packungsanweisung al dente kochen. Vor dem Abgießen etwa 120 ml Pastawasser auffangen."
+    "Einen großen Topf mit Salzwasser zum Kochen bringen. Die Linguine nach Packungsanweisung al dente kochen. Vor dem Abgießen etwa 120 ml Pastawasser auffangen."
    ],
    [
     "Steak braten",
@@ -5097,11 +5097,11 @@ window.RECIPES=[
    ],
    [
     "Pasta mit der Sauce vermengen",
-    "Die gekochten Rigatoni direkt in die Sauce geben und gut vermischen. Nach und nach etwas Pastawasser hinzufügen, bis die Sauce schön cremig ist und gleichmäßig an den Nudeln haftet. Noch einmal abschmecken und bei Bedarf etwas Zitronensaft hinzufügen."
+    "Die gekochten Linguine direkt in die Sauce geben und gut vermischen. Nach und nach etwas Pastawasser hinzufügen, bis die Sauce schön cremig ist und gleichmäßig an den Nudeln haftet. Noch einmal abschmecken und bei Bedarf etwas Zitronensaft hinzufügen."
    ],
    [
     "Anrichten",
-    "Die cremigen Rigatoni auf vier Teller verteilen. Die Steakscheiben dekorativ auf der Pasta anrichten. Mit zusätzlichem Parmesan, frischer Petersilie, Schnittlauch und nach Wunsch Chiliflocken garnieren."
+    "Die cremigen Linguine auf vier Teller verteilen. Die Steakscheiben dekorativ auf der Pasta anrichten. Mit zusätzlichem Parmesan, frischer Petersilie, Schnittlauch und nach Wunsch Chiliflocken garnieren."
    ]
   ],
   "notes": [
