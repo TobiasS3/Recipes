@@ -5224,7 +5224,7 @@ window.RECIPES=[
   "diff": 2,
   "diffLabel": "Leicht",
   "portions": "1 Sandwich",
-  "rating": null,
+  "rating": 10,
   "img": "",
   "thumb": "",
   "ings": [
