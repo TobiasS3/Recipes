@@ -3817,8 +3817,8 @@ window.RECIPES=[
   "diffLabel": "Sehr leicht",
   "portions": "2 Personen",
   "rating": null,
-  "img": "",
-  "thumb": "",
+  "img": "bilder/Sonstiges_avocadosalat.jpg",
+  "thumb": "bilder/klein/Sonstiges_avocadosalat.jpg",
   "ings": [
    [
     "— Salat —",
@@ -4814,8 +4814,8 @@ window.RECIPES=[
   "diffLabel": "Leicht",
   "portions": "ca. 2–3 Personen",
   "rating": null,
-  "img": "",
-  "thumb": "",
+  "img": "bilder/Fleisch&Fisch_lachssalat.jpg",
+  "thumb": "bilder/klein/Fleisch&Fisch_lachssalat.jpg",
   "ings": [
    [
     "— Salat —",
@@ -4938,8 +4938,8 @@ window.RECIPES=[
   "diffLabel": "Mittel",
   "portions": "4 Personen",
   "rating": null,
-  "img": "",
-  "thumb": "",
+  "img": "bilder/Pasta_cowboy.jpg",
+  "thumb": "bilder/klein/Pasta_cowboy.jpg",
   "ings": [
    [
     "— Steak —",
@@ -5124,8 +5124,8 @@ window.RECIPES=[
   "diffLabel": "Leicht",
   "portions": "ca. 2 Personen",
   "rating": null,
-  "img": "",
-  "thumb": "",
+  "img": "bilder/Pasta_fetaspinat.jpg",
+  "thumb": "bilder/klein/Pasta_fetaspinat.jpg",
   "ings": [
    [
     "nach Bedarf",
