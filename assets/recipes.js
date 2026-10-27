@@ -36,7 +36,7 @@ window.CHAPTERS=[
   "title": "Pasta",
   "color": "#4f7a36",
   "epigraph": "la mia cucina preferita",
-  "intro": "Zwölf Rezepte, von der echten Carbonara ohne Sahne bis zum Ragù, das drei Stunden schmort.",
+  "intro": "Dreizehn Rezepte, von der echten Carbonara ohne Sahne bis zum Ragù, das drei Stunden schmort.",
   "recipes": [
    "vodka",
    "carbonara",
@@ -49,7 +49,8 @@ window.CHAPTERS=[
    "rotebete",
    "bolognese",
    "zitronenlachs",
-   "cowboy"
+   "cowboy",
+   "fetaspinat"
   ]
  },
  {
@@ -5108,6 +5109,106 @@ window.RECIPES=[
    "Steak: Nach dem Ruhen quer zur Faser schneiden, damit die Scheiben besonders zart bleiben.",
    "Sauce: Den Parmesan bei niedriger Hitze einrühren, damit die Sauce glatt und cremig bleibt.",
    "Schärfe: Cayennepfeffer und Chiliflocken nach Geschmack dosieren."
+  ]
+ },
+ {
+  "id": "fetaspinat",
+  "ch": "pasta",
+  "name": "Feta-Spinat-Pasta mit Burrata",
+  "script": "feta · spinat · burrata",
+  "label": "Green · Ofen",
+  "desc": "Cremige grüne Pasta mit gebackenem Feta, Knoblauch und frischem Spinat. Würzig, frisch und richtig cremig – perfekt als schnelles Pastagericht aus dem Ofen.",
+  "time": "25 Min",
+  "min": 25,
+  "diff": 2,
+  "diffLabel": "Leicht",
+  "portions": "ca. 2 Personen",
+  "rating": null,
+  "img": "",
+  "thumb": "",
+  "ings": [
+   [
+    "nach Bedarf",
+    "Pasta nach Wahl"
+   ],
+   [
+    "nach Bedarf",
+    "Feta"
+   ],
+   [
+    "nach Bedarf",
+    "Knoblauch"
+   ],
+   [
+    "nach Bedarf",
+    "frischer Spinat"
+   ],
+   [
+    "nach Bedarf",
+    "frische Petersilie"
+   ],
+   [
+    "etwas",
+    "Olivenöl"
+   ],
+   [
+    "etwas",
+    "Chiliöl"
+   ],
+   [
+    "nach Geschmack",
+    "Oregano"
+   ],
+   [
+    "etwas",
+    "Pastawasser"
+   ],
+   [
+    "½",
+    "Burrata (eine halbe reicht, keine ganze nötig)"
+   ],
+   [
+    "nach Geschmack",
+    "Chiliflocken"
+   ]
+  ],
+  "steps": [
+   [
+    "Feta vorbereiten",
+    "Den Feta und den Knoblauch in eine Auflaufform legen."
+   ],
+   [
+    "Würzen",
+    "Mit Olivenöl und Chiliöl beträufeln und mit Oregano würzen."
+   ],
+   [
+    "Im Ofen backen",
+    "Bei 200 °C etwa 15 Minuten backen."
+   ],
+   [
+    "Pasta kochen",
+    "Währenddessen die Pasta nach Packungsanweisung al dente kochen. Vor dem Abgießen etwas Pastawasser auffangen."
+   ],
+   [
+    "Sauce mixen",
+    "Die gebackene Feta-Knoblauch-Mischung zusammen mit dem frischen Spinat, der Petersilie und etwas Pastawasser in einen Mixer geben."
+   ],
+   [
+    "Cremig pürieren",
+    "Alles zu einer cremigen, grünen Sauce mixen."
+   ],
+   [
+    "Pasta vermengen",
+    "Die gekochte Pasta unter die Sauce heben und gut vermischen. Bei Bedarf etwas mehr Pastawasser hinzufügen."
+   ],
+   [
+    "Anrichten",
+    "Die Pasta auf Tellern verteilen, mit einer halben Burrata toppen und mit Chiliflocken sowie etwas Chiliöl verfeinern."
+   ]
+  ],
+  "notes": [
+   "Eine halbe Burrata reicht völlig, eine ganze ist nicht nötig.",
+   "Die Burrata erst direkt vor dem Servieren auf die warme Pasta geben, damit sie schön cremig bleibt."
   ]
  }
 ];
