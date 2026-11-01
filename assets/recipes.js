@@ -4820,8 +4820,8 @@ window.RECIPES=[
   "diffLabel": "Einfach",
   "portions": "2 Stück",
   "rating": null,
-  "img": "",
-  "thumb": "",
+  "img": "bilder/Dessert_crepes-suzette.jpg",
+  "thumb": "bilder/klein/Dessert_crepes-suzette.jpg",
   "ings": [
    [
     "— Crêpe-Teig —",
