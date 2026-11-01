@@ -124,11 +124,12 @@ window.CHAPTERS=[
   "file": "dessert.html",
   "title": "Dessert",
   "color": "#a8364f",
-  "epigraph": "im Glas serviert",
-  "intro": "Zwei Desserts im Glas: Bratapfel für den Winter, Himbeer-Tiramisu für den Sommer.",
+  "epigraph": "süß zum Schluss",
+  "intro": "Drei Desserts: Bratapfel für den Winter, Himbeer-Tiramisu für den Sommer und Crêpes Suzette in Orangen-Butter-Sauce.",
   "recipes": [
    "bratapfel",
-   "himbeer"
+   "himbeer",
+   "crepes-suzette"
   ]
  }
 ];
@@ -4804,6 +4805,124 @@ window.RECIPES=[
    "Über Nacht kühlen lassen — dann ist es noch viel besser als nach 2 Stunden.",
    "Extra-Tipp: etwas Limettenabrieb in die Creme gibt eine tolle Frische.",
    "Noch mehr Geschmack: weiße Schokolade fein gehackt zwischen die Schichten legen."
+  ]
+ },
+ {
+  "id": "crepes-suzette",
+  "ch": "dessert",
+  "name": "Crêpes Suzette",
+  "script": "crêpes · orangen-butter-sauce · vanilleeis",
+  "label": "France · Classic",
+  "desc": "Dünne Crêpes in karamelliger Orangen-Butter-Sauce, dazu Orangenfilets und eine Kugel Vanilleeis.",
+  "time": "30 Min + 15–30 Min Ruhen",
+  "min": 60,
+  "diff": 4,
+  "diffLabel": "Einfach",
+  "portions": "2 Stück",
+  "rating": null,
+  "img": "",
+  "thumb": "",
+  "ings": [
+   [
+    "— Crêpe-Teig —",
+    ""
+   ],
+   [
+    "80 g",
+    "Mehl"
+   ],
+   [
+    "2",
+    "Eier"
+   ],
+   [
+    "1 EL",
+    "Zucker"
+   ],
+   [
+    "1 Päckchen",
+    "Vanillezucker"
+   ],
+   [
+    "1 Prise",
+    "Salz"
+   ],
+   [
+    "30 g",
+    "zerlassene Butter (gelb oder braun, je nach Geschmack)"
+   ],
+   [
+    "100 ml",
+    "Milch"
+   ],
+   [
+    "nach Bedarf",
+    "Rama oder Butter zum Ausbacken"
+   ],
+   [
+    "— Orangen-Butter-Sauce —",
+    ""
+   ],
+   [
+    "1",
+    "Bio-Orange"
+   ],
+   [
+    "Saft von ¼ bis ½",
+    "Zitrone"
+   ],
+   [
+    "Abrieb",
+    "der ganzen Orange"
+   ],
+   [
+    "nach Bedarf",
+    "Orangenfilets zum Anrichten"
+   ],
+   [
+    "ca. 40 g",
+    "Butter, je nach Geschmack"
+   ],
+   [
+    "2 EL",
+    "Zucker"
+   ],
+   [
+    "optional",
+    "Orangenlikör"
+   ]
+  ],
+  "steps": [
+   [
+    "Crêpe-Teig herstellen",
+    "Mehl, Eier, Zucker, Vanillezucker und Salz verrühren. Milch nach und nach unterrühren. Zerlassene Butter dazugeben und zu einem glatten Teig verrühren. Den Teig 15–30 Minuten ruhen lassen."
+   ],
+   [
+    "Crêpes ausbacken",
+    "Eine beschichtete Pfanne mit Rama oder Butter erhitzen. Den Teig in zwei Portionen dünn ausbacken. Von beiden Seiten goldgelb braten und beiseitelegen."
+   ],
+   [
+    "Orange vorbereiten",
+    "Bio-Orange gründlich waschen. Die gesamte Schale fein abreiben. Orange auspressen und Saft auffangen. Ein paar Orangenfilets herausschneiden und beiseitelegen. Zitrone auspressen."
+   ],
+   [
+    "Orangen-Butter-Sauce",
+    "Zucker in einer Pfanne vorsichtig karamellisieren. Butter dazugeben und schmelzen lassen. Orangen- und Zitronensaft hinzufügen. Orangenabrieb dazugeben. Kurz einköcheln lassen, bis eine leicht sirupartige Sauce entsteht."
+   ],
+   [
+    "Crêpes vollenden",
+    "Crêpes zweimal zu Dreiecken falten. In die Orangen-Butter-Sauce legen. Vorsichtig wenden und kurz ziehen lassen. Nach Wunsch Orangenlikör hinzufügen und einrühren."
+   ],
+   [
+    "Anrichten",
+    "Crêpes auf Desserttellern anrichten. Großzügig mit der Orangen-Butter-Sauce nappieren. Orangenfilets dekorativ daneben verteilen. Etwas frischen Orangenabrieb darübergeben. Eine Kugel Vanilleeis dazugeben."
+   ]
+  ],
+  "notes": [
+   "Braune Butter: Gibt den Crêpes ein feines, nussiges Aroma. Normale Butter schmeckt milder.",
+   "Zitrone: Vorsichtig dosieren, damit die Sauce nicht zu sauer wird.",
+   "Karamell: Nicht zu dunkel werden lassen, sonst wird es bitter.",
+   "Vanilleeis: Eine Kugel Vanilleeis passt hervorragend zu den warmen Crêpes und der Orangen-Butter-Sauce."
   ]
  },
  {
