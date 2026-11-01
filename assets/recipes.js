@@ -2936,6 +2936,10 @@ window.RECIPES=[
     "Rinderbrühe"
    ],
    [
+    "1 EL",
+    "Preiselbeermarmelade"
+   ],
+   [
     "Salz & Pfeffer",
     "nach Geschmack"
    ],
@@ -2999,7 +3003,7 @@ window.RECIPES=[
    ],
    [
     "Soße vollenden",
-    "Mit Salz und Pfeffer abschmecken. Eine kleine Butterflocke einrühren für Glanz und Rundung."
+    "1 EL Preiselbeermarmelade einrühren. Mit Salz und Pfeffer abschmecken. Eine kleine Butterflocke einrühren für Glanz und Rundung."
    ],
    [
     "Anrichten",
