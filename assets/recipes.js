@@ -2887,7 +2887,7 @@ window.RECIPES=[
   "diff": 8,
   "diffLabel": "Anspruchsvoll",
   "portions": "3 Personen",
-  "rating": 9.5,
+  "rating": 10,
   "img": "bilder/Fleisch&Fisch_zwiebelrostbraten.png",
   "thumb": "bilder/klein/Fleisch&Fisch_zwiebelrostbraten.jpg",
   "ings": [
