@@ -5530,7 +5530,7 @@ window.RECIPES=[
     "Hühnerbrühe"
    ],
    [
-    "60 g",
+    "100 g",
     "frischer Spinat"
    ],
    [
