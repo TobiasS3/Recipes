@@ -5507,7 +5507,7 @@ window.RECIPES=[
    ],
    [
     "etwas",
-    "Balsamico"
+    "Basilikum"
    ],
    [
     "etwas",
@@ -5577,7 +5577,7 @@ window.RECIPES=[
    ],
    [
     "Sauce würzen",
-    "Etwas Balsamico und Tomatenmark dazugeben, dazu Paprikapulver, Kräuter der Provence, Salz und einen wirklich kleinen EL Honig oder Puderzucker. Alles weiter braten."
+    "Etwas Basilikum und Tomatenmark dazugeben, dazu Paprikapulver, Kräuter der Provence, Salz und einen wirklich kleinen EL Honig oder Puderzucker. Alles weiter braten."
    ],
    [
     "Ablöschen",
