@@ -5564,12 +5564,12 @@ window.RECIPES=[
     "Die Hähnchenbrust mit 2 EL Olivenöl, Paprikapulver, Knoblauchpulver, 1 TL weißem Pfeffer, Thymian und optional Hähnchengewürz marinieren."
    ],
    [
-    "Hähnchen anbraten",
-    "1 EL Olivenöl in der Pfanne erhitzen und das Hähnchen darin anbraten. Sobald sich eine Kruste bildet, einen Schuss Zitronensaft dazugeben und fertig braten. Dann das Hähnchen herausnehmen."
-   ],
-   [
     "Soße vorbereiten",
     "Die Zwiebel und die 2–3 Knoblauchzehen ganz klein hacken. Die Cherrytomaten halbieren."
+   ],
+   [
+    "Hähnchen anbraten",
+    "1 EL Olivenöl in der Pfanne erhitzen und das Hähnchen darin anbraten. Sobald sich eine Kruste bildet, einen Schuss Zitronensaft dazugeben und fertig braten. Dann das Hähnchen herausnehmen."
    ],
    [
     "Zwiebel und Knoblauch",
