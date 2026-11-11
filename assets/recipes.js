@@ -5601,6 +5601,7 @@ window.RECIPES=[
    ]
   ],
   "notes": [
+   "Der Skyr sorgt für extra Eiweiß. Wer mag, nimmt stattdessen ganz normal Sahne und dafür etwas weniger Brühe.",
    "Nicht zu viel Zitronenschale nehmen, sonst schmeckt sie zu stark durch.",
    "Perfekt passt Proteinkäse zum Garnieren darüber, für extra Eiweiß."
   ]
