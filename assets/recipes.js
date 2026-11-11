@@ -5478,14 +5478,6 @@ window.RECIPES=[
     ""
    ],
    [
-    "1 EL",
-    "Olivenöl"
-   ],
-   [
-    "1 Schuss",
-    "Zitronensaft"
-   ],
-   [
     "1",
     "Zwiebel"
    ],
@@ -5496,6 +5488,14 @@ window.RECIPES=[
    [
     "nach Bedarf",
     "Cherrytomaten"
+   ],
+   [
+    "1 EL",
+    "Olivenöl"
+   ],
+   [
+    "1 Schuss",
+    "Zitronensaft"
    ],
    [
     "1 EL",
