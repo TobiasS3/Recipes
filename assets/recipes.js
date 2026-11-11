@@ -5598,14 +5598,9 @@ window.RECIPES=[
    [
     "Servieren",
     "Anrichten und nach Wunsch mit etwas Petersilie bestreuen."
-   ],
-   [
-    "Optional: Süßkartoffel statt Gnocchi",
-    "Statt der Gnocchi eine Süßkartoffel nehmen und halbieren. Die Innenseiten mit Salz, Pfeffer und Paprikapulver würzen, mit Olivenöl beträufeln und bei 180 °C Umluft 20–30 Minuten backen. Die Soße läuft genauso ab wie oben. Optional zwei Spiegeleier obendrauf geben."
    ]
   ],
   "notes": [
-   "Alles in allem ca. 650 kcal.",
    "Der Skyr sorgt für extra Eiweiß. Wer mag, nimmt stattdessen ganz normal Sahne und dafür etwas weniger Brühe.",
    "Nicht zu viel Zitronenschale nehmen, sonst schmeckt sie zu stark durch.",
    "Perfekt passt Proteinkäse zum Garnieren darüber, für extra Eiweiß."
