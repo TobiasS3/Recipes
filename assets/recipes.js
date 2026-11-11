@@ -5601,9 +5601,8 @@ window.RECIPES=[
    ]
   ],
   "notes": [
-   "Ab dem Skyr nicht mehr köcheln lassen, sonst flockt er aus. Nur leicht erhitzen.",
-   "Statt Sahne bindet der Skyr die Sauce, das bringt extra Eiweiß.",
-   "Abgewandelt nach einem Rezept von TikTok @alexcookjoy."
+   "Nicht zu viel Zitronenschale nehmen, sonst schmeckt sie zu stark durch.",
+   "Perfekt passt Proteinkäse zum Garnieren darüber, für extra Eiweiß."
   ]
  }
 ];
