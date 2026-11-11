@@ -5474,7 +5474,7 @@ window.RECIPES=[
     "Hähnchengewürz"
    ],
    [
-    "— Zum Braten —",
+    "— Gnocchi zubereiten —",
     ""
    ],
    [
@@ -5484,10 +5484,6 @@ window.RECIPES=[
    [
     "1 Schuss",
     "Zitronensaft"
-   ],
-   [
-    "— Soße —",
-    ""
    ],
    [
     "1",
