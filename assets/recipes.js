@@ -5490,20 +5490,20 @@ window.RECIPES=[
     ""
    ],
    [
-    "1 EL",
-    "Olivenöl"
-   ],
-   [
     "1",
-    "Zwiebel, ganz klein gehackt"
+    "Zwiebel"
    ],
    [
     "2–3",
-    "Knoblauchzehen, ganz klein gehackt"
+    "Knoblauchzehen"
    ],
    [
     "nach Bedarf",
-    "Cherrytomaten, halbiert"
+    "Cherrytomaten"
+   ],
+   [
+    "1 EL",
+    "Olivenöl"
    ],
    [
     "etwas",
@@ -5568,8 +5568,12 @@ window.RECIPES=[
     "1 EL Olivenöl in der Pfanne erhitzen und das Hähnchen darin anbraten. Sobald sich eine Kruste bildet, einen Schuss Zitronensaft dazugeben und fertig braten. Dann das Hähnchen herausnehmen."
    ],
    [
+    "Soße vorbereiten",
+    "Die Zwiebel und die 2–3 Knoblauchzehen ganz klein hacken. Die Cherrytomaten halbieren."
+   ],
+   [
     "Zwiebel und Knoblauch",
-    "In derselben Pfanne 1 EL Olivenöl erhitzen. Die ganz klein gehackte Zwiebel und die 2–3 Knoblauchzehen darin kurz anbraten."
+    "In derselben Pfanne 1 EL Olivenöl erhitzen. Die gehackte Zwiebel und den Knoblauch darin kurz anbraten."
    ],
    [
     "Tomaten anschwitzen",
