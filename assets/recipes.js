@@ -5446,8 +5446,8 @@ window.RECIPES=[
     "Hähnchenbrust, in mundgerechte Stücke geschnitten"
    ],
    [
-    "2–3 TL",
-    "Olivenöl für die Marinade, plus etwas zum Braten"
+    "4 EL",
+    "Olivenöl (2 EL für die Marinade, je 1 EL zum Braten von Hähnchen und Zwiebeln)"
    ],
    [
     "nach Geschmack",
@@ -5537,15 +5537,15 @@ window.RECIPES=[
   "steps": [
    [
     "Hähnchen marinieren",
-    "Die Hähnchenbrust mit 2–3 TL Olivenöl, Paprikapulver, Knoblauchpulver, 1 TL weißem Pfeffer, Thymian und optional Hähnchengewürz marinieren."
+    "Die Hähnchenbrust mit 2 EL Olivenöl, Paprikapulver, Knoblauchpulver, 1 TL weißem Pfeffer, Thymian und optional Hähnchengewürz marinieren."
    ],
    [
     "Hähnchen anbraten",
-    "Das Hähnchen in der Pfanne anbraten. Sobald sich eine Kruste bildet, einen Schuss Zitronensaft dazugeben und fertig braten. Dann das Hähnchen herausnehmen."
+    "1 EL Olivenöl in der Pfanne erhitzen und das Hähnchen darin anbraten. Sobald sich eine Kruste bildet, einen Schuss Zitronensaft dazugeben und fertig braten. Dann das Hähnchen herausnehmen."
    ],
    [
     "Zwiebel und Knoblauch",
-    "In derselben Pfanne nur wenig Olivenöl erhitzen. Die ganz klein gehackte Zwiebel und die 2–3 Knoblauchzehen darin kurz anbraten."
+    "In derselben Pfanne 1 EL Olivenöl erhitzen. Die ganz klein gehackte Zwiebel und die 2–3 Knoblauchzehen darin kurz anbraten."
    ],
    [
     "Tomaten anschwitzen",
