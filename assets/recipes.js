@@ -5438,8 +5438,8 @@ window.RECIPES=[
   "diffLabel": "Leicht",
   "portions": "2 Portionen",
   "rating": null,
-  "img": null,
-  "thumb": null,
+  "img": "bilder/Pasta_gnocchi.jpg",
+  "thumb": "bilder/klein/Pasta_gnocchi.jpg",
   "ings": [
    [
     "— Marinade —",
