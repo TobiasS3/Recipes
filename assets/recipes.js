@@ -5442,16 +5442,20 @@ window.RECIPES=[
   "thumb": null,
   "ings": [
    [
+    "— Marinade —",
+    ""
+   ],
+   [
     "450 g",
     "Hähnchenbrust, in mundgerechte Stücke geschnitten"
    ],
    [
-    "4 EL",
-    "Olivenöl (2 EL für die Marinade, je 1 EL zum Braten von Hähnchen und Zwiebeln)"
+    "2 EL",
+    "Olivenöl"
    ],
    [
     "nach Geschmack",
-    "Paprikapulver (für Marinade und Sauce)"
+    "Paprikapulver"
    ],
    [
     "nach Geschmack",
@@ -5470,8 +5474,20 @@ window.RECIPES=[
     "Hähnchengewürz"
    ],
    [
+    "1 EL",
+    "Olivenöl zum Braten"
+   ],
+   [
     "1 Schuss",
     "Zitronensaft"
+   ],
+   [
+    "— Soße —",
+    ""
+   ],
+   [
+    "1 EL",
+    "Olivenöl"
    ],
    [
     "1",
@@ -5492,6 +5508,10 @@ window.RECIPES=[
    [
     "etwas",
     "Tomatenmark"
+   ],
+   [
+    "nach Geschmack",
+    "Paprikapulver"
    ],
    [
     "nach Geschmack",
