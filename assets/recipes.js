@@ -3205,6 +3205,10 @@ window.RECIPES=[
    [
     "Anrichten",
     "Kartoffeln auf dem Teller verteilen. Hackfleisch daraufgeben. Avocado-Dip und Tomatensalat dazu anrichten. Mit einem Klecks Joghurt abrunden."
+   ],
+   [
+    "Optional: Süßkartoffel statt Kartoffeln",
+    "Statt der Kartoffeln eine Süßkartoffel nehmen und halbieren. Die Innenseiten mit Salz, Pfeffer und Paprikapulver würzen, mit Olivenöl beträufeln und bei 180 °C Umluft 20–30 Minuten backen. Anschließend der gleiche Ablauf wie oben. Optional zwei Spiegeleier obendrauf geben."
    ]
   ],
   "notes": [
