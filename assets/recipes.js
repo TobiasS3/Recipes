@@ -36,7 +36,7 @@ window.CHAPTERS=[
   "title": "Pasta",
   "color": "#4f7a36",
   "epigraph": "la mia cucina preferita",
-  "intro": "Dreizehn Rezepte, von der echten Carbonara ohne Sahne bis zum Ragù, das drei Stunden schmort.",
+  "intro": "Vierzehn Rezepte, von der echten Carbonara ohne Sahne bis zum Ragù, das drei Stunden schmort.",
   "recipes": [
    "vodka",
    "carbonara",
@@ -50,7 +50,8 @@ window.CHAPTERS=[
    "bolognese",
    "zitronenlachs",
    "cowboy",
-   "fetaspinat"
+   "fetaspinat",
+   "gnocchi"
   ]
  },
  {
@@ -5423,5 +5424,162 @@ window.RECIPES=[
    ]
   ],
   "notes": []
+ },
+ {
+  "id": "gnocchi",
+  "ch": "pasta",
+  "name": "High Protein Gnocchi",
+  "script": "hähnchen · gnocchi · skyr · tomate",
+  "label": "High Protein · One-Pan",
+  "desc": "Mariniertes Hähnchen und Gnocchi in einer Tomaten-Spinat-Sauce, die mit Skyr statt Sahne gebunden wird. Cremig, würzig und voller Eiweiß, alles aus einer Pfanne.",
+  "time": "60 Min",
+  "min": 60,
+  "diff": 2,
+  "diffLabel": "Leicht",
+  "portions": "2 Portionen",
+  "rating": null,
+  "img": null,
+  "thumb": null,
+  "ings": [
+   [
+    "450 g",
+    "Hähnchenbrust, in mundgerechte Stücke geschnitten"
+   ],
+   [
+    "2–3 TL",
+    "Olivenöl für die Marinade, plus etwas zum Braten"
+   ],
+   [
+    "nach Geschmack",
+    "Paprikapulver (für Marinade und Sauce)"
+   ],
+   [
+    "nach Geschmack",
+    "Knoblauchpulver"
+   ],
+   [
+    "1 TL",
+    "weißer Pfeffer"
+   ],
+   [
+    "nach Geschmack",
+    "Thymian"
+   ],
+   [
+    "optional",
+    "Hähnchengewürz"
+   ],
+   [
+    "1 Schuss",
+    "Zitronensaft"
+   ],
+   [
+    "1",
+    "Zwiebel, ganz klein gehackt"
+   ],
+   [
+    "2–3",
+    "Knoblauchzehen, ganz klein gehackt"
+   ],
+   [
+    "nach Bedarf",
+    "Cherrytomaten, halbiert"
+   ],
+   [
+    "etwas",
+    "Balsamico"
+   ],
+   [
+    "etwas",
+    "Tomatenmark"
+   ],
+   [
+    "nach Geschmack",
+    "Kräuter der Provence"
+   ],
+   [
+    "nach Geschmack",
+    "Salz"
+   ],
+   [
+    "1 kleiner EL",
+    "Honig oder Puderzucker (wirklich nur ganz wenig)"
+   ],
+   [
+    "240 ml",
+    "Hühnerbrühe"
+   ],
+   [
+    "60 g",
+    "frischer Spinat"
+   ],
+   [
+    "2 EL",
+    "Skyr"
+   ],
+   [
+    "etwas",
+    "Zitronenabrieb"
+   ],
+   [
+    "450 g",
+    "Kartoffel-Gnocchi (nicht vorkochen)"
+   ],
+   [
+    "50 g",
+    "geriebener Parmesan"
+   ],
+   [
+    "optional",
+    "frische Petersilie"
+   ]
+  ],
+  "steps": [
+   [
+    "Hähnchen marinieren",
+    "Die Hähnchenbrust mit 2–3 TL Olivenöl, Paprikapulver, Knoblauchpulver, 1 TL weißem Pfeffer, Thymian und optional Hähnchengewürz marinieren."
+   ],
+   [
+    "Hähnchen anbraten",
+    "Das Hähnchen in der Pfanne anbraten. Sobald sich eine Kruste bildet, einen Schuss Zitronensaft dazugeben und fertig braten. Dann das Hähnchen herausnehmen."
+   ],
+   [
+    "Zwiebel und Knoblauch",
+    "In derselben Pfanne nur wenig Olivenöl erhitzen. Die ganz klein gehackte Zwiebel und die 2–3 Knoblauchzehen darin kurz anbraten."
+   ],
+   [
+    "Tomaten anschwitzen",
+    "Die halbierten Cherrytomaten dazugeben und anschwitzen, bis sie halbwegs weich sind."
+   ],
+   [
+    "Sauce würzen",
+    "Etwas Balsamico und Tomatenmark dazugeben, dazu Paprikapulver, Kräuter der Provence, Salz und einen wirklich kleinen EL Honig oder Puderzucker. Alles weiter braten."
+   ],
+   [
+    "Ablöschen",
+    "Mit der Hühnerbrühe ablöschen."
+   ],
+   [
+    "Spinat und Skyr",
+    "Den Spinat dazugeben, anschließend 2 EL Skyr einrühren, um die Sauce zu binden. Etwas Zitronenabrieb dazu und mit Paprikapulver und Salz nachwürzen. Salz muss auf jeden Fall rein."
+   ],
+   [
+    "Alles zusammen",
+    "Das Fleisch, die Gnocchi (nicht vorgekocht) und den Parmesan in die Pfanne geben."
+   ],
+   [
+    "Ziehen lassen",
+    "Ab jetzt darf die Sauce nicht mehr köcheln, sonst flockt der Skyr aus. Alles bei leichter Hitze etwa 30 Minuten ziehen lassen."
+   ],
+   [
+    "Servieren",
+    "Anrichten und nach Wunsch mit etwas Petersilie bestreuen."
+   ]
+  ],
+  "notes": [
+   "Ab dem Skyr nicht mehr köcheln lassen, sonst flockt er aus. Nur leicht erhitzen.",
+   "Statt Sahne bindet der Skyr die Sauce, das bringt extra Eiweiß.",
+   "Abgewandelt nach einem Rezept von TikTok @alexcookjoy."
+  ]
  }
 ];
