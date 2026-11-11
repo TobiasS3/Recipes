@@ -5438,10 +5438,10 @@ window.RECIPES=[
   "desc": "Mariniertes Hähnchen und Gnocchi in einer Tomaten-Spinat-Sauce, die mit Skyr statt Sahne gebunden wird. Cremig, würzig und voller Eiweiß, alles aus einer Pfanne.",
   "time": "60 Min",
   "min": 60,
-  "diff": 2,
+  "diff": 3,
   "diffLabel": "Leicht",
   "portions": "2 Portionen",
-  "rating": null,
+  "rating": 7.5,
   "img": "bilder/Pasta_gnocchi.jpg",
   "thumb": "bilder/klein/Pasta_gnocchi.jpg",
   "ings": [
