@@ -5474,8 +5474,12 @@ window.RECIPES=[
     "Hähnchengewürz"
    ],
    [
+    "— Zum Braten —",
+    ""
+   ],
+   [
     "1 EL",
-    "Olivenöl zum Braten"
+    "Olivenöl"
    ],
    [
     "1 Schuss",
