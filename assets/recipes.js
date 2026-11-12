@@ -764,7 +764,7 @@ window.RECIPES=[
     "Knoblauchknolle"
    ],
    [
-    "2 EL",
+    "1 großzügiger Schuss",
     "Olivenöl"
    ],
    [
@@ -784,12 +784,8 @@ window.RECIPES=[
     "frisches Basilikum"
    ],
    [
-    "ca. 1 l",
-    "Wasser"
-   ],
-   [
-    "optional",
-    "Gemüsebrühe (Würfel oder Glas)"
+    "750 ml",
+    "Gemüsebrühe (Wasser mit aufgelöstem Brühwürfel oder Brühe aus dem Glas)"
    ],
    [
     "¼ TL",
@@ -823,11 +819,11 @@ window.RECIPES=[
    ],
    [
     "Gemüse rösten",
-    "Tomaten halbieren, Paprika und Zwiebel vierteln und das Gemüse auf einem mit Backpapier ausgelegten Backblech verteilen. Olivenöl sowie etwas Salz und Pfeffer gleichmäßig darüber verteilen und die frischen Rosmarinzweige dazulegen. Auf der mittleren Schiene im Ofen ca. 45 Minuten rösten."
+    "Tomaten halbieren, Paprika und Zwiebel vierteln und das Gemüse auf einem mit Backpapier ausgelegten Backblech verteilen. Einen großzügigen Schuss Olivenöl sowie etwas Salz und Pfeffer gleichmäßig darüber verteilen und die frischen Rosmarinzweige dazulegen. Auf der mittleren Schiene im Ofen ca. 45 Minuten rösten."
    ],
    [
     "Pürieren & aufkochen",
-    "Wenn das Gemüse leicht angebräunt ist, in einen geeigneten Topf geben (Rosmarinzweige vorher entfernen). Das frische Basilikum dazugeben und alles mit dem Stabmixer zu einer homogenen Masse verarbeiten. Topf mit ca. 1 l Wasser auffüllen, optional etwas Gemüsebrühe (Würfel oder Glas) einrühren. Suppe kurz aufkochen lassen."
+    "Wenn das Gemüse leicht angebräunt ist, in einen geeigneten Topf geben (Rosmarinzweige vorher entfernen). Das frische Basilikum dazugeben und alles mit dem Stabmixer zu einer homogenen Masse verarbeiten. Mit 750 ml Gemüsebrühe auffüllen — entweder einen Brühwürfel in 750 ml heißem Wasser auflösen oder direkt Gemüsebrühe aus dem Glas nehmen. Suppe kurz aufkochen lassen."
    ],
    [
     "Abschmecken & verfeinern",
