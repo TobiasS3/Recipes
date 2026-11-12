@@ -785,7 +785,11 @@ window.RECIPES=[
    ],
    [
     "750 ml",
-    "Gemüsebrühe (Wasser mit aufgelöstem Brühwürfel oder Brühe aus dem Glas)"
+    "Wasser"
+   ],
+   [
+    "½",
+    "Gemüsebrühwürfel (oder 250 ml vom Wasser durch fertige Gemüsebrühe ersetzen)"
    ],
    [
     "¼ TL",
@@ -823,7 +827,7 @@ window.RECIPES=[
    ],
    [
     "Pürieren & aufkochen",
-    "Wenn das Gemüse leicht angebräunt ist, in einen geeigneten Topf geben (Rosmarinzweige vorher entfernen). Das frische Basilikum dazugeben und alles mit dem Stabmixer zu einer homogenen Masse verarbeiten. Mit 750 ml Gemüsebrühe auffüllen — entweder einen Brühwürfel in 750 ml heißem Wasser auflösen oder direkt Gemüsebrühe aus dem Glas nehmen. Suppe kurz aufkochen lassen."
+    "Wenn das Gemüse leicht angebräunt ist, in einen geeigneten Topf geben (Rosmarinzweige vorher entfernen). Das frische Basilikum dazugeben und alles mit dem Stabmixer zu einer homogenen Masse verarbeiten. Mit 750 ml Wasser auffüllen und einen halben Gemüsebrühwürfel darin auflösen — oder stattdessen 250 ml vom Wasser direkt durch fertige Gemüsebrühe ersetzen. Suppe kurz aufkochen lassen."
    ],
    [
     "Abschmecken & verfeinern",
