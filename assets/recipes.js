@@ -22,7 +22,7 @@ window.CHAPTERS=[
   "short": "Suppen",
   "color": "#c0572a",
   "epigraph": "warm, cremig, wärmend",
-  "intro": "Vier Suppen für große Töpfe: französische Zwiebelsuppe, Kürbis mit Kokosmilch, geröstete Tomate mit Paprika und Kartoffelcreme mit knusprigem Speck.",
+  "intro": "Vier Suppen für große Töpfe: französische Zwiebelsuppe, Kürbis mit Kokosmilch, geröstete Tomate mit Grilled Cheese und Kartoffelcreme mit knusprigem Speck.",
   "recipes": [
    "zwiebel",
    "kuerbis",
@@ -730,10 +730,10 @@ window.RECIPES=[
  {
   "id": "tomate",
   "ch": "suppen",
-  "name": "Roasted Tomato Soup mit roter Paprika",
+  "name": "Roasted Tomato Soup with a Grilled Cheese Sandwich",
   "script": "ofengeröstetes gemüse · cremig · chili",
   "label": "warm · creamy",
-  "desc": "1 kg Tomaten und 400 g rote Paprika im Ofen geröstet und püriert — eine unglaublich cremige Suppe mit köstlichen Röstaromen und einem Hauch Chili.",
+  "desc": "1 kg Tomaten und 400 g rote Paprika im Ofen geröstet und püriert — eine unglaublich cremige Suppe mit köstlichen Röstaromen und einem Hauch Chili — dazu ein knuspriges Grilled Cheese Sandwich zum Dippen.",
   "time": "90 Min",
   "min": 90,
   "diff": 2,
@@ -744,8 +744,12 @@ window.RECIPES=[
   "thumb": "bilder/klein/Suppen_tomatosuppe.jpg",
   "ings": [
    [
+    "— Suppe —",
+    ""
+   ],
+   [
     "1 kg",
-    "Tomaten, halbiert"
+    "Tomaten"
    ],
    [
     "200 - 300g",
@@ -772,12 +776,44 @@ window.RECIPES=[
     "Pfeffer aus der Mühle"
    ],
    [
+    "2 Zweige",
+    "frischer Rosmarin"
+   ],
+   [
+    "1 Handvoll",
+    "frisches Basilikum"
+   ],
+   [
+    "ca. 1 l",
+    "Wasser"
+   ],
+   [
+    "optional",
+    "Gemüsebrühe (Würfel oder Glas)"
+   ],
+   [
     "¼ TL",
     "scharfes Chilipulver"
    ],
    [
     "250 ml",
-    "Light Creme, Sahne oder Kokosmilch"
+    "Light Creme"
+   ],
+   [
+    "— Grilled Cheese —",
+    ""
+   ],
+   [
+    "2 Scheiben pro Sandwich",
+    "Brot nach Wahl"
+   ],
+   [
+    "etwas",
+    "vegane Butter"
+   ],
+   [
+    "nach Belieben",
+    "veganer Käse"
    ]
   ],
   "steps": [
@@ -787,20 +823,24 @@ window.RECIPES=[
    ],
    [
     "Gemüse rösten",
-    "Tomaten halbieren, Paprika und Zwiebel vierteln und das Gemüse auf einem mit Backpapier ausgelegten Backblech verteilen. Olivenöl sowie etwas Salz und Pfeffer gleichmäßig darüber verteilen. Auf der mittleren Schiene im Ofen ca. 45 Minuten rösten."
+    "Tomaten halbieren, Paprika und Zwiebel vierteln und das Gemüse auf einem mit Backpapier ausgelegten Backblech verteilen. Olivenöl sowie etwas Salz und Pfeffer gleichmäßig darüber verteilen und die frischen Rosmarinzweige dazulegen. Auf der mittleren Schiene im Ofen ca. 45 Minuten rösten."
    ],
    [
     "Pürieren & aufkochen",
-    "Wenn das Gemüse leicht angebräunt ist, in einen geeigneten Topf geben. Mit dem Stabmixer zu einer homogenen Masse verarbeiten. Topf mit ca. 1 l Wasser auffüllen. Suppe kurz aufkochen lassen."
+    "Wenn das Gemüse leicht angebräunt ist, in einen geeigneten Topf geben (Rosmarinzweige vorher entfernen). Das frische Basilikum dazugeben und alles mit dem Stabmixer zu einer homogenen Masse verarbeiten. Topf mit ca. 1 l Wasser auffüllen, optional etwas Gemüsebrühe (Würfel oder Glas) einrühren. Suppe kurz aufkochen lassen."
    ],
    [
     "Abschmecken & verfeinern",
-    "Chilipulver sowie Salz und Pfeffer dazugeben. Für einen volleren Geschmack: Light Creme, Sahne oder Kokosmilch hinzufügen. Für eine sämigere Konsistenz nochmals kurz köcheln lassen bis die Suppe leicht eindickt."
+    "Chilipulver sowie Salz und Pfeffer dazugeben. Für einen volleren Geschmack die Light Creme einrühren. Für eine sämigere Konsistenz nochmals kurz köcheln lassen bis die Suppe leicht eindickt."
+   ],
+   [
+    "Grilled Cheese",
+    "Die Brotscheiben außen mit veganer Butter bestreichen. Eine Scheibe mit der Butterseite nach unten in eine Pfanne legen, mit veganem Käse belegen und die zweite Scheibe mit der Butterseite nach oben darauflegen. Bei mittlerer Hitze von beiden Seiten goldbraun braten, bis der Käse geschmolzen ist. Halbieren und zur Suppe servieren — perfekt zum Dippen."
    ]
   ],
   "notes": [
    "Überreife Tomaten und Paprika funktionieren hier sogar besonders gut — perfekt für Ende September.",
-   "Light Creme, Sahne oder Kokosmilch — alle drei funktionieren, jede gibt einen anderen Charakter.",
+   "Das Basilikum kommt frisch dazu — nicht mitrösten, so bleibt es aromatisch.",
    "Je länger das Gemüse röstet desto intensiver der Röstgeschmack — aber nicht verbrennen lassen.",
    "Super einfach und trotzdem unglaublich cremig und aromatisch."
   ]
