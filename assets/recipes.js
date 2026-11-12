@@ -809,11 +809,11 @@ window.RECIPES=[
    ],
    [
     "etwas",
-    "vegane Butter"
+    "Butter"
    ],
    [
     "nach Belieben",
-    "veganer Käse"
+    "Käse"
    ]
   ],
   "steps": [
@@ -835,7 +835,7 @@ window.RECIPES=[
    ],
    [
     "Grilled Cheese",
-    "Die Brotscheiben außen mit veganer Butter bestreichen. Eine Scheibe mit der Butterseite nach unten in eine Pfanne legen, mit veganem Käse belegen und die zweite Scheibe mit der Butterseite nach oben darauflegen. Bei mittlerer Hitze von beiden Seiten goldbraun braten, bis der Käse geschmolzen ist. Halbieren und zur Suppe servieren — perfekt zum Dippen."
+    "Die Brotscheiben außen mit Butter bestreichen. Eine Scheibe mit der Butterseite nach unten in eine Pfanne legen, mit Käse belegen und die zweite Scheibe mit der Butterseite nach oben darauflegen. Bei mittlerer Hitze von beiden Seiten goldbraun braten, bis der Käse geschmolzen ist. Halbieren und zur Suppe servieren — perfekt zum Dippen."
    ]
   ],
   "notes": [
