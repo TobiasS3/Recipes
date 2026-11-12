@@ -1691,7 +1691,7 @@ window.RECIPES=[
   "diff": 2,
   "diffLabel": "Leicht",
   "portions": "4 Personen",
-  "rating": 7,
+  "rating": 7.5,
   "img": "bilder/Pasta_kuerbis.png",
   "thumb": "bilder/klein/Pasta_kuerbis.jpg",
   "ings": [
