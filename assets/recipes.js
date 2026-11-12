@@ -4608,7 +4608,7 @@ window.RECIPES=[
   "diff": 4,
   "diffLabel": "Einfach",
   "portions": "6 Gläser à 125 ml",
-  "rating": 9,
+  "rating": 9.5,
   "img": "bilder/Dessert_bratapfel.png",
   "thumb": "bilder/klein/Dessert_bratapfel.jpg",
   "ings": [
@@ -4824,7 +4824,7 @@ window.RECIPES=[
   "diff": 3,
   "diffLabel": "Leicht",
   "portions": "2 Stück",
-  "rating": 9,
+  "rating": 9.5,
   "img": "bilder/Dessert_crepes-suzette.jpg",
   "thumb": "bilder/klein/Dessert_crepes-suzette.jpg",
   "ings": [
