@@ -740,7 +740,7 @@ window.RECIPES=[
   "diffLabel": "Sehr leicht",
   "portions": "4 Personen",
   "rating": 8,
-  "img": "bilder/Suppen_tomatosuppe.png",
+  "img": "bilder/Suppen_tomatosuppe.jpg",
   "thumb": "bilder/klein/Suppen_tomatosuppe.jpg",
   "ings": [
    [
